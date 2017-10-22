@@ -1,0 +1,6 @@
+{
+  "collectCoverage": true,
+  "coverageReporters": [
+    "text"
+  ]
+}

@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#integration should render a mix of wrapped components 1`] = `
+<TimeProvider>
+  <TimeComponent>
+    <TimeRenderer
+      currentTime={0}
+    >
+      <div>
+        0
+      </div>
+    </TimeRenderer>
+  </TimeComponent>
+  <TimeComponent>
+    <TimeRenderer
+      currentTime={0}
+    >
+      <div>
+        0
+      </div>
+    </TimeRenderer>
+  </TimeComponent>
+  <TimeComponent>
+    <TimeRenderer
+      currentTime={0}
+    >
+      <div>
+        0
+      </div>
+    </TimeRenderer>
+  </TimeComponent>
+</TimeProvider>
+`;
+
+exports[`#integration should render a mix of wrapped components 2`] = `
+<TimeProvider>
+  <TimeComponent>
+    <TimeRenderer
+      currentTime={3920}
+    >
+      <div>
+        3920
+      </div>
+    </TimeRenderer>
+  </TimeComponent>
+  <TimeComponent>
+    <TimeRenderer
+      currentTime={3900}
+    >
+      <div>
+        3900
+      </div>
+    </TimeRenderer>
+  </TimeComponent>
+  <TimeComponent>
+    <TimeRenderer
+      currentTime={3600}
+    >
+      <div>
+        3600
+      </div>
+    </TimeRenderer>
+  </TimeComponent>
+</TimeProvider>
+`;

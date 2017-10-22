@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#connectTime should be reusable for multiple components 1`] = `
+<TimeProvider>
+  <TimeComponent>
+    <Component
+      currentTime={0}
+    >
+      <div>
+        Child 1: 
+        0
+      </div>
+    </Component>
+  </TimeComponent>
+  <TimeComponent>
+    <Component
+      currentTime={0}
+    >
+      <div>
+        Child 2: 
+        0
+      </div>
+    </Component>
+  </TimeComponent>
+  <TimeComponent>
+    <Component
+      currentTime={0}
+    >
+      <div>
+        Child 3: 
+        0
+      </div>
+    </Component>
+  </TimeComponent>
+</TimeProvider>
+`;
+
+exports[`#connectTime should throw for invalid timeProp 1`] = `"timeProp must be a non-empty string value"`;
+
+exports[`#connectTime should throw for invalid timeProp 2`] = `"timeProp must be a non-empty string value"`;
+
+exports[`#connectTime should throw for invalid timeProp 3`] = `"timeProp must be a non-empty string value"`;
+
+exports[`#connectTime should throw for invalid timeProp 4`] = `"timeProp must be a non-empty string value"`;
+
+exports[`#connectTime should throw for invalid timeProp 5`] = `"timeProp must be a non-empty string value"`;
+
+exports[`#connectTime should throw for invalid timeProp 6`] = `"timeProp must be a non-empty string value"`;
+
+exports[`#connectTime should throw for invalid timeProp 7`] = `"timeProp must be a non-empty string value"`;
+
+exports[`#connectTime should throw if context is not found 1`] = `"Warning! TimeSync context cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"`;
+
+exports[`#connectTime should update children on a timer tick 1`] = `
+<TimeProvider>
+  <TimeComponent>
+    <Component
+      currentTime={0}
+    >
+      <div>
+        0
+      </div>
+    </Component>
+  </TimeComponent>
+</TimeProvider>
+`;
+
+exports[`#connectTime should update children on a timer tick 2`] = `
+<TimeProvider>
+  <TimeComponent>
+    <Component
+      currentTime={1}
+    >
+      <div>
+        1
+      </div>
+    </Component>
+  </TimeComponent>
+</TimeProvider>
+`;

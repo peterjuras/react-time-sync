@@ -1,15 +1,34 @@
-import lolex from 'lolex';
+import {
+  DAYS,
+  HOURS,
+  MINUTES,
+  SECONDS,
+  TimeProvider,
+  connectTime
+} from './index';
 
-describe('#react-time-sync', () => {
-  let clock;
-
-  beforeEach(() => {
-    clock = lolex.install({ now: 1 });
+describe('#index', () => {
+  it('should export connectTime correctly', () => {
+    expect(connectTime).toBeInstanceOf(Function);
   });
 
-  afterEach(() => {
-    clock.uninstall();
+  it('should export TimeProvider correctly', () => {
+    expect(TimeProvider).toBeDefined();
   });
 
-  it('empty', () => {});
+  it('should export SECONDS correctly', () => {
+    expect(SECONDS).toBeDefined();
+  });
+
+  it('should export MINUTES correctly', () => {
+    expect(MINUTES).toBeDefined();
+  });
+
+  it('should export HOURS correctly', () => {
+    expect(HOURS).toBeDefined();
+  });
+
+  it('should export DAYS correctly', () => {
+    expect(DAYS).toBeDefined();
+  });
 });

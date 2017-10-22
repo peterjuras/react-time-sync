@@ -1,5 +1,15 @@
 {
+  "setupFiles": [
+    "<rootDir>/test/requestAnimationFrame-shim.js",
+    "<rootDir>/test/setup-enzyme.js"
+  ],
+  "snapshotSerializers": [
+    "enzyme-to-json/serializer"
+  ],
   "collectCoverage": true,
+  "collectCoverageFrom": [
+    "src/**/*.js"
+  ],
   "coverageReporters": [
     "text"
   ]

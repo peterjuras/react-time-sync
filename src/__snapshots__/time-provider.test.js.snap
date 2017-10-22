@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#TimeProvider should render a single child 1`] = `
+<div>
+  Test
+</div>
+`;
+
+exports[`#TimeProvider should render multiple children 1`] = `
+Array [
+  <div>
+    Test1
+  </div>,
+  <div>
+    Test2
+  </div>,
+  <div>
+    Test3
+  </div>,
+]
+`;
+
+exports[`#TimeProvider should render null when no children are provided 1`] = `null`;

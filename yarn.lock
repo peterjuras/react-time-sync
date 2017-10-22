@@ -3590,10 +3590,6 @@ shellwords@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
 
-shortid@^2.2.8:
-  version "2.2.8"
-  resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.8.tgz#033b117d6a2e975804f6f0969dbe7d3d0b355131"
-
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
@@ -3804,11 +3800,9 @@ through@^2.3.6:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
 
-time-sync@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/time-sync/-/time-sync-1.0.0.tgz#4766dc97a79f65497b45e6697ab4f1d690a28321"
-  dependencies:
-    shortid "^2.2.8"
+time-sync@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/time-sync/-/time-sync-1.0.1.tgz#cf8699090d2d5af1cecf71c492ae60eaf2f9eabd"
 
 tmp@^0.0.33:
   version "0.0.33"

@@ -40,6 +40,6 @@
     "react": "^16.0.0"
   },
   "dependencies": {
-    "time-sync": "^1.0.0"
+    "time-sync": "^1.0.1"
   }
 }

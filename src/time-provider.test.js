@@ -1,6 +1,5 @@
 import { mount, render } from "enzyme";
 
-import PropTypes from "prop-types";
 import React from "react";
 import TimeProvider from "./time-provider";
 

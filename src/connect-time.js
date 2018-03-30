@@ -63,12 +63,8 @@ export function connectTime(timerConfig, componentConfig = {}) {
       };
 
       render() {
-        const props = {
-          ...this.props,
-          ...this.state,
-          [TIMESYNC_PROP]: undefined
-        };
-        return <WrappedComponent {...props} />;
+        const { [TIMESYNC_PROP]: _, ...props } = this.props;
+        return <WrappedComponent {...props} {...this.state} />;
       }
     }
 

@@ -1,13 +1,13 @@
-import { HOURS, MINUTES } from '../src/index';
+import { HOURS, MINUTES } from "../src/index";
 
-import PropTypes from 'prop-types';
-import React from 'react';
-import TimeProvider from '../src/time-provider';
-import { connectTime } from '../src/connect-time';
-import lolex from 'lolex';
-import { mount } from 'enzyme';
+import PropTypes from "prop-types";
+import React from "react";
+import TimeProvider from "../src/time-provider";
+import { connectTime } from "../src/connect-time";
+import lolex from "lolex";
+import { mount } from "enzyme";
 
-describe('#integration', () => {
+describe("#integration", () => {
   let clock;
 
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('#integration', () => {
     clock.uninstall();
   });
 
-  it('should render a mix of wrapped components', () => {
+  it("should render a mix of wrapped components", () => {
     const TimeRenderer = ({ currentTime }) => <div>{currentTime}</div>;
     TimeRenderer.propTypes = { currentTime: PropTypes.number.isRequired };
 
@@ -26,13 +26,13 @@ describe('#integration', () => {
     const MinuteChild = connectTime({ interval: MINUTES })(TimeRenderer);
     const HourChild = connectTime({ interval: HOURS })(TimeRenderer);
 
-    const ref = mount((
+    const ref = mount(
       <TimeProvider>
         <SecondChild />
         <MinuteChild />
         <HourChild />
       </TimeProvider>
-    ));
+    );
 
     expect(ref).toMatchSnapshot();
 

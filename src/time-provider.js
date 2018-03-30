@@ -1,6 +1,6 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
-import TimeSync from 'time-sync';
+import { Component } from "react";
+import PropTypes from "prop-types";
+import TimeSync from "time-sync";
 
 export default class TimeProvider extends Component {
   static childContextTypes = {

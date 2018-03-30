@@ -5,30 +5,30 @@ import {
   SECONDS,
   TimeProvider,
   connectTime
-} from './index';
+} from "./index";
 
-describe('#index', () => {
-  it('should export connectTime correctly', () => {
+describe("#index", () => {
+  it("should export connectTime correctly", () => {
     expect(connectTime).toBeInstanceOf(Function);
   });
 
-  it('should export TimeProvider correctly', () => {
+  it("should export TimeProvider correctly", () => {
     expect(TimeProvider).toBeDefined();
   });
 
-  it('should export SECONDS correctly', () => {
+  it("should export SECONDS correctly", () => {
     expect(SECONDS).toBeDefined();
   });
 
-  it('should export MINUTES correctly', () => {
+  it("should export MINUTES correctly", () => {
     expect(MINUTES).toBeDefined();
   });
 
-  it('should export HOURS correctly', () => {
+  it("should export HOURS correctly", () => {
     expect(HOURS).toBeDefined();
   });
 
-  it('should export DAYS correctly', () => {
+  it("should export DAYS correctly", () => {
     expect(DAYS).toBeDefined();
   });
 });

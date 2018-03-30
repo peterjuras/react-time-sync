@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const DEFAULT_COMPONENT_CONFIG = {
-  timeProp: 'currentTime'
+  timeProp: "currentTime"
 };
 
 function validateComponentConfig(componentConfig) {
   if (
-    typeof componentConfig.timeProp !== 'undefined' &&
-    (
-      typeof componentConfig.timeProp !== 'string' ||
-      componentConfig.timeProp === ''
-    )
+    typeof componentConfig.timeProp !== "undefined" &&
+    (typeof componentConfig.timeProp !== "string" ||
+      componentConfig.timeProp === "")
   ) {
-    throw new Error('timeProp must be a non-empty string value');
+    throw new Error("timeProp must be a non-empty string value");
   }
 }
 
@@ -27,7 +25,7 @@ export function connectTime(timerConfig, componentConfig = {}) {
     ...componentConfig
   };
 
-  return (WrappedComponent) => {
+  return WrappedComponent => {
     class TimeComponent extends Component {
       static contextTypes = {
         timeSync: PropTypes.object
@@ -37,16 +35,23 @@ export function connectTime(timerConfig, componentConfig = {}) {
         super(props);
 
         if (!context.timeSync) {
-          throw new Error('Warning! TimeSync context cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?');
+          throw new Error(
+            "Warning! TimeSync context cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"
+          );
         }
 
         this.state = {
-          [usedComponentConfig.timeProp]: context.timeSync.getCurrentTime(usedTimerConfig)
+          [usedComponentConfig.timeProp]: context.timeSync.getCurrentTime(
+            usedTimerConfig
+          )
         };
       }
 
       componentDidMount() {
-        this.removeTimer = this.context.timeSync.addTimer(this.onTick, usedTimerConfig);
+        this.removeTimer = this.context.timeSync.addTimer(
+          this.onTick,
+          usedTimerConfig
+        );
       }
 
       componentWillUnmount() {
@@ -55,7 +60,7 @@ export function connectTime(timerConfig, componentConfig = {}) {
         }
       }
 
-      onTick = (currentTime) => {
+      onTick = currentTime => {
         this.setState({
           [usedComponentConfig.timeProp]: currentTime
         });

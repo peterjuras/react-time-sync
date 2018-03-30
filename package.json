@@ -6,10 +6,12 @@
   "repository": "git@github.com:peterjuras/react-time-sync.git",
   "author": "Peter Juras <me@peterjuras.com>",
   "scripts": {
-    "build": "rm -rf lib && babel src -d lib --ignore test.js && cp -R scripts .npmignore LICENSE package.json README.md lib",
+    "build":
+      "rm -rf lib && babel src -d lib --ignore test.js && cp -R scripts .npmignore LICENSE package.json README.md lib",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
     "test": "jest --config .jest.json",
-    "test-ci": "jest --config .jest.ci.json && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test-ci":
+      "jest --config .jest.ci.json && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "license": "MIT",
   "devDependencies": {
@@ -25,6 +27,7 @@
     "enzyme-to-json": "^3.1.4",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",

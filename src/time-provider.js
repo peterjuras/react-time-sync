@@ -1,12 +1,9 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
+import TimeContext from "./context";
 import TimeSync from "time-sync";
 
 export default class TimeProvider extends Component {
-  static childContextTypes = {
-    timeSync: PropTypes.object
-  };
-
   static propTypes = {
     children: PropTypes.node
   };
@@ -18,23 +15,25 @@ export default class TimeProvider extends Component {
   constructor(props) {
     super(props);
 
-    this.timeSync = new TimeSync();
-  }
-
-  getChildContext() {
-    return {
-      timeSync: {
+    const timeSync = new TimeSync();
+    this.state = {
+      timeSync,
+      timeContext: {
         getCurrentTime: TimeSync.getCurrentTime,
-        addTimer: this.timeSync.addTimer
+        addTimer: timeSync.addTimer
       }
     };
   }
 
   componentWillUnmount() {
-    this.timeSync.removeAllTimers();
+    this.state.timeSync.removeAllTimers();
   }
 
   render() {
-    return this.props.children;
+    return (
+      <TimeContext.Provider value={this.state.timeContext}>
+        {this.props.children}
+      </TimeContext.Provider>
+    );
   }
 }

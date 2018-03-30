@@ -41,28 +41,26 @@ describe("#TimeProvider", () => {
 
   it("should provide timeSync context", () => {
     const Child = jest.fn(() => null);
-    Child.contextTypes = { timeSync: PropTypes.object };
     const ref = mount(
       <TimeProvider>
         <Child />
       </TimeProvider>
     );
 
-    expect(Child.mock.calls[0][1].timeSync).toBeDefined();
+    expect(Child.mock.calls[0][0].timeSync).toBeDefined();
 
     ref.unmount();
   });
 
   it("should provide the getCurrentTime function in the timeSync context", () => {
     const Child = jest.fn(() => null);
-    Child.contextTypes = { timeSync: PropTypes.object };
     const ref = mount(
       <TimeProvider>
         <Child />
       </TimeProvider>
     );
 
-    expect(Child.mock.calls[0][1].timeSync.getCurrentTime).toBeInstanceOf(
+    expect(Child.mock.calls[0][0].timeSync.getCurrentTime).toBeInstanceOf(
       Function
     );
 
@@ -71,14 +69,13 @@ describe("#TimeProvider", () => {
 
   it("should provide the addTimer function in the timeSync context", () => {
     const Child = jest.fn(() => null);
-    Child.contextTypes = { timeSync: PropTypes.object };
     const ref = mount(
       <TimeProvider>
         <Child />
       </TimeProvider>
     );
 
-    expect(Child.mock.calls[0][1].timeSync.getCurrentTime).toBeInstanceOf(
+    expect(Child.mock.calls[0][0].timeSync.getCurrentTime).toBeInstanceOf(
       Function
     );
 

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-
-import PropTypes from "prop-types";
+import TimeContext from "./context";
 
 const DEFAULT_COMPONENT_CONFIG = {
   timeProp: "currentTime"
 };
+const TIMESYNC_PROP = "$$_TIME_SYNC_HIDDEN_$$";
 
 function validateComponentConfig(componentConfig) {
   if (
@@ -27,28 +27,24 @@ export function connectTime(timerConfig, componentConfig = {}) {
 
   return WrappedComponent => {
     class TimeComponent extends Component {
-      static contextTypes = {
-        timeSync: PropTypes.object
-      };
-
-      constructor(props, context) {
+      constructor(props) {
         super(props);
 
-        if (!context.timeSync) {
+        if (!props[TIMESYNC_PROP]) {
           throw new Error(
-            "Warning! TimeSync context cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"
+            "Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"
           );
         }
 
         this.state = {
-          [usedComponentConfig.timeProp]: context.timeSync.getCurrentTime(
+          [usedComponentConfig.timeProp]: props[TIMESYNC_PROP].getCurrentTime(
             usedTimerConfig
           )
         };
       }
 
       componentDidMount() {
-        this.removeTimer = this.context.timeSync.addTimer(
+        this.removeTimer = this.props[TIMESYNC_PROP].addTimer(
           this.onTick,
           usedTimerConfig
         );
@@ -67,10 +63,22 @@ export function connectTime(timerConfig, componentConfig = {}) {
       };
 
       render() {
-        return <WrappedComponent {...this.props} {...this.state} />;
+        const props = {
+          ...this.props,
+          ...this.state,
+          [TIMESYNC_PROP]: undefined
+        };
+        return <WrappedComponent {...props} />;
       }
     }
 
-    return TimeComponent;
+    return props => (
+      <TimeContext.Consumer>
+        {timeSync => {
+          const childProps = { ...props, [TIMESYNC_PROP]: timeSync };
+          return <TimeComponent {...childProps} />;
+        }}
+      </TimeContext.Consumer>
+    );
   };
 }

@@ -1,17 +1,15 @@
 {
   "name": "react-time-sync",
-  "version": "1.0.1",
+  "version": "2.0.0-alpha.1",
   "description": "A React library to synchronize timers across an application",
   "main": "index.js",
   "repository": "git@github.com:peterjuras/react-time-sync.git",
   "author": "Peter Juras <me@peterjuras.com>",
   "scripts": {
-    "build":
-      "rm -rf lib && babel src -d lib --ignore test.js && cp -R scripts .npmignore LICENSE package.json README.md lib",
+    "build": "rm -rf lib && babel src -d lib --ignore test.js && cp -R scripts .npmignore LICENSE package.json README.md lib",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
     "test": "jest --config .jest.json",
-    "test-ci":
-      "jest --config .jest.ci.json && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test-ci": "jest --config .jest.ci.json && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "license": "MIT",
   "devDependencies": {

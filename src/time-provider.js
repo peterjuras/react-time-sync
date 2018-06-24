@@ -26,13 +26,18 @@ export default class TimeProvider extends Component {
   }
 
   componentWillUnmount() {
-    this.state.timeSync.removeAllTimers();
+    const { timeSync } = this.state;
+
+    timeSync.removeAllTimers();
   }
 
   render() {
+    const { timeContext } = this.state;
+    const { children } = this.props;
+
     return (
-      <TimeContext.Provider value={this.state.timeContext}>
-        {this.props.children}
+      <TimeContext.Provider value={timeContext}>
+        {children}
       </TimeContext.Provider>
     );
   }

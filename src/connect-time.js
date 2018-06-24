@@ -44,10 +44,9 @@ export function connectTime(timerConfig, componentConfig = {}) {
       }
 
       componentDidMount() {
-        this.removeTimer = this.props[TIMESYNC_PROP].addTimer(
-          this.onTick,
-          usedTimerConfig
-        );
+        const { [TIMESYNC_PROP]: timeSync } = this.props;
+
+        this.removeTimer = timeSync.addTimer(this.onTick, usedTimerConfig);
       }
 
       componentWillUnmount() {

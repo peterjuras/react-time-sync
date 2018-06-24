@@ -5,8 +5,9 @@
     "no-underscore-dangle": 0,
     "import/no-extraneous-dependencies": 0,
     "react/jsx-filename-extension": 0,
-    "import/first": 0,
-    "no-plusplus": 0
+    "import/order": 0,
+    "no-plusplus": 0,
+    "react/jsx-one-expression-per-line": 0
   },
   "env": {
     "jest": true

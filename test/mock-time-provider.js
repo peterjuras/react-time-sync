@@ -1,4 +1,5 @@
-import { Component } from "react";
+import React, { Component } from "react";
+import TimeContext from "../src/context";
 import PropTypes from "prop-types";
 
 const DEFAULT_CONFIG = {
@@ -13,10 +14,6 @@ export function createMockProvider(config) {
   };
 
   class MockTimeProvider extends Component {
-    static childContextTypes = {
-      timeSync: PropTypes.object
-    };
-
     static propTypes = {
       children: PropTypes.node
     };
@@ -25,16 +22,18 @@ export function createMockProvider(config) {
       children: null
     };
 
-    getChildContext() {
-      return {
-        timeSync: {
-          ...mockConfig
-        }
-      };
-    }
+    state = {
+      timeSync: {
+        ...mockConfig
+      }
+    };
 
     render() {
-      return this.props.children;
+      return (
+        <TimeContext.Provider value={this.state.timeSync}>
+          {this.props.children}
+        </TimeContext.Provider>
+      );
     }
   }
 

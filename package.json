@@ -21,7 +21,7 @@
     "babel-preset-react": "^6.24.1",
     "coveralls": "^3.0.0",
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-adapter-react-16": "npm:enzyme-react-adapter-future",
     "enzyme-to-json": "^3.3.3",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
@@ -39,7 +39,7 @@
     "react": "^16.3.0"
   },
   "dependencies": {
-    "time-sync": "^1.0.1",
-    "prop-types": "^15.6.0"
+    "prop-types": "^15.6.0",
+    "time-sync": "^1.0.1"
   }
 }

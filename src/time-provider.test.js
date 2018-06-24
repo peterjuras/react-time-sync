@@ -1,6 +1,7 @@
 import { mount, render } from "enzyme";
 
 import React from "react";
+import TimeContext from "./context";
 import TimeProvider from "./time-provider";
 
 describe("#TimeProvider", () => {
@@ -42,7 +43,9 @@ describe("#TimeProvider", () => {
     const Child = jest.fn(() => null);
     const ref = mount(
       <TimeProvider>
-        <Child />
+        <TimeContext.Consumer>
+          {timeSync => <Child timeSync={timeSync} />}
+        </TimeContext.Consumer>
       </TimeProvider>
     );
 
@@ -55,7 +58,9 @@ describe("#TimeProvider", () => {
     const Child = jest.fn(() => null);
     const ref = mount(
       <TimeProvider>
-        <Child />
+        <TimeContext.Consumer>
+          {timeSync => <Child timeSync={timeSync} />}
+        </TimeContext.Consumer>
       </TimeProvider>
     );
 
@@ -70,7 +75,9 @@ describe("#TimeProvider", () => {
     const Child = jest.fn(() => null);
     const ref = mount(
       <TimeProvider>
-        <Child />
+        <TimeContext.Consumer>
+          {timeSync => <Child timeSync={timeSync} />}
+        </TimeContext.Consumer>
       </TimeProvider>
     );
 
@@ -83,7 +90,7 @@ describe("#TimeProvider", () => {
 
   it("should call removeAllTimers when unmounting", () => {
     const ref = mount(<TimeProvider />);
-    const spy = jest.spyOn(ref.instance().timeSync, "removeAllTimers");
+    const spy = jest.spyOn(ref.instance().state.timeSync, "removeAllTimers");
     ref.unmount();
     expect(spy).toHaveBeenCalledTimes(1);
   });

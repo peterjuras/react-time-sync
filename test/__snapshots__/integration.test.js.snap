@@ -2,64 +2,118 @@
 
 exports[`#integration should render a mix of wrapped components 1`] = `
 <TimeProvider>
-  <TimeComponent>
-    <TimeRenderer
-      currentTime={0}
+  <Component>
+    <TimeComponent
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
     >
-      <div>
-        0
-      </div>
-    </TimeRenderer>
-  </TimeComponent>
-  <TimeComponent>
-    <TimeRenderer
-      currentTime={0}
+      <TimeRenderer
+        currentTime={0}
+      >
+        <div>
+          0
+        </div>
+      </TimeRenderer>
+    </TimeComponent>
+  </Component>
+  <Component>
+    <TimeComponent
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
     >
-      <div>
-        0
-      </div>
-    </TimeRenderer>
-  </TimeComponent>
-  <TimeComponent>
-    <TimeRenderer
-      currentTime={0}
+      <TimeRenderer
+        currentTime={0}
+      >
+        <div>
+          0
+        </div>
+      </TimeRenderer>
+    </TimeComponent>
+  </Component>
+  <Component>
+    <TimeComponent
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
     >
-      <div>
-        0
-      </div>
-    </TimeRenderer>
-  </TimeComponent>
+      <TimeRenderer
+        currentTime={0}
+      >
+        <div>
+          0
+        </div>
+      </TimeRenderer>
+    </TimeComponent>
+  </Component>
 </TimeProvider>
 `;
 
 exports[`#integration should render a mix of wrapped components 2`] = `
 <TimeProvider>
-  <TimeComponent>
-    <TimeRenderer
-      currentTime={3920}
+  <Component>
+    <TimeComponent
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
     >
-      <div>
-        3920
-      </div>
-    </TimeRenderer>
-  </TimeComponent>
-  <TimeComponent>
-    <TimeRenderer
-      currentTime={3900}
+      <TimeRenderer
+        currentTime={3920}
+      >
+        <div>
+          3920
+        </div>
+      </TimeRenderer>
+    </TimeComponent>
+  </Component>
+  <Component>
+    <TimeComponent
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
     >
-      <div>
-        3900
-      </div>
-    </TimeRenderer>
-  </TimeComponent>
-  <TimeComponent>
-    <TimeRenderer
-      currentTime={3600}
+      <TimeRenderer
+        currentTime={3900}
+      >
+        <div>
+          3900
+        </div>
+      </TimeRenderer>
+    </TimeComponent>
+  </Component>
+  <Component>
+    <TimeComponent
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
     >
-      <div>
-        3600
-      </div>
-    </TimeRenderer>
-  </TimeComponent>
+      <TimeRenderer
+        currentTime={3600}
+      >
+        <div>
+          3600
+        </div>
+      </TimeRenderer>
+    </TimeComponent>
+  </Component>
 </TimeProvider>
 `;

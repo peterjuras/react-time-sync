@@ -1,6 +1,6 @@
 {
   "name": "react-time-sync",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0-alpha.3",
   "description": "A React library to synchronize timers across an application",
   "main": "index.js",
   "repository": "git@github.com:peterjuras/react-time-sync.git",

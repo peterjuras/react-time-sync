@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import TimeContext from "./context";
+import TimeContext, { TIMESYNC_PROP } from "./context";
 
 const DEFAULT_COMPONENT_CONFIG = {
   timeProp: "currentTime"
 };
-const TIMESYNC_PROP = "$$_TIME_SYNC_HIDDEN_$$";
 
 function validateComponentConfig(componentConfig) {
   if (
@@ -69,10 +68,9 @@ export function connectTime(timerConfig, componentConfig = {}) {
 
     return props => (
       <TimeContext.Consumer>
-        {timeSync => {
-          const childProps = { ...props, [TIMESYNC_PROP]: timeSync };
-          return <TimeComponent {...childProps} />;
-        }}
+        {timeSync => (
+          <TimeComponent {...{ ...props, [TIMESYNC_PROP]: timeSync }} />
+        )}
       </TimeContext.Consumer>
     );
   };

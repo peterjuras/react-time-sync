@@ -1,0 +1,219 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#Timed should not update when until function returns true 1`] = `
+<TimeProvider>
+  <TimedWrapper
+    until={[Function]}
+  >
+    <Timed
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
+      interval={null}
+      unit={null}
+      until={[Function]}
+    >
+      <div>
+        1
+        false
+      </div>
+    </Timed>
+  </TimedWrapper>
+</TimeProvider>
+`;
+
+exports[`#Timed should not update when until function returns true 2`] = `
+<TimeProvider>
+  <TimedWrapper
+    until={[Function]}
+  >
+    <Timed
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
+      interval={null}
+      unit={null}
+      until={[Function]}
+    >
+      <div>
+        5
+        true
+      </div>
+    </Timed>
+  </TimedWrapper>
+</TimeProvider>
+`;
+
+exports[`#Timed should not update when until number is reached 1`] = `
+<TimeProvider>
+  <TimedWrapper
+    until={1}
+  >
+    <Timed
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
+      interval={null}
+      unit={null}
+      until={1}
+    >
+      <div>
+        1
+        true
+      </div>
+    </Timed>
+  </TimedWrapper>
+</TimeProvider>
+`;
+
+exports[`#Timed should not update when until number is reached 2`] = `
+<TimeProvider>
+  <TimedWrapper
+    until={1}
+  >
+    <Timed
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
+      interval={null}
+      unit={null}
+      until={1}
+    >
+      <div>
+        1
+        true
+      </div>
+    </Timed>
+  </TimedWrapper>
+</TimeProvider>
+`;
+
+exports[`#Timed should respect prop updates 1`] = `
+<TimeProvider>
+  <TimedWrapper>
+    <Timed
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
+      interval={null}
+      unit={null}
+      until={null}
+    >
+      <div>
+        0
+      </div>
+    </Timed>
+  </TimedWrapper>
+</TimeProvider>
+`;
+
+exports[`#Timed should respect prop updates 2`] = `
+<TimeProvider>
+  <TimedWrapper>
+    <Timed
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
+      interval={null}
+      unit={null}
+      until={null}
+    >
+      <div>
+        1
+      </div>
+    </Timed>
+  </TimedWrapper>
+</TimeProvider>
+`;
+
+exports[`#Timed should respect prop updates 3`] = `
+<TimeProvider>
+  <TimedWrapper>
+    <Timed
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
+      interval={null}
+      unit={null}
+      until={null}
+    >
+      <div>
+        2
+      </div>
+    </Timed>
+  </TimedWrapper>
+</TimeProvider>
+`;
+
+exports[`#Timed should respect prop updates 4`] = `
+<TimeProvider>
+  <TimedWrapper
+    interval="m"
+    unit={5}
+  >
+    <Timed
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
+      interval="m"
+      unit={5}
+      until={null}
+    >
+      <div>
+        0
+      </div>
+    </Timed>
+  </TimedWrapper>
+</TimeProvider>
+`;
+
+exports[`#Timed should respect prop updates 5`] = `
+<TimeProvider>
+  <TimedWrapper
+    interval="m"
+    unit={5}
+  >
+    <Timed
+      $$_TIME_SYNC_HIDDEN_$$={
+        Object {
+          "addTimer": [Function],
+          "getCurrentTime": [Function],
+        }
+      }
+      interval="m"
+      unit={5}
+      until={null}
+    >
+      <div>
+        300
+      </div>
+    </Timed>
+  </TimedWrapper>
+</TimeProvider>
+`;
+
+exports[`#Timed should throw if context is not found 1`] = `"Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"`;

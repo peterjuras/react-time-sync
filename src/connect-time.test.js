@@ -6,7 +6,6 @@ import lolex from "lolex";
 import { mount } from "enzyme";
 
 describe("#connectTime", () => {
-  let oldConsole;
   let clock;
 
   beforeEach(() => {
@@ -15,15 +14,6 @@ describe("#connectTime", () => {
 
   afterEach(() => {
     clock.uninstall();
-  });
-
-  beforeAll(() => {
-    oldConsole = global.console;
-    global.console = { error: () => {} };
-  });
-
-  afterAll(() => {
-    global.console = oldConsole;
   });
 
   it("should be exported correctly", () => {

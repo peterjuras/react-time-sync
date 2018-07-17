@@ -20,7 +20,9 @@ export default class TimeProvider extends Component {
       timeSync,
       timeContext: {
         getCurrentTime: TimeSync.getCurrentTime,
-        addTimer: timeSync.addTimer
+        getTimeLeft: TimeSync.getTimeLeft,
+        addTimer: timeSync.addTimer,
+        createCountdown: timeSync.createCountdown
       }
     };
   }
@@ -29,6 +31,7 @@ export default class TimeProvider extends Component {
     const { timeSync } = this.state;
 
     timeSync.removeAllTimers();
+    timeSync.stopAllCountdowns();
   }
 
   render() {

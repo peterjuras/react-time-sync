@@ -7,7 +7,9 @@ exports[`#connectTime should be reusable for multiple components 1`] = `
       $$_TIME_SYNC_HIDDEN_$$={
         Object {
           "addTimer": [Function],
+          "createCountdown": [Function],
           "getCurrentTime": [Function],
+          "getTimeLeft": [Function],
         }
       }
     >
@@ -26,7 +28,9 @@ exports[`#connectTime should be reusable for multiple components 1`] = `
       $$_TIME_SYNC_HIDDEN_$$={
         Object {
           "addTimer": [Function],
+          "createCountdown": [Function],
           "getCurrentTime": [Function],
+          "getTimeLeft": [Function],
         }
       }
     >
@@ -45,7 +49,9 @@ exports[`#connectTime should be reusable for multiple components 1`] = `
       $$_TIME_SYNC_HIDDEN_$$={
         Object {
           "addTimer": [Function],
+          "createCountdown": [Function],
           "getCurrentTime": [Function],
+          "getTimeLeft": [Function],
         }
       }
     >
@@ -85,7 +91,9 @@ exports[`#connectTime should update children on a timer tick 1`] = `
       $$_TIME_SYNC_HIDDEN_$$={
         Object {
           "addTimer": [Function],
+          "createCountdown": [Function],
           "getCurrentTime": [Function],
+          "getTimeLeft": [Function],
         }
       }
     >
@@ -108,7 +116,9 @@ exports[`#connectTime should update children on a timer tick 2`] = `
       $$_TIME_SYNC_HIDDEN_$$={
         Object {
           "addTimer": [Function],
+          "createCountdown": [Function],
           "getCurrentTime": [Function],
+          "getTimeLeft": [Function],
         }
       }
     >

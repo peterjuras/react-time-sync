@@ -29,10 +29,11 @@ export function createMockProvider(config) {
     };
 
     render() {
+      const { timeSync } = this.state;
+      const { children } = this.props;
+
       return (
-        <TimeContext.Provider value={this.state.timeSync}>
-          {this.props.children}
-        </TimeContext.Provider>
+        <TimeContext.Provider value={timeSync}>{children}</TimeContext.Provider>
       );
     }
   }

@@ -5,6 +5,7 @@ import {
   SECONDS,
   TimeProvider,
   Timed,
+  Countdown,
   connectTime
 } from "./index";
 
@@ -19,6 +20,10 @@ describe("#index", () => {
 
   it("should export Timed correctly", () => {
     expect(Timed).toBeDefined();
+  });
+
+  it("should export Countdown correctly", () => {
+    expect(Countdown).toBeDefined();
   });
 
   it("should export SECONDS correctly", () => {

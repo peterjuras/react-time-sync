@@ -50,7 +50,7 @@ exports[`#Countdown should not update when until number is reached 2`] = `
 </TimeProvider>
 `;
 
-exports[`#Countdown should stop coutndown if it has ended 1`] = `
+exports[`#Countdown should stop countdown if it has ended 1`] = `
 <TimeProvider>
   <CountdownWrapper
     until={5002}
@@ -75,7 +75,7 @@ exports[`#Countdown should stop coutndown if it has ended 1`] = `
 </TimeProvider>
 `;
 
-exports[`#Countdown should stop coutndown if it has ended 2`] = `
+exports[`#Countdown should stop countdown if it has ended 2`] = `
 <TimeProvider>
   <CountdownWrapper
     until={5002}

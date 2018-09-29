@@ -56,7 +56,7 @@ describe("#Countdown", () => {
     expect(renderCalledCount).toBe(1);
   });
 
-  it("should stop coutndown if it has ended", () => {
+  it("should stop countdown if it has ended", () => {
     let renderCalledCount = 0;
     const timeLefts = [];
     const ref = mount(
@@ -77,7 +77,6 @@ describe("#Countdown", () => {
     ref.unmount();
     expect(renderCalledCount).toBe(7);
     expect(timeLefts).toEqual([6, 5, 4, 3, 2, 1, 0]);
-    ref.unmount();
   });
 
   it("should update countdown if props are updated", () => {

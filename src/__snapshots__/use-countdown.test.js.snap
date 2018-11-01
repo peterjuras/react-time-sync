@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#Countdown should not update when until number is reached 1`] = `
+<TimeProvider>
+  <TestComponent>
+    <div>
+      0
+    </div>
+  </TestComponent>
+</TimeProvider>
+`;
+
+exports[`#Countdown should not update when until number is reached 2`] = `
+<TimeProvider>
+  <TestComponent>
+    <div>
+      0
+    </div>
+  </TestComponent>
+</TimeProvider>
+`;
+
+exports[`#Countdown should stop countdown if it has ended 1`] = `
+<TimeProvider>
+  <TestComponent>
+    <div>
+      6
+    </div>
+  </TestComponent>
+</TimeProvider>
+`;
+
+exports[`#Countdown should stop countdown if it has ended 2`] = `
+<TimeProvider>
+  <TestComponent>
+    <div>
+      0
+    </div>
+  </TestComponent>
+</TimeProvider>
+`;
+
+exports[`#Countdown should throw if context is not found 1`] = `"Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"`;

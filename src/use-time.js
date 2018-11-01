@@ -9,7 +9,7 @@ export function useTime(timerConfig = {}) {
     );
   }
 
-  const [time, setTime] = useState(timeSync.getCurrentTime(timerConfig));
+  const [time, setTime] = useState(() => timeSync.getCurrentTime(timerConfig));
 
   useEffect(() => timeSync.addTimer(setTime, timerConfig), [
     timerConfig.unit,

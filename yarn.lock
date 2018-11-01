@@ -4869,10 +4869,10 @@ through@^2.3.6:
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
 
-time-sync@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/time-sync/-/time-sync-1.2.1.tgz#de4dbb42a6145a8c0d45121822fee59b6ada44fd"
-  integrity sha512-BvO6k7u2EKFv19fgAU9QJYgZ0eQcXzLCwh+yhKKmxgRtpMrefTRXOHMGKvmWZ1oEKZDUa8VMqgVTXq09B/GIjQ==
+time-sync@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/time-sync/-/time-sync-2.0.0.tgz#42946e981c8a225b6fec252da3567a46ae04c323"
+  integrity sha512-ikuUCnnwUrZgb2a6MY0Lq7StkNbBiN7eyx8GHFdsLTXRg8TRy/iY+AzTPEgxmX323dxZpxrDoJ/Yty2gtEh0dA==
 
 tmp@^0.0.33:
   version "0.0.33"

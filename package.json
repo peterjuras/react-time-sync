@@ -42,6 +42,6 @@
   },
   "dependencies": {
     "prop-types": "^15.6.2",
-    "time-sync": "^1.2.1"
+    "time-sync": "^2.0.0"
   }
 }

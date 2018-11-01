@@ -33,9 +33,9 @@
     "jest": "^23.6.0",
     "jest-junit": "^5.2.0",
     "lolex": "^3.0.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-test-renderer": "^16.7.0"
+    "react": "^16.7.0-alpha",
+    "react-dom": "^16.7.0-alpha",
+    "react-test-renderer": "^16.7.0-alpha"
   },
   "peerDependencies": {
     "react": "^16.3.0"

@@ -14,7 +14,7 @@ export function useCountdown(countdownConfig = {}) {
     until: countdownConfig.until || 0
   };
 
-  const [timeLeft, setTimeLeft] = useState(
+  const [timeLeft, setTimeLeft] = useState(() =>
     timeSync.getTimeLeft(usedCountdownConfig)
   );
 

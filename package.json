@@ -32,7 +32,7 @@
     "eslint-plugin-react": "^7.11.1",
     "jest": "^23.6.0",
     "jest-junit": "^5.1.0",
-    "lolex": "^2.7.5",
+    "lolex": "^3.0.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-test-renderer": "^16.5.2"

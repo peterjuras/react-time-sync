@@ -20,8 +20,13 @@ export function useCountdown(countdownConfig = {}) {
 
   useEffect(
     () => {
+      const officialTimeLeft = timeSync.getTimeLeft(usedCountdownConfig);
+      if (officialTimeLeft !== timeLeft) {
+        setTimeLeft(officialTimeLeft);
+      }
+
       let stopCountdown;
-      if (timeLeft > 0) {
+      if (officialTimeLeft > 0) {
         stopCountdown = timeSync.createCountdown(
           setTimeLeft,
           usedCountdownConfig

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import TimeContext from "./context";
 
 export function useTime(timerConfig = {}) {
@@ -9,12 +9,19 @@ export function useTime(timerConfig = {}) {
     );
   }
 
+  const inputs = [timerConfig.unit, timerConfig.interval];
+  let propsChanged = false;
+  useMemo(() => {
+    propsChanged = true;
+  }, inputs);
+
   const [time, setTime] = useState(() => timeSync.getCurrentTime(timerConfig));
 
-  useEffect(() => timeSync.addTimer(setTime, timerConfig), [
-    timerConfig.unit,
-    timerConfig.interval
-  ]);
+  useEffect(() => timeSync.addTimer(setTime, timerConfig), inputs);
+
+  if (propsChanged) {
+    return timeSync.getCurrentTime(timerConfig);
+  }
 
   return time;
 }

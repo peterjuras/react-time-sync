@@ -10,6 +10,14 @@ import TimeProvider from "./time-provider";
 describe("#useTime", () => {
   let clock;
 
+  beforeAll(() => {
+    jest.spyOn(React, "useEffect").mockImplementation(React.useLayoutEffect);
+  });
+
+  afterAll(() => {
+    React.useEffect.mockRestore();
+  });
+
   beforeEach(() => {
     clock = lolex.install({ now: 1 });
   });

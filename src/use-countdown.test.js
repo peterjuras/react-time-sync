@@ -10,6 +10,14 @@ import lolex from "lolex";
 describe("#Countdown", () => {
   let clock;
 
+  beforeAll(() => {
+    jest.spyOn(React, "useEffect").mockImplementation(React.useLayoutEffect);
+  });
+
+  afterAll(() => {
+    React.useEffect.mockRestore();
+  });
+
   beforeEach(() => {
     clock = lolex.install({ now: 1 });
   });
@@ -105,8 +113,8 @@ describe("#Countdown", () => {
       children: React.cloneElement(ref.props().children, { until: 15000 })
     });
     clock.tick(20000);
-    expect(renderCalledCount).toBe(14);
-    expect(timeLefts).toEqual([2, 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
+    expect(renderCalledCount).toBe(15);
+    expect(timeLefts).toEqual([2, 1, 0, 10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
     ref.unmount();
   });
 
@@ -130,6 +138,26 @@ describe("#Countdown", () => {
     clock.tick(1000 * 60 * 60 * 4);
     expect(renderCalledCount).toBe(3);
     expect(timeLefts).toEqual([2, 1, 0]);
+    ref.unmount();
+  });
+
+  it("should not start a countdown if no until value is specified", () => {
+    let renderCalledCount = 0;
+    const timeLefts = [];
+    function TestComponent() {
+      const timeLeft = useCountdown();
+      renderCalledCount++;
+      timeLefts.push(timeLeft);
+      return <div>{timeLeft}</div>;
+    }
+    const ref = mount(
+      <TimeProvider>
+        <TestComponent />
+      </TimeProvider>
+    );
+    clock.tick(10000);
+    expect(renderCalledCount).toBe(1);
+    expect(timeLefts).toEqual([0]);
     ref.unmount();
   });
 });

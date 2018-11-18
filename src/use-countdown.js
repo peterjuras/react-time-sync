@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import TimeContext from "./context";
 
 export function useCountdown(countdownConfig = {}) {
@@ -9,33 +9,39 @@ export function useCountdown(countdownConfig = {}) {
     );
   }
 
-  const usedCountdownConfig = {
-    ...countdownConfig,
-    until: countdownConfig.until || 0
-  };
+  const inputs = [countdownConfig.until, countdownConfig.interval];
+  let propsChanged = false;
+  const usedCountdownConfig = useMemo(() => {
+    propsChanged = true;
+    return {
+      ...countdownConfig,
+      until: countdownConfig.until || 0
+    };
+  }, inputs);
 
   const [timeLeft, setTimeLeft] = useState(() =>
     timeSync.getTimeLeft(usedCountdownConfig)
   );
 
-  useEffect(
-    () => {
-      const officialTimeLeft = timeSync.getTimeLeft(usedCountdownConfig);
-      if (officialTimeLeft !== timeLeft) {
-        setTimeLeft(officialTimeLeft);
-      }
+  useEffect(() => {
+    const officialTimeLeft = timeSync.getTimeLeft(usedCountdownConfig);
+    if (officialTimeLeft !== timeLeft) {
+      setTimeLeft(officialTimeLeft);
+    }
 
-      let stopCountdown;
-      if (officialTimeLeft > 0) {
-        stopCountdown = timeSync.createCountdown(
-          setTimeLeft,
-          usedCountdownConfig
-        );
-      }
-      return stopCountdown;
-    },
-    [usedCountdownConfig.until, usedCountdownConfig.interval]
-  );
+    let stopCountdown;
+    if (officialTimeLeft > 0) {
+      stopCountdown = timeSync.createCountdown(
+        setTimeLeft,
+        usedCountdownConfig
+      );
+    }
+    return stopCountdown;
+  }, inputs);
+
+  if (propsChanged) {
+    return timeSync.getTimeLeft(usedCountdownConfig);
+  }
 
   return timeLeft;
 }

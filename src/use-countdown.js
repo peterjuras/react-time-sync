@@ -23,14 +23,13 @@ export function useCountdown(countdownConfig = {}) {
     timeSync.getTimeLeft(usedCountdownConfig)
   );
 
-  useEffect(() => {
-    const officialTimeLeft = timeSync.getTimeLeft(usedCountdownConfig);
-    if (officialTimeLeft !== timeLeft) {
-      setTimeLeft(officialTimeLeft);
-    }
+  const usableTimeLeft = propsChanged
+    ? timeSync.getTimeLeft(usedCountdownConfig)
+    : timeLeft;
 
+  useEffect(() => {
     let stopCountdown;
-    if (officialTimeLeft > 0) {
+    if (usableTimeLeft > 0) {
       stopCountdown = timeSync.createCountdown(
         setTimeLeft,
         usedCountdownConfig
@@ -39,9 +38,5 @@ export function useCountdown(countdownConfig = {}) {
     return stopCountdown;
   }, inputs);
 
-  if (propsChanged) {
-    return timeSync.getTimeLeft(usedCountdownConfig);
-  }
-
-  return timeLeft;
+  return usableTimeLeft;
 }

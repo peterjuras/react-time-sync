@@ -19,9 +19,7 @@ export function useTime(timerConfig = {}) {
 
   useEffect(() => timeSync.addTimer(setTime, timerConfig), inputs);
 
-  if (propsChanged) {
-    return timeSync.getCurrentTime(timerConfig);
-  }
+  const usableTime = propsChanged ? timeSync.getCurrentTime(timerConfig) : time;
 
-  return time;
+  return usableTime;
 }

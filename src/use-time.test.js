@@ -92,6 +92,6 @@ describe("#useTime", () => {
 
     ref.unmount();
 
-    expect(renderCalledCount).toBe(5);
+    expect(renderCalledCount).toBe(6);
   });
 });

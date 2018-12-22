@@ -1,5 +1,12 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import TimeContext from "./context";
+
+function getUsableConfig(countdownConfig) {
+  return {
+    ...countdownConfig,
+    until: countdownConfig.until || 0
+  };
+}
 
 export function useCountdown(countdownConfig = {}) {
   const timeSync = useContext(TimeContext);
@@ -9,34 +16,33 @@ export function useCountdown(countdownConfig = {}) {
     );
   }
 
-  const inputs = [countdownConfig.until, countdownConfig.interval];
-  let propsChanged = false;
-  const usedCountdownConfig = useMemo(() => {
-    propsChanged = true;
-    return {
-      ...countdownConfig,
-      until: countdownConfig.until || 0
-    };
-  }, inputs);
+  const lastConfig = useRef(countdownConfig);
+  let usableConfig = getUsableConfig(lastConfig.current);
 
-  const [timeLeft, setTimeLeft] = useState(() =>
-    timeSync.getTimeLeft(usedCountdownConfig)
+  const timeLeftState = useState(() => timeSync.getTimeLeft(usableConfig));
+  let [timeLeft] = timeLeftState;
+  const [, setTimeLeft] = timeLeftState;
+
+  if (
+    countdownConfig.interval !== lastConfig.current.interval ||
+    countdownConfig.until !== lastConfig.current.until
+  ) {
+    lastConfig.current = countdownConfig;
+    usableConfig = getUsableConfig(countdownConfig);
+
+    timeLeft = timeSync.getTimeLeft(getUsableConfig(countdownConfig));
+    setTimeLeft(timeLeft);
+  }
+
+  useEffect(
+    () => {
+      if (timeLeft > 0) {
+        return timeSync.createCountdown(setTimeLeft, usableConfig);
+      }
+      return null;
+    },
+    [usableConfig.until, usableConfig.interval]
   );
 
-  const usableTimeLeft = propsChanged
-    ? timeSync.getTimeLeft(usedCountdownConfig)
-    : timeLeft;
-
-  useEffect(() => {
-    let stopCountdown;
-    if (usableTimeLeft > 0) {
-      stopCountdown = timeSync.createCountdown(
-        setTimeLeft,
-        usedCountdownConfig
-      );
-    }
-    return stopCountdown;
-  }, inputs);
-
-  return usableTimeLeft;
+  return timeLeft;
 }

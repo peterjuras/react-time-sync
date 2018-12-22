@@ -113,8 +113,8 @@ describe("#Countdown", () => {
       children: React.cloneElement(ref.props().children, { until: 15000 })
     });
     clock.tick(20000);
-    expect(renderCalledCount).toBe(14);
-    expect(timeLefts).toEqual([2, 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
+    expect(renderCalledCount).toBe(15);
+    expect(timeLefts).toEqual([2, 1, 0, 10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
     ref.unmount();
   });
 

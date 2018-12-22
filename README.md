@@ -6,9 +6,7 @@ A React library to synchronize timers across an application
 
 ## Usage
 
-### <TimeProvider>
-
-When using any timed component, a `<TimeProvider>` component needs to be in the top of your component hierarchy
+When using any timed component or hook, a `<TimeProvider>` component needs to be in the top of your component hierarchy
 
 Example:
 ```js
@@ -24,6 +22,48 @@ const App = ({ content }) => {
   )
 };
 ```
+
+### useCountdown hook
+
+A custom hook which returns the time left until a certain millisecond UTC timestamp is reached
+
+Example:
+```js
+import { useCountdown } from 'react-time-sync';
+
+const MyComponent = ({ until }) => {
+  const timeLeft = useCountdown({ until });
+  return <div>{timeLeft > 0 ? `${timeLeft} seconds left` : 'Done!'}</div>;
+}
+```
+
+#### Input
+
+The `useCountdown` hook expects an object with the following properties as the single argument:
+
+`until` - A UTC millisecond timestamp until when the countdown should run (default: 0)
+`interval` - one of `TimeSync.SECONDS`, `TimeSync.MINUTES`, `TimeSync.HOURS`, `TimeSync.DAYS` (default: `TimeSync.SECONDS`)
+
+### useTime hook
+
+A custom hook which returns the current time rounded to the specified interval
+
+Example:
+```js
+import { useTime } from 'react-time-sync';
+
+const MyComponent = () => {
+  const currentTime = useTime();
+  return <div>{`The current time is: ${currentTime}`}</div>;
+}
+```
+
+#### Input
+
+The `useTime` hook expects an object with the following properties as the single argument:
+
+`unit` - The number of units of `interval` (default: `1`)
+`interval` - one of `TimeSync.SECONDS`, `TimeSync.MINUTES`, `TimeSync.HOURS`, `TimeSync.DAYS` (default: `TimeSync.SECONDS`)
 
 ### <Countdown>
 

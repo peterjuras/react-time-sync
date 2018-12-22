@@ -40,7 +40,7 @@ describe("#TimeProvider", () => {
   });
 
   it("should provide timeSync context", () => {
-    const Child = jest.fn(() => null);
+    const Child: any = jest.fn(() => null);
     const ref = mount(
       <TimeProvider>
         <TimeContext.Consumer>
@@ -55,7 +55,7 @@ describe("#TimeProvider", () => {
   });
 
   it("should provide the getCurrentTime function in the timeSync context", () => {
-    const Child = jest.fn(() => null);
+    const Child: any = jest.fn(() => null);
     const ref = mount(
       <TimeProvider>
         <TimeContext.Consumer>
@@ -72,7 +72,7 @@ describe("#TimeProvider", () => {
   });
 
   it("should provide the addTimer function in the timeSync context", () => {
-    const Child = jest.fn(() => null);
+    const Child: any = jest.fn(() => null);
     const ref = mount(
       <TimeProvider>
         <TimeContext.Consumer>
@@ -89,7 +89,7 @@ describe("#TimeProvider", () => {
   });
 
   it("should call removeAllTimers when unmounting", () => {
-    const ref = mount(<TimeProvider />);
+    const ref: any = mount(<TimeProvider />);
     const spy = jest.spyOn(ref.instance().state.timeSync, "removeAllTimers");
     ref.unmount();
     expect(spy).toHaveBeenCalledTimes(1);

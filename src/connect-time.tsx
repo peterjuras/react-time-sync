@@ -1,11 +1,20 @@
 import React, { Component } from "react";
-import TimeContext, { TIMESYNC_PROP } from "./context";
+import TimeContext, { TIMESYNC_PROP, ITimeSyncContext } from "./context";
+import { ReactComponentLike } from "prop-types";
 
-const DEFAULT_COMPONENT_CONFIG = {
+interface IComponentConfig {
+  timeProp?: string;
+}
+
+interface ISafeComponentConfig extends IComponentConfig {
+  timeProp: string;
+}
+
+const DEFAULT_COMPONENT_CONFIG: ISafeComponentConfig = {
   timeProp: "currentTime"
 };
 
-function validateComponentConfig(componentConfig) {
+function validateComponentConfig(componentConfig: IComponentConfig) {
   if (
     typeof componentConfig.timeProp !== "undefined" &&
     (typeof componentConfig.timeProp !== "string" ||
@@ -15,7 +24,11 @@ function validateComponentConfig(componentConfig) {
   }
 }
 
-export function connectTime(timerConfig, componentConfig = {}) {
+interface ITimeComponentProps {
+  [TIMESYNC_PROP]: ITimeSyncContext;
+}
+
+export function connectTime(timerConfig?: object | null, componentConfig = {}) {
   validateComponentConfig(componentConfig);
 
   const usedTimerConfig = timerConfig || {};
@@ -24,9 +37,11 @@ export function connectTime(timerConfig, componentConfig = {}) {
     ...componentConfig
   };
 
-  return WrappedComponent => {
-    class TimeComponent extends Component {
-      constructor(props) {
+  return (WrappedComponent: ReactComponentLike) => {
+    class TimeComponent extends Component<ITimeComponentProps> {
+      private removeTimer?: () => void;
+
+      constructor(props: ITimeComponentProps) {
         super(props);
 
         if (!props[TIMESYNC_PROP]) {
@@ -42,33 +57,33 @@ export function connectTime(timerConfig, componentConfig = {}) {
         };
       }
 
-      componentDidMount() {
+      public render() {
+        const { [TIMESYNC_PROP]: _, ...props } = this.props;
+        return <WrappedComponent {...props} {...this.state} />;
+      }
+
+      public componentDidMount() {
         const { [TIMESYNC_PROP]: timeSync } = this.props;
 
         this.removeTimer = timeSync.addTimer(this.onTick, usedTimerConfig);
       }
 
-      componentWillUnmount() {
+      public componentWillUnmount() {
         if (this.removeTimer) {
           this.removeTimer();
         }
       }
 
-      onTick = currentTime => {
+      private onTick = (currentTime: number) => {
         this.setState({
           [usedComponentConfig.timeProp]: currentTime
         });
       };
-
-      render() {
-        const { [TIMESYNC_PROP]: _, ...props } = this.props;
-        return <WrappedComponent {...props} {...this.state} />;
-      }
     }
 
-    return props => (
+    return (props: object) => (
       <TimeContext.Consumer>
-        {timeSync => (
+        {(timeSync: ITimeSyncContext) => (
           <TimeComponent {...{ ...props, [TIMESYNC_PROP]: timeSync }} />
         )}
       </TimeContext.Consumer>

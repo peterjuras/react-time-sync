@@ -1,11 +1,12 @@
 {
+  "preset": "ts-jest",
   "setupFiles": [
-    "<rootDir>/test/requestAnimationFrame-shim.js",
-    "<rootDir>/test/setup-enzyme.js"
+    "<rootDir>/test/requestAnimationFrame-shim.ts",
+    "<rootDir>/test/setup-enzyme.ts"
   ],
   "snapshotSerializers": ["enzyme-to-json/serializer"],
   "collectCoverage": true,
-  "collectCoverageFrom": ["src/**/*.js"],
+  "collectCoverageFrom": ["src/**/*.ts"],
   "coverageReporters": ["lcov"],
   "reporters": ["default", "jest-junit"]
 }

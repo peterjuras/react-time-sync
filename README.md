@@ -126,8 +126,8 @@ Example:
 import { connectTime, SECONDS } from 'react-time-sync';
 
 const timeSlotsSelector = createSelector(
+  currentTime => currentTime,
   currentTime => [currentTime - 1, currentTime + 1]
-  result => result
 )
 
 function mapStateToProps() {

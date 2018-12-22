@@ -10,7 +10,7 @@
     "typedefs": "tsc --declaration --outDir lib --emitDeclarationOnly",
     "build": "rm -rf lib && tsc && yarn run typedefs && cp -R scripts .npmignore LICENSE package.json README.md lib",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
-    "lint": "tslint 'src/**/*.js'",
+    "lint": "tslint 'src/**/*.ts?(x)'",
     "test": "jest --config .jest.json",
     "test-ci": "jest --ci --runInBand --config .jest.ci.json && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },

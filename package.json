@@ -7,7 +7,7 @@
   "repository": "git@github.com:peterjuras/react-time-sync.git",
   "author": "Peter Juras <me@peterjuras.com>",
   "scripts": {
-    "ts": "tsc && tsc --declaration --outDir lib --emitDeclarationOnly && cp -R lib/src/* lib && rm -rf lib/test lib/src",
+    "ts": "tsc && tsc --declaration --outDir lib --emitDeclarationOnly",
     "build": "rm -rf lib && yarn run ts && cp -R scripts .npmignore LICENSE package.json README.md lib",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
     "lint": "tslint 'src/**/*.ts?(x)'",

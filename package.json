@@ -11,8 +11,8 @@
     "build": "rm -rf lib && yarn run ts && cp -R scripts .npmignore LICENSE package.json README.md lib",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
     "lint": "tslint 'src/**/*.ts?(x)'",
-    "test": "jest --config .jest.json",
-    "test-ci": "jest --ci --runInBand --config .jest.ci.json && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test": "jest --config .jest.js",
+    "test-ci": "jest --ci --runInBand --config .jest.ci.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "license": "MIT",
   "devDependencies": {

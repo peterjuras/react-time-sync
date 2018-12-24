@@ -8,14 +8,14 @@ import { useCountdown } from "./use-countdown";
 import lolex from "lolex";
 
 describe("#Countdown", () => {
-  let clock;
+  let clock: lolex.Clock;
 
   beforeAll(() => {
     jest.spyOn(React, "useEffect").mockImplementation(React.useLayoutEffect);
   });
 
   afterAll(() => {
-    React.useEffect.mockRestore();
+    (React.useEffect as any).mockRestore();
   });
 
   beforeEach(() => {
@@ -64,7 +64,7 @@ describe("#Countdown", () => {
 
   it("should stop countdown if it has ended", () => {
     let renderCalledCount = 0;
-    const timeLefts = [];
+    const timeLefts: number[] = [];
     function TestComponent() {
       const timeLeft = useCountdown({ until: 5002 });
       renderCalledCount++;
@@ -88,8 +88,8 @@ describe("#Countdown", () => {
 
   it("should update countdown if props are updated", () => {
     let renderCalledCount = 0;
-    const timeLefts = [];
-    function TestComponent({ until }) {
+    const timeLefts: number[] = [];
+    function TestComponent({ until }: { until: number }) {
       const timeLeft = useCountdown({ until: until || 2001 });
       renderCalledCount++;
       timeLefts.push(timeLeft);
@@ -120,7 +120,7 @@ describe("#Countdown", () => {
 
   it("should use the interval provided as a prop", () => {
     let renderCalledCount = 0;
-    const timeLefts = [];
+    const timeLefts: number[] = [];
     function TestComponent() {
       const timeLeft = useCountdown({
         until: 1000 * 60 * 60 * 2,
@@ -143,7 +143,7 @@ describe("#Countdown", () => {
 
   it("should not start a countdown if no until value is specified", () => {
     let renderCalledCount = 0;
-    const timeLefts = [];
+    const timeLefts: number[] = [];
     function TestComponent() {
       const timeLeft = useCountdown();
       renderCalledCount++;

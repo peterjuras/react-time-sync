@@ -1,14 +1,15 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import TimeContext from "./context";
+import { ICountdownConfig } from "./countdown";
 
-function getUsableConfig(countdownConfig) {
+function getUsableConfig(countdownConfig: ICountdownConfig) {
   return {
     ...countdownConfig,
     until: countdownConfig.until || 0
   };
 }
 
-export function useCountdown(countdownConfig = {}) {
+export function useCountdown(countdownConfig: ICountdownConfig = {}) {
   const timeSync = useContext(TimeContext);
   if (!timeSync) {
     throw new Error(
@@ -39,7 +40,6 @@ export function useCountdown(countdownConfig = {}) {
       if (timeLeft > 0) {
         return timeSync.createCountdown(setTimeLeft, usableConfig);
       }
-      return null;
     },
     [usableConfig.until, usableConfig.interval]
   );

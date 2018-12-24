@@ -4,7 +4,7 @@ import TimeContext, { TIMESYNC_PROP, ITimeSyncContext } from "./context";
 import { hasConfigChanged } from "./config";
 import { Interval } from "time-sync/constants";
 
-interface ITimerConfig {
+export interface ITimerConfig {
   interval?: Interval;
   unit?: number;
 }

@@ -1,7 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import TimeContext from "./context";
+import { ITimerConfig } from "./timed";
 
-export function useTime(timerConfig = {}) {
+export function useTime(timerConfig: ITimerConfig = {}) {
   const timeSync = useContext(TimeContext);
   if (!timeSync) {
     throw new Error(

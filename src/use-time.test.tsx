@@ -6,16 +6,17 @@ import { useTime } from "./use-time";
 import TimeSync from "time-sync";
 import lolex from "lolex";
 import TimeProvider from "./time-provider";
+import { Interval } from "time-sync/constants";
 
 describe("#useTime", () => {
-  let clock;
+  let clock: lolex.Clock;
 
   beforeAll(() => {
     jest.spyOn(React, "useEffect").mockImplementation(React.useLayoutEffect);
   });
 
   afterAll(() => {
-    React.useEffect.mockRestore();
+    (React.useEffect as any).mockRestore();
   });
 
   beforeEach(() => {
@@ -42,7 +43,13 @@ describe("#useTime", () => {
   it("should respect prop updates", () => {
     let renderCalledCount = 0;
 
-    function TestComponent({ unit, interval }) {
+    function TestComponent({
+      unit,
+      interval
+    }: {
+      unit: number;
+      interval: Interval;
+    }) {
       renderCalledCount++;
       const time = useTime({ unit, interval });
 

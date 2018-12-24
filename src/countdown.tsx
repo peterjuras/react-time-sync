@@ -4,7 +4,7 @@ import TimeContext, { TIMESYNC_PROP, ITimeSyncContext } from "./context";
 import { hasConfigChanged } from "./config";
 import { Interval } from "time-sync/constants";
 
-interface ICountdownConfig {
+export interface ICountdownConfig {
   until?: number;
   interval?: Interval;
 }

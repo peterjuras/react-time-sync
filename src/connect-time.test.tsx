@@ -6,7 +6,7 @@ import lolex from "lolex";
 import { mount } from "enzyme";
 
 describe("#connectTime", () => {
-  let clock;
+  let clock: lolex.Clock;
 
   beforeEach(() => {
     clock = lolex.install({ now: 1 });
@@ -49,7 +49,7 @@ describe("#connectTime", () => {
   });
 
   it("should throw if context is not found", () => {
-    const WrappedComponent = connectTime()(<div />);
+    const WrappedComponent = connectTime()(() => <div />);
     expect(() => {
       const ref = mount(<WrappedComponent />);
       ref.unmount();

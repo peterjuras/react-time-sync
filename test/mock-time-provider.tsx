@@ -2,33 +2,47 @@ import React, { Component } from "react";
 import TimeContext from "../src/context";
 import PropTypes from "prop-types";
 
-const DEFAULT_CONFIG = {
-  addTimer: () => {},
-  getCurrentTime: () => {}
+interface IProviderConfig {
+  addTimer?: any;
+  getCurrentTime?: any;
+  getTimeLeft?: any;
+  createCountdown?: any;
+}
+
+const DEFAULT_CONFIG: {
+  addTimer: any;
+  getCurrentTime: any;
+  getTimeLeft: any;
+  createCountdown: any;
+} = {
+  addTimer: () => null,
+  getCurrentTime: () => null,
+  getTimeLeft: () => 0,
+  createCountdown: () => null
 };
 
-export function createMockProvider(config) {
+export function createMockProvider(config: IProviderConfig): any {
   const mockConfig = {
     ...DEFAULT_CONFIG,
     ...config
   };
 
   class MockTimeProvider extends Component {
-    static propTypes = {
+    public static propTypes = {
       children: PropTypes.node
     };
 
-    static defaultProps = {
+    public static defaultProps = {
       children: null
     };
 
-    state = {
+    public state = {
       timeSync: {
         ...mockConfig
       }
     };
 
-    render() {
+    public render() {
       const { timeSync } = this.state;
       const { children } = this.props;
 

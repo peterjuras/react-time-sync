@@ -7,7 +7,7 @@ import lolex from "lolex";
 import TimeProvider from "./time-provider";
 
 describe("#Timed", () => {
-  let clock;
+  let clock: lolex.Clock;
 
   beforeEach(() => {
     clock = lolex.install({ now: 1 });
@@ -35,13 +35,22 @@ describe("#Timed", () => {
     }).toThrowErrorMatchingSnapshot();
   });
 
+  it("should not break if no children are passed down", () => {
+    const ref = mount(
+      <TimeProvider>
+        <Timed />
+      </TimeProvider>
+    );
+    ref.unmount();
+  });
+
   it("should respect prop updates", () => {
     let renderCalledCount = 0;
 
     const ref = mount(
       <TimeProvider>
         <Timed>
-          {({ currentTime }) => {
+          {({ currentTime }: { currentTime: number }) => {
             renderCalledCount++;
             return <div>{currentTime}</div>;
           }}

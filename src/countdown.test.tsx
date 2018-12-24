@@ -7,7 +7,7 @@ import Countdown from "./countdown";
 import lolex from "lolex";
 
 describe("#Countdown", () => {
-  let clock;
+  let clock: lolex.Clock;
 
   beforeEach(() => {
     clock = lolex.install({ now: 1 });
@@ -30,9 +30,18 @@ describe("#Countdown", () => {
 
   it("should throw if context is not found", () => {
     expect(() => {
-      const ref = mount(<Countdown>{() => <div />}</Countdown>);
+      const ref = mount(<Countdown until={0}>{() => <div />}</Countdown>);
       ref.unmount();
     }).toThrowErrorMatchingSnapshot();
+  });
+
+  it("should not break if no children are passed down", () => {
+    const ref = mount(
+      <TimeProvider>
+        <Countdown />
+      </TimeProvider>
+    );
+    ref.unmount();
   });
 
   it("should not update when until number is reached", () => {
@@ -58,7 +67,7 @@ describe("#Countdown", () => {
 
   it("should stop countdown if it has ended", () => {
     let renderCalledCount = 0;
-    const timeLefts = [];
+    const timeLefts: number[] = [];
     const ref = mount(
       <TimeProvider>
         <Countdown until={5002}>
@@ -81,7 +90,7 @@ describe("#Countdown", () => {
 
   it("should update countdown if props are updated", () => {
     let renderCalledCount = 0;
-    const timeLefts = [];
+    const timeLefts: number[] = [];
     const ref = mount(
       <TimeProvider>
         <Countdown until={2001}>
@@ -106,7 +115,7 @@ describe("#Countdown", () => {
 
   it("should use the interval provided as a prop", () => {
     let renderCalledCount = 0;
-    const timeLefts = [];
+    const timeLefts: number[] = [];
     const ref = mount(
       <TimeProvider>
         <Countdown until={1000 * 60 * 60 * 2} interval={TimeSync.HOURS}>

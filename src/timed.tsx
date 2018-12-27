@@ -1,5 +1,5 @@
-import React, { Component, FunctionComponent } from "react";
-import PropTypes, { ReactElementLike } from "prop-types";
+import React, { Component, FunctionComponent, ReactElement } from "react";
+import PropTypes from "prop-types";
 import TimeContext, { TIMESYNC_PROP, ITimeSyncContext } from "./context";
 import { hasConfigChanged } from "./config";
 import { Interval } from "time-sync/constants";
@@ -10,7 +10,9 @@ export interface ITimerConfig {
 }
 
 interface ITimerConfigProps extends ITimerConfig {
-  children?: (obj: { currentTime: number }) => ReactElementLike;
+  children?: (
+    obj: { currentTime: number }
+  ) => ReactElement<any> | Array<ReactElement<any>>;
 }
 
 interface ITimedProps extends ITimerConfigProps {

@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import PropTypes, { ReactElementLike } from "prop-types";
+import React, { Component, ReactElement } from "react";
+import PropTypes from "prop-types";
 import TimeContext, { ITimeSyncContext } from "./context";
 import TimeSync from "time-sync";
 
 interface ITimeProviderProps {
-  children: ReactElementLike | ReactElementLike[];
+  // children: ReactElementLike | ReactElementLike[];
+  children: ReactElement<any> | Array<ReactElement<any>>;
 }
 
 interface ITimeProviderState {

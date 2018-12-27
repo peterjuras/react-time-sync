@@ -1,5 +1,5 @@
-import React, { Component, FunctionComponent } from "react";
-import PropTypes, { ReactElementLike } from "prop-types";
+import React, { Component, FunctionComponent, ReactElement } from "react";
+import PropTypes from "prop-types";
 import TimeContext, { TIMESYNC_PROP, ITimeSyncContext } from "./context";
 import { hasConfigChanged } from "./config";
 import { Interval } from "time-sync/constants";
@@ -14,7 +14,9 @@ interface ISafeCountdownConfig extends ICountdownConfig {
 }
 
 interface ICountdownConfigProps extends ICountdownConfig {
-  children?: (obj: { timeLeft: number }) => ReactElementLike;
+  children?: (
+    obj: { timeLeft: number }
+  ) => ReactElement<any> | Array<ReactElement<any>>;
 }
 
 interface ICountdownProps extends ICountdownConfigProps {

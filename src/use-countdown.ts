@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import TimeContext from "./context";
 import { ICountdownConfig } from "./countdown";
 
@@ -8,6 +8,9 @@ function getUsableConfig(countdownConfig: ICountdownConfig) {
     until: countdownConfig.until || 0
   };
 }
+
+// Temporary until useDebugValue is typed
+const useDebugValue = (React as any).useDebugValue;
 
 export function useCountdown(countdownConfig: ICountdownConfig = {}) {
   const timeSync = useContext(TimeContext);
@@ -44,5 +47,6 @@ export function useCountdown(countdownConfig: ICountdownConfig = {}) {
     [usableConfig.until, usableConfig.interval]
   );
 
+  useDebugValue(timeLeft);
   return timeLeft;
 }

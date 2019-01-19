@@ -1,6 +1,9 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import TimeContext from "./context";
 import { ITimerConfig } from "./timed";
+
+// Temporary until useDebugValue is typed
+const useDebugValue = (React as any).useDebugValue;
 
 export function useTime(timerConfig: ITimerConfig = {}) {
   const timeSync = useContext(TimeContext);
@@ -30,5 +33,6 @@ export function useTime(timerConfig: ITimerConfig = {}) {
     lastConfig.current.interval
   ]);
 
+  useDebugValue(time);
   return time;
 }

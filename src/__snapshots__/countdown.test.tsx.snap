@@ -1,103 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#Countdown should not update when until number is reached 1`] = `
-<TimeProvider>
-  <CountdownWrapper
-    until={1}
-  >
-    <Countdown
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-      interval={null}
-      until={1}
-    >
-      <div>
-        0
-      </div>
-    </Countdown>
-  </CountdownWrapper>
-</TimeProvider>
+<DocumentFragment>
+  <div>
+    0
+  </div>
+</DocumentFragment>
 `;
 
 exports[`#Countdown should not update when until number is reached 2`] = `
-<TimeProvider>
-  <CountdownWrapper
-    until={1}
-  >
-    <Countdown
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-      interval={null}
-      until={1}
-    >
-      <div>
-        0
-      </div>
-    </Countdown>
-  </CountdownWrapper>
-</TimeProvider>
+<DocumentFragment>
+  <div>
+    0
+  </div>
+</DocumentFragment>
 `;
 
 exports[`#Countdown should stop countdown if it has ended 1`] = `
-<TimeProvider>
-  <CountdownWrapper
-    until={5002}
-  >
-    <Countdown
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-      interval={null}
-      until={5002}
-    >
-      <div>
-        6
-      </div>
-    </Countdown>
-  </CountdownWrapper>
-</TimeProvider>
+<DocumentFragment>
+  <div>
+    6
+  </div>
+</DocumentFragment>
 `;
 
 exports[`#Countdown should stop countdown if it has ended 2`] = `
-<TimeProvider>
-  <CountdownWrapper
-    until={5002}
-  >
-    <Countdown
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-      interval={null}
-      until={5002}
-    >
-      <div>
-        0
-      </div>
-    </Countdown>
-  </CountdownWrapper>
-</TimeProvider>
+<DocumentFragment>
+  <div>
+    0
+  </div>
+</DocumentFragment>
 `;
 
 exports[`#Countdown should throw if context is not found 1`] = `"Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"`;

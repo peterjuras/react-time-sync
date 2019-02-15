@@ -1,124 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#Timed should respect prop updates 1`] = `
-<TimeProvider>
-  <TimedWrapper>
-    <Timed
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-      interval={null}
-      unit={null}
-    >
-      <div>
-        0
-      </div>
-    </Timed>
-  </TimedWrapper>
-</TimeProvider>
+<DocumentFragment>
+  <div>
+    0
+  </div>
+</DocumentFragment>
 `;
 
 exports[`#Timed should respect prop updates 2`] = `
-<TimeProvider>
-  <TimedWrapper>
-    <Timed
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-      interval={null}
-      unit={null}
-    >
-      <div>
-        1
-      </div>
-    </Timed>
-  </TimedWrapper>
-</TimeProvider>
+<DocumentFragment>
+  <div>
+    1
+  </div>
+</DocumentFragment>
 `;
 
 exports[`#Timed should respect prop updates 3`] = `
-<TimeProvider>
-  <TimedWrapper>
-    <Timed
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-      interval={null}
-      unit={null}
-    >
-      <div>
-        2
-      </div>
-    </Timed>
-  </TimedWrapper>
-</TimeProvider>
+<DocumentFragment>
+  <div>
+    2
+  </div>
+</DocumentFragment>
 `;
 
 exports[`#Timed should respect prop updates 4`] = `
-<TimeProvider>
-  <TimedWrapper
-    interval="m"
-    unit={5}
-  >
-    <Timed
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-      interval="m"
-      unit={5}
-    >
-      <div>
-        0
-      </div>
-    </Timed>
-  </TimedWrapper>
-</TimeProvider>
+<DocumentFragment>
+  <div>
+    0
+  </div>
+</DocumentFragment>
 `;
 
 exports[`#Timed should respect prop updates 5`] = `
-<TimeProvider>
-  <TimedWrapper
-    interval="m"
-    unit={5}
-  >
-    <Timed
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-      interval="m"
-      unit={5}
-    >
-      <div>
-        300
-      </div>
-    </Timed>
-  </TimedWrapper>
-</TimeProvider>
+<DocumentFragment>
+  <div>
+    300
+  </div>
+</DocumentFragment>
 `;
 
 exports[`#Timed should throw if context is not found 1`] = `"Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"`;

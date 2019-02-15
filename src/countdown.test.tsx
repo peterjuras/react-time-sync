@@ -1,10 +1,9 @@
-import { mount } from "enzyme";
-
 import React from "react";
 import TimeProvider from "./time-provider";
 import TimeSync from "time-sync";
 import Countdown from "./countdown";
 import lolex from "lolex";
+import { render, cleanup } from "react-testing-library";
 
 describe("#Countdown", () => {
   let clock: lolex.Clock;
@@ -15,39 +14,38 @@ describe("#Countdown", () => {
 
   afterEach(() => {
     clock.uninstall();
+    cleanup();
   });
 
   it("should be exported correctly", () => expect(Countdown).toBeDefined());
 
   it("should mount and unmount correctly", () => {
-    const ref = mount(
+    const { unmount } = render(
       <TimeProvider>
         <Countdown>{() => <div />}</Countdown>
       </TimeProvider>
     );
-    ref.unmount();
+    unmount();
   });
 
   it("should throw if context is not found", () => {
     expect(() => {
-      const ref = mount(<Countdown until={0}>{() => <div />}</Countdown>);
-      ref.unmount();
+      render(<Countdown until={0}>{() => <div />}</Countdown>);
     }).toThrowErrorMatchingSnapshot();
   });
 
   it("should not break if no children are passed down", () => {
-    const ref = mount(
+    render(
       <TimeProvider>
         <Countdown />
       </TimeProvider>
     );
-    ref.unmount();
   });
 
   it("should not update when until number is reached", () => {
     clock.tick(999);
     let renderCalledCount = 0;
-    const ref = mount(
+    const { asFragment, unmount } = render(
       <TimeProvider>
         <Countdown until={1}>
           {({ timeLeft }) => {
@@ -57,18 +55,17 @@ describe("#Countdown", () => {
         </Countdown>
       </TimeProvider>
     );
-    expect(ref).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
     clock.tick(10000);
-    ref.update();
-    expect(ref).toMatchSnapshot();
-    ref.unmount();
+    expect(asFragment()).toMatchSnapshot();
+    unmount();
     expect(renderCalledCount).toBe(1);
   });
 
   it("should stop countdown if it has ended", () => {
     let renderCalledCount = 0;
     const timeLefts: number[] = [];
-    const ref = mount(
+    const { asFragment, unmount } = render(
       <TimeProvider>
         <Countdown until={5002}>
           {({ timeLeft }) => {
@@ -79,11 +76,10 @@ describe("#Countdown", () => {
         </Countdown>
       </TimeProvider>
     );
-    expect(ref).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
     clock.tick(5001);
-    ref.update();
-    expect(ref).toMatchSnapshot();
-    ref.unmount();
+    expect(asFragment()).toMatchSnapshot();
+    unmount();
     expect(renderCalledCount).toBe(7);
     expect(timeLefts).toEqual([6, 5, 4, 3, 2, 1, 0]);
   });
@@ -91,7 +87,7 @@ describe("#Countdown", () => {
   it("should update countdown if props are updated", () => {
     let renderCalledCount = 0;
     const timeLefts: number[] = [];
-    const ref = mount(
+    const { rerender } = render(
       <TimeProvider>
         <Countdown until={2001}>
           {({ timeLeft }) => {
@@ -104,19 +100,26 @@ describe("#Countdown", () => {
     );
     clock.tick(5000);
     expect(renderCalledCount).toBe(3);
-    ref.setProps({
-      children: React.cloneElement(ref.props().children, { until: 15000 })
-    });
+    rerender(
+      <TimeProvider>
+        <Countdown until={15000}>
+          {({ timeLeft }) => {
+            renderCalledCount++;
+            timeLefts.push(timeLeft);
+            return <div>{timeLeft}</div>;
+          }}
+        </Countdown>
+      </TimeProvider>
+    );
     clock.tick(20000);
     expect(renderCalledCount).toBe(14);
     expect(timeLefts).toEqual([2, 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
-    ref.unmount();
   });
 
   it("should use the interval provided as a prop", () => {
     let renderCalledCount = 0;
     const timeLefts: number[] = [];
-    const ref = mount(
+    render(
       <TimeProvider>
         <Countdown until={1000 * 60 * 60 * 2} interval={TimeSync.HOURS}>
           {({ timeLeft }) => {
@@ -130,6 +133,5 @@ describe("#Countdown", () => {
     clock.tick(1000 * 60 * 60 * 4);
     expect(renderCalledCount).toBe(3);
     expect(timeLefts).toEqual([2, 1, 0]);
-    ref.unmount();
   });
 });

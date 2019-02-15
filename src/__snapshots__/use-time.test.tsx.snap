@@ -1,59 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#useTime should respect prop updates 1`] = `
-<TimeProvider>
-  <TestComponent>
-    <div>
-      0
-    </div>
-  </TestComponent>
-</TimeProvider>
+Object {
+  "current": 0,
+}
 `;
 
 exports[`#useTime should respect prop updates 2`] = `
-<TimeProvider>
-  <TestComponent>
-    <div>
-      1
-    </div>
-  </TestComponent>
-</TimeProvider>
+Object {
+  "current": 1,
+}
 `;
 
 exports[`#useTime should respect prop updates 3`] = `
-<TimeProvider>
-  <TestComponent>
-    <div>
-      2
-    </div>
-  </TestComponent>
-</TimeProvider>
+Object {
+  "current": 2,
+}
 `;
 
 exports[`#useTime should respect prop updates 4`] = `
-<TimeProvider>
-  <TestComponent
-    interval="m"
-    unit={5}
-  >
-    <div>
-      0
-    </div>
-  </TestComponent>
-</TimeProvider>
+Object {
+  "current": 0,
+}
 `;
 
 exports[`#useTime should respect prop updates 5`] = `
-<TimeProvider>
-  <TestComponent
-    interval="m"
-    unit={5}
-  >
-    <div>
-      300
-    </div>
-  </TestComponent>
-</TimeProvider>
+Object {
+  "current": 300,
+}
 `;
 
 exports[`#useTime should throw if context is not found 1`] = `"Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"`;

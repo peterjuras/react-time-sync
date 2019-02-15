@@ -3,7 +3,7 @@ import TimeProvider from "./time-provider";
 import { connectTime } from "./connect-time";
 import { createMockProvider } from "../test/mock-time-provider";
 import lolex from "lolex";
-import { mount } from "enzyme";
+import { render, cleanup } from "react-testing-library";
 
 describe("#connectTime", () => {
   let clock: lolex.Clock;
@@ -14,6 +14,7 @@ describe("#connectTime", () => {
 
   afterEach(() => {
     clock.uninstall();
+    cleanup();
   });
 
   it("should be exported correctly", () => {
@@ -51,8 +52,7 @@ describe("#connectTime", () => {
   it("should throw if context is not found", () => {
     const WrappedComponent = connectTime()(() => <div />);
     expect(() => {
-      const ref = mount(<WrappedComponent />);
-      ref.unmount();
+      render(<WrappedComponent />);
     }).toThrowErrorMatchingSnapshot();
   });
 
@@ -66,7 +66,7 @@ describe("#connectTime", () => {
     };
     const WrappedComponent = connectTime(timerConfig)(() => <div />);
 
-    const ref = mount(
+    render(
       <MockProvider>
         <WrappedComponent />
       </MockProvider>
@@ -74,8 +74,6 @@ describe("#connectTime", () => {
 
     expect(getCurrentTime).toHaveBeenCalledTimes(1);
     expect(getCurrentTime).toHaveBeenCalledWith(timerConfig);
-
-    ref.unmount();
   });
 
   it("should pass through timerConfig to addTimer", () => {
@@ -88,7 +86,7 @@ describe("#connectTime", () => {
     };
     const WrappedComponent = connectTime(timerConfig)(() => <div />);
 
-    const ref = mount(
+    render(
       <MockProvider>
         <WrappedComponent />
       </MockProvider>
@@ -96,8 +94,6 @@ describe("#connectTime", () => {
 
     expect(addTimer).toHaveBeenCalledTimes(1);
     expect(addTimer.mock.calls[0][1]).toBe(timerConfig);
-
-    ref.unmount();
   });
 
   it("should call removeTimer on componentWillUnmount", () => {
@@ -111,13 +107,13 @@ describe("#connectTime", () => {
     };
     const WrappedComponent = connectTime(timerConfig)(() => <div />);
 
-    const ref = mount(
+    const { unmount } = render(
       <MockProvider>
         <WrappedComponent />
       </MockProvider>
     );
     expect(removeTimer).toHaveBeenCalledTimes(0);
-    ref.unmount();
+    unmount();
     expect(removeTimer).toHaveBeenCalledTimes(1);
   });
 
@@ -126,37 +122,32 @@ describe("#connectTime", () => {
       <div>{currentTime}</div>
     ));
 
-    const ref = mount(
+    const { asFragment } = render(
       <TimeProvider>
         <WrappedComponent />
       </TimeProvider>
     );
 
-    expect(ref).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
     clock.tick(999);
-    ref.update();
-    expect(ref).toMatchSnapshot();
-
-    ref.unmount();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it("should use the specified property name for timeProp", () => {
-    const render = jest.fn(() => null);
-    const WrappedComponent = connectTime(null, { timeProp: "test1" })(render);
+    const EmptyComponent = jest.fn(() => null);
+    const WrappedComponent = connectTime(null, { timeProp: "test1" })(
+      EmptyComponent
+    );
 
-    const ref = mount(
+    render(
       <TimeProvider>
         <WrappedComponent />
       </TimeProvider>
     );
 
-    expect(render).toHaveBeenLastCalledWith({ test1: 0 }, {});
+    expect(EmptyComponent).toHaveBeenLastCalledWith({ test1: 0 }, {});
     clock.tick(999);
-    ref.update();
-
-    expect(render).toHaveBeenLastCalledWith({ test1: 1 }, {});
-
-    ref.unmount();
+    expect(EmptyComponent).toHaveBeenLastCalledWith({ test1: 1 }, {});
   });
 
   it("should be reusable for multiple components", () => {
@@ -170,7 +161,7 @@ describe("#connectTime", () => {
     const Child3 = connect(({ currentTime }) => (
       <div>Child 3: {currentTime}</div>
     ));
-    const ref = mount(
+    const { asFragment } = render(
       <TimeProvider>
         <Child1 />
         <Child2 />
@@ -178,8 +169,6 @@ describe("#connectTime", () => {
       </TimeProvider>
     );
 
-    expect(ref).toMatchSnapshot();
-
-    ref.unmount();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

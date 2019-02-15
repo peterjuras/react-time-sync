@@ -1,23 +1,13 @@
-import { mount } from "enzyme";
-
 import React from "react";
-import PropTypes from "prop-types";
 import { useTime } from "./use-time";
 import TimeSync from "time-sync";
 import lolex from "lolex";
-import TimeProvider from "./time-provider";
-import { Interval } from "time-sync/constants";
+import TimeContext from "./context";
+import { act, testHook, cleanup } from "react-testing-library";
+import { ITimerConfig } from "./timed";
 
 describe("#useTime", () => {
   let clock: lolex.Clock;
-
-  beforeAll(() => {
-    jest.spyOn(React, "useEffect").mockImplementation(React.useLayoutEffect);
-  });
-
-  afterAll(() => {
-    (React.useEffect as any).mockRestore();
-  });
 
   beforeEach(() => {
     clock = lolex.install({ now: 1 });
@@ -25,79 +15,66 @@ describe("#useTime", () => {
 
   afterEach(() => {
     clock.uninstall();
+    cleanup();
   });
 
   it("should be exported correctly", () => expect(useTime).toBeDefined());
 
   it("should throw if context is not found", () => {
-    function TestComponent() {
-      const time = useTime();
-      return <div>{time}</div>;
-    }
-    expect(() => {
-      const ref = mount(<TestComponent />);
-      ref.unmount();
-    }).toThrowErrorMatchingSnapshot();
+    expect(() => testHook(() => useTime())).toThrowErrorMatchingSnapshot();
   });
 
   it("should respect prop updates", () => {
     let renderCalledCount = 0;
 
-    function TestComponent({
-      unit,
-      interval
-    }: {
-      unit: number;
-      interval: Interval;
-    }) {
-      renderCalledCount++;
-      const time = useTime({ unit, interval });
-
-      return <div>{time}</div>;
-    }
-    TestComponent.propTypes = {
-      unit: PropTypes.number,
-      interval: PropTypes.string
-    };
-    TestComponent.defaultProps = {
-      unit: undefined,
-      interval: undefined
-    };
-
-    const ref = mount(
-      <TimeProvider>
-        <TestComponent />
-      </TimeProvider>
+    const timeSync = new TimeSync();
+    const timerConfig: ITimerConfig = {};
+    const { result, rerender, unmount } = testHook(
+      () => {
+        renderCalledCount++;
+        return useTime({ ...timerConfig });
+      },
+      {
+        wrapper: props => (
+          <TimeContext.Provider
+            value={{
+              getCurrentTime: TimeSync.getCurrentTime,
+              getTimeLeft: TimeSync.getTimeLeft,
+              addTimer: timeSync.addTimer,
+              createCountdown: timeSync.createCountdown
+            }}
+            {...props}
+          />
+        )
+      }
     );
 
-    expect(ref).toMatchSnapshot();
+    expect(result).toMatchSnapshot();
 
-    clock.tick(999);
-    ref.update();
-    expect(ref).toMatchSnapshot();
+    act(() => {
+      clock.tick(999);
+    });
+    expect(result).toMatchSnapshot();
 
-    clock.tick(1000);
-    ref.update();
-    expect(ref).toMatchSnapshot();
+    act(() => {
+      clock.tick(1000);
+    });
+    expect(result).toMatchSnapshot();
 
-    const newProps = {
-      unit: 5,
-      interval: TimeSync.MINUTES
-    };
+    timerConfig.unit = 5;
+    timerConfig.interval = TimeSync.MINUTES;
 
-    ref.setProps({
-      children: React.cloneElement(ref.props().children, newProps)
+    rerender();
+
+    expect(result).toMatchSnapshot();
+
+    act(() => {
+      clock.tick(1000 * 5 * 60);
     });
 
-    ref.update();
-    expect(ref).toMatchSnapshot();
+    expect(result).toMatchSnapshot();
 
-    clock.tick(1000 * 5 * 60);
-
-    ref.update();
-    expect(ref).toMatchSnapshot();
-
-    ref.unmount();
+    unmount();
 
     expect(renderCalledCount).toBe(6);
   });

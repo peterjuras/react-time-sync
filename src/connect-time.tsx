@@ -58,7 +58,10 @@ export function connectTime(timerConfig?: object | null, componentConfig = {}) {
       }
 
       public render() {
+        // TypeScript will output code that checks whether TIMESYNC_PROP is a symbol, but it never will be and will therefore be listed as uncovered.
+        /* istanbul ignore next line */
         const { [TIMESYNC_PROP]: _, ...props } = this.props;
+
         return <WrappedComponent {...props} {...this.state} />;
       }
 

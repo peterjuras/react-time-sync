@@ -1,22 +1,30 @@
-import { mount } from "enzyme";
-
 import React from "react";
-import PropTypes from "prop-types";
-import TimeProvider from "./time-provider";
 import TimeSync from "time-sync";
+import TimeContext from "./context";
 import { useCountdown } from "./use-countdown";
 import lolex from "lolex";
+import { act, testHook, cleanup } from "react-testing-library";
+import { ICountdownConfig } from "./countdown";
+
+function getWrapper() {
+  const timeSync = new TimeSync();
+  return {
+    wrapper: (props: any) => (
+      <TimeContext.Provider
+        value={{
+          getCurrentTime: TimeSync.getCurrentTime,
+          getTimeLeft: TimeSync.getTimeLeft,
+          addTimer: timeSync.addTimer,
+          createCountdown: timeSync.createCountdown
+        }}
+        {...props}
+      />
+    )
+  };
+}
 
 describe("#Countdown", () => {
   let clock: lolex.Clock;
-
-  beforeAll(() => {
-    jest.spyOn(React, "useEffect").mockImplementation(React.useLayoutEffect);
-  });
-
-  afterAll(() => {
-    (React.useEffect as any).mockRestore();
-  });
 
   beforeEach(() => {
     clock = lolex.install({ now: 1 });
@@ -24,64 +32,57 @@ describe("#Countdown", () => {
 
   afterEach(() => {
     clock.uninstall();
+    cleanup();
   });
+
+  function actTicks(interval: number, count: number) {
+    for (let i = 0; i < count * 2; i++) {
+      act(() => {
+        clock.tick(interval / 2);
+      });
+    }
+  }
 
   it("should be exported correctly", () => expect(useCountdown).toBeDefined());
 
   it("should throw if context is not found", () => {
-    function TestComponent() {
-      const timeLeft = useCountdown();
-      return <div>{timeLeft}</div>;
-    }
-    expect(() => {
-      const ref = mount(<TestComponent />);
-      ref.unmount();
-    }).toThrowErrorMatchingSnapshot();
+    expect(() => testHook(() => useCountdown())).toThrowErrorMatchingSnapshot();
   });
 
   it("should not update when until number is reached", () => {
     clock.tick(999);
     let renderCalledCount = 0;
-    function TestComponent() {
+
+    const { result, unmount } = testHook(() => {
       renderCalledCount++;
-      const timeLeft = useCountdown({ until: 1 });
-
-      return <div>{timeLeft}</div>;
-    }
-
-    const ref = mount(
-      <TimeProvider>
-        <TestComponent />
-      </TimeProvider>
-    );
-    expect(ref).toMatchSnapshot();
-    clock.tick(10000);
-    ref.update();
-    expect(ref).toMatchSnapshot();
-    ref.unmount();
+      return useCountdown({ until: 1 });
+    }, getWrapper());
+    expect(result).toMatchSnapshot();
+    actTicks(1000, 10);
+    expect(result).toMatchSnapshot();
+    act(() => {
+      unmount();
+    });
     expect(renderCalledCount).toBe(1);
   });
 
   it("should stop countdown if it has ended", () => {
     let renderCalledCount = 0;
     const timeLefts: number[] = [];
-    function TestComponent() {
-      const timeLeft = useCountdown({ until: 5002 });
-      renderCalledCount++;
-      timeLefts.push(timeLeft);
-      return <div>{timeLeft}</div>;
-    }
 
-    const ref = mount(
-      <TimeProvider>
-        <TestComponent />
-      </TimeProvider>
-    );
-    expect(ref).toMatchSnapshot();
-    clock.tick(5001);
-    ref.update();
-    expect(ref).toMatchSnapshot();
-    ref.unmount();
+    const { result, unmount } = testHook(() => {
+      renderCalledCount++;
+      const timeLeft = useCountdown({ until: 5002 });
+      timeLefts.push(timeLeft);
+      return timeLeft;
+    }, getWrapper());
+    expect(result).toMatchSnapshot();
+
+    actTicks(1000, 6);
+    expect(result).toMatchSnapshot();
+    act(() => {
+      unmount();
+    });
     expect(renderCalledCount).toBe(7);
     expect(timeLefts).toEqual([6, 5, 4, 3, 2, 1, 0]);
   });
@@ -89,75 +90,57 @@ describe("#Countdown", () => {
   it("should update countdown if props are updated", () => {
     let renderCalledCount = 0;
     const timeLefts: number[] = [];
-    function TestComponent({ until }: { until: number }) {
-      const timeLeft = useCountdown({ until: until || 2001 });
-      renderCalledCount++;
-      timeLefts.push(timeLeft);
-      return <div>{timeLeft}</div>;
-    }
-    TestComponent.propTypes = {
-      until: PropTypes.number
-    };
-    TestComponent.defaultProps = {
-      until: undefined
-    };
 
-    const ref = mount(
-      <TimeProvider>
-        <TestComponent />
-      </TimeProvider>
-    );
-    clock.tick(5000);
+    const countdownConfig: ICountdownConfig = {};
+    const { rerender } = testHook(() => {
+      renderCalledCount++;
+      const timeLeft = useCountdown({ until: countdownConfig.until || 2001 });
+      timeLefts.push(timeLeft);
+      return timeLeft;
+    }, getWrapper());
+
+    actTicks(1000, 5);
+
     expect(renderCalledCount).toBe(3);
-    ref.setProps({
-      children: React.cloneElement(ref.props().children, { until: 15000 })
-    });
-    clock.tick(20000);
+    countdownConfig.until = 15000;
+    rerender();
+    actTicks(1000, 20);
     expect(renderCalledCount).toBe(15);
     expect(timeLefts).toEqual([2, 1, 0, 10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
-    ref.unmount();
   });
 
   it("should use the interval provided as a prop", () => {
     let renderCalledCount = 0;
     const timeLefts: number[] = [];
-    function TestComponent() {
+
+    testHook(() => {
+      renderCalledCount++;
       const timeLeft = useCountdown({
         until: 1000 * 60 * 60 * 2,
         interval: TimeSync.HOURS
       });
-      renderCalledCount++;
       timeLefts.push(timeLeft);
-      return <div>{timeLeft}</div>;
-    }
-    const ref = mount(
-      <TimeProvider>
-        <TestComponent />
-      </TimeProvider>
-    );
-    clock.tick(1000 * 60 * 60 * 4);
+      return timeLeft;
+    }, getWrapper());
+    actTicks(1000 * 60 * 60, 5);
     expect(renderCalledCount).toBe(3);
     expect(timeLefts).toEqual([2, 1, 0]);
-    ref.unmount();
   });
 
   it("should not start a countdown if no until value is specified", () => {
     let renderCalledCount = 0;
     const timeLefts: number[] = [];
-    function TestComponent() {
-      const timeLeft = useCountdown();
+
+    testHook(() => {
       renderCalledCount++;
+      const timeLeft = useCountdown();
       timeLefts.push(timeLeft);
-      return <div>{timeLeft}</div>;
-    }
-    const ref = mount(
-      <TimeProvider>
-        <TestComponent />
-      </TimeProvider>
-    );
-    clock.tick(10000);
+      return timeLeft;
+    }, getWrapper());
+
+    actTicks(1000, 10);
+
     expect(renderCalledCount).toBe(1);
     expect(timeLefts).toEqual([0]);
-    ref.unmount();
   });
 });

@@ -1,71 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#connectTime should be reusable for multiple components 1`] = `
-<TimeProvider>
-  <Component>
-    <TimeComponent
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-    >
-      <Component
-        currentTime={0}
-      >
-        <div>
-          Child 1: 
-          0
-        </div>
-      </Component>
-    </TimeComponent>
-  </Component>
-  <Component>
-    <TimeComponent
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-    >
-      <Component
-        currentTime={0}
-      >
-        <div>
-          Child 2: 
-          0
-        </div>
-      </Component>
-    </TimeComponent>
-  </Component>
-  <Component>
-    <TimeComponent
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-    >
-      <Component
-        currentTime={0}
-      >
-        <div>
-          Child 3: 
-          0
-        </div>
-      </Component>
-    </TimeComponent>
-  </Component>
-</TimeProvider>
+<DocumentFragment>
+  <div>
+    Child 1: 0
+  </div>
+  <div>
+    Child 2: 0
+  </div>
+  <div>
+    Child 3: 0
+  </div>
+</DocumentFragment>
 `;
 
 exports[`#connectTime should throw for invalid timeProp 1`] = `"timeProp must be a non-empty string value"`;
@@ -85,51 +31,17 @@ exports[`#connectTime should throw for invalid timeProp 7`] = `"timeProp must be
 exports[`#connectTime should throw if context is not found 1`] = `"Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"`;
 
 exports[`#connectTime should update children on a timer tick 1`] = `
-<TimeProvider>
-  <Component>
-    <TimeComponent
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-    >
-      <Component
-        currentTime={0}
-      >
-        <div>
-          0
-        </div>
-      </Component>
-    </TimeComponent>
-  </Component>
-</TimeProvider>
+<DocumentFragment>
+  <div>
+    0
+  </div>
+</DocumentFragment>
 `;
 
 exports[`#connectTime should update children on a timer tick 2`] = `
-<TimeProvider>
-  <Component>
-    <TimeComponent
-      $$_TIME_SYNC_HIDDEN_$$={
-        Object {
-          "addTimer": [Function],
-          "createCountdown": [Function],
-          "getCurrentTime": [Function],
-          "getTimeLeft": [Function],
-        }
-      }
-    >
-      <Component
-        currentTime={1}
-      >
-        <div>
-          1
-        </div>
-      </Component>
-    </TimeComponent>
-  </Component>
-</TimeProvider>
+<DocumentFragment>
+  <div>
+    1
+  </div>
+</DocumentFragment>
 `;

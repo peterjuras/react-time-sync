@@ -8,6 +8,11 @@
     "prettier",
     "prettier/@typescript-eslint"
   ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "overrides": [
     {
       "files": ["*.test.ts", "*.test.tsx", "test/**/*.tsx"],

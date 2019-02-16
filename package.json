@@ -12,7 +12,7 @@
     "prepublishOnly": "node ./scripts/ensure-publish-path",
     "lint": "eslint '{scripts,src,test}/**/*.{ts,tsx,js}'",
     "test": "jest --config .jest.js",
-    "test-ci": "jest --ci --runInBand --config .jest.ci.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test-ci": "jest --ci --maxWorkers 2 --config .jest.ci.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "license": "MIT",
   "devDependencies": {

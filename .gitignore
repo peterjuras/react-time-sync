@@ -61,4 +61,4 @@ typings/
 .env
 
 # Build output
-/lib
+/build

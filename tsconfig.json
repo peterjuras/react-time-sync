@@ -7,7 +7,7 @@
     "lib": ["dom", "es5", "scripthost", "es2015"],
     "esModuleInterop": true,
     "jsx": "react",
-    "outDir": "lib",
+    "outDir": "build",
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true

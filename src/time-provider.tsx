@@ -1,21 +1,20 @@
 import React, { Component, ReactElement } from "react";
 import PropTypes from "prop-types";
-import TimeContext, { ITimeSyncContext } from "./context";
+import TimeContext, { TimeSyncContext } from "./context";
 import TimeSync from "time-sync";
 
-interface ITimeProviderProps {
-  // children: ReactElementLike | ReactElementLike[];
-  children: ReactElement<any> | Array<ReactElement<any>>;
+interface TimeProviderProps {
+  children: ReactElement | ReactElement[];
 }
 
-interface ITimeProviderState {
+interface TimeProviderState {
   timeSync: TimeSync;
-  timeContext: ITimeSyncContext;
+  timeContext: TimeSyncContext;
 }
 
 export default class TimeProvider extends Component<
-  ITimeProviderProps,
-  ITimeProviderState
+  TimeProviderProps,
+  TimeProviderState
 > {
   public static propTypes = {
     children: PropTypes.node
@@ -25,7 +24,7 @@ export default class TimeProvider extends Component<
     children: null
   };
 
-  constructor(props: ITimeProviderProps) {
+  public constructor(props: TimeProviderProps) {
     super(props);
 
     const timeSync = new TimeSync();
@@ -40,14 +39,14 @@ export default class TimeProvider extends Component<
     };
   }
 
-  public componentWillUnmount() {
+  public componentWillUnmount(): void {
     const { timeSync } = this.state;
 
     timeSync.removeAllTimers();
     timeSync.stopAllCountdowns();
   }
 
-  public render() {
+  public render(): JSX.Element {
     const { timeContext } = this.state;
     const { children } = this.props;
 

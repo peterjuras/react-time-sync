@@ -1,11 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useDebugValue, useEffect, useRef, useState } from "react";
 import TimeContext from "./context";
-import { ITimerConfig } from "./timed";
+import { TimerConfig } from "./timed";
 
-// Temporary until useDebugValue is typed
-const useDebugValue = (React as any).useDebugValue;
-
-export function useTime(timerConfig: ITimerConfig = {}) {
+export function useTime(timerConfig: TimerConfig = {}): number {
   const timeSync = useContext(TimeContext);
   if (!timeSync) {
     throw new Error(

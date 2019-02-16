@@ -1,9 +1,0 @@
-{
-  "extends": ["tslint:latest", "tslint-config-prettier"],
-  "rules": {
-    "ordered-imports": false,
-    "object-literal-sort-keys": false,
-    "no-implicit-dependencies": [true, "dev"],
-    "no-submodule-imports": false
-  }
-}

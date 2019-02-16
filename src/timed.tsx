@@ -1,26 +1,34 @@
 import React, { Component, FunctionComponent, ReactElement } from "react";
 import PropTypes from "prop-types";
-import TimeContext, { TIMESYNC_PROP, ITimeSyncContext } from "./context";
+import TimeContext, { TIMESYNC_PROP, TimeSyncContext } from "./context";
 import { hasConfigChanged } from "./config";
 import { Interval } from "time-sync/constants";
 
-export interface ITimerConfig {
+export interface TimerConfig {
   interval?: Interval;
   unit?: number;
+  [key: string]:
+    | string
+    | number
+    | TimedChildrenType
+    | undefined
+    | TimeSyncContext;
 }
 
-interface ITimerConfigProps extends ITimerConfig {
-  children?: (
-    obj: { currentTime: number }
-  ) => ReactElement<any> | Array<ReactElement<any>>;
+export type TimedChildrenType = (obj: {
+  currentTime: number;
+}) => ReactElement | ReactElement[];
+
+interface TimerConfigProps extends TimerConfig {
+  children?: TimedChildrenType;
 }
 
-interface ITimedProps extends ITimerConfigProps {
-  [TIMESYNC_PROP]: ITimeSyncContext;
+interface TimedProps extends TimerConfigProps {
+  [TIMESYNC_PROP]: TimeSyncContext;
 }
 
-function getTimerConfig(props: ITimedProps) {
-  const newTimerConfig: ITimerConfig = {};
+function getTimerConfig(props: TimedProps): TimerConfig {
+  const newTimerConfig: TimerConfig = {};
 
   if (props.interval !== null) {
     newTimerConfig.interval = props.interval;
@@ -33,12 +41,12 @@ function getTimerConfig(props: ITimedProps) {
   return newTimerConfig;
 }
 
-interface ITimedState {
-  timerConfig: ITimerConfig;
+interface TimedState {
+  timerConfig: TimerConfig;
   currentTime: number;
 }
 
-class Timed extends Component<ITimedProps, ITimedState> {
+class Timed extends Component<TimedProps, TimedState> {
   public static propTypes = {
     children: PropTypes.func.isRequired,
     unit: PropTypes.number,
@@ -51,9 +59,9 @@ class Timed extends Component<ITimedProps, ITimedState> {
   };
 
   public static getDerivedStateFromProps(
-    nextProps: ITimedProps,
-    prevState: ITimedState
-  ) {
+    nextProps: TimedProps,
+    prevState: TimedState
+  ): TimedState | null {
     const timerConfig = getTimerConfig(nextProps);
     const hasChanged = hasConfigChanged(prevState.timerConfig, timerConfig);
 
@@ -72,7 +80,7 @@ class Timed extends Component<ITimedProps, ITimedState> {
     currentTime: 0
   };
 
-  constructor(props: ITimedProps) {
+  public constructor(props: TimedProps) {
     super(props);
 
     if (!props[TIMESYNC_PROP]) {
@@ -82,11 +90,11 @@ class Timed extends Component<ITimedProps, ITimedState> {
     }
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this.resetTimer();
   }
 
-  public componentDidUpdate(_: ITimedProps, prevState: ITimedState) {
+  public componentDidUpdate(_: TimedProps, prevState: TimedState): void {
     const { timerConfig } = this.state;
 
     if (prevState.timerConfig !== timerConfig) {
@@ -94,11 +102,11 @@ class Timed extends Component<ITimedProps, ITimedState> {
     }
   }
 
-  public componentWillUnmount() {
+  public componentWillUnmount(): void {
     this.removeTimer();
   }
 
-  public render() {
+  public render(): ReturnType<TimedChildrenType> | null {
     const { children } = this.props;
     const { currentTime } = this.state;
 
@@ -111,13 +119,13 @@ class Timed extends Component<ITimedProps, ITimedState> {
     });
   }
 
-  private removeTimer: () => any = () => null;
+  private removeTimer: () => void = () => null;
 
   private onTimerTick = (currentTime: number) => {
     this.setState({ currentTime });
   };
 
-  private resetTimer() {
+  private resetTimer(): void {
     const { timerConfig } = this.state;
 
     const { [TIMESYNC_PROP]: timeSync } = this.props;
@@ -128,7 +136,9 @@ class Timed extends Component<ITimedProps, ITimedState> {
   }
 }
 
-const TimedWrapper: FunctionComponent<ITimerConfigProps> = props => {
+const TimedWrapper: FunctionComponent<TimerConfigProps> = (
+  props
+): ReactElement => {
   return (
     <TimeContext.Consumer>
       {timeSync => <Timed {...{ ...props, [TIMESYNC_PROP]: timeSync }} />}

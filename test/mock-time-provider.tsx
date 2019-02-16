@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import TimeContext from "../src/context";
 import PropTypes from "prop-types";
 
-interface IProviderConfig {
+interface ProviderConfig {
   addTimer?: any;
   getCurrentTime?: any;
   getTimeLeft?: any;
@@ -21,7 +21,7 @@ const DEFAULT_CONFIG: {
   createCountdown: () => null
 };
 
-export function createMockProvider(config: IProviderConfig): any {
+export function createMockProvider(config: ProviderConfig): any {
   const mockConfig = {
     ...DEFAULT_CONFIG,
     ...config
@@ -42,7 +42,7 @@ export function createMockProvider(config: IProviderConfig): any {
       }
     };
 
-    public render() {
+    public render(): JSX.Element {
       const { timeSync } = this.state;
       const { children } = this.props;
 

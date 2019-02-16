@@ -1,20 +1,20 @@
 import React, { Component } from "react";
-import TimeContext, { TIMESYNC_PROP, ITimeSyncContext } from "./context";
+import TimeContext, { TIMESYNC_PROP, TimeSyncContext } from "./context";
 import { ReactComponentLike } from "prop-types";
 
-interface IComponentConfig {
+interface ComponentConfig {
   timeProp?: string;
 }
 
-interface ISafeComponentConfig extends IComponentConfig {
+interface SafeComponentConfig extends ComponentConfig {
   timeProp: string;
 }
 
-const DEFAULT_COMPONENT_CONFIG: ISafeComponentConfig = {
+const DEFAULT_COMPONENT_CONFIG: SafeComponentConfig = {
   timeProp: "currentTime"
 };
 
-function validateComponentConfig(componentConfig: IComponentConfig) {
+function validateComponentConfig(componentConfig: ComponentConfig): void {
   if (
     typeof componentConfig.timeProp !== "undefined" &&
     (typeof componentConfig.timeProp !== "string" ||
@@ -24,11 +24,14 @@ function validateComponentConfig(componentConfig: IComponentConfig) {
   }
 }
 
-interface ITimeComponentProps {
-  [TIMESYNC_PROP]: ITimeSyncContext;
+interface TimeComponentProps {
+  [TIMESYNC_PROP]: TimeSyncContext;
 }
 
-export function connectTime(timerConfig?: object | null, componentConfig = {}) {
+export function connectTime(
+  timerConfig?: object | null,
+  componentConfig = {}
+): (WrappedComponent: ReactComponentLike) => (props: object) => JSX.Element {
   validateComponentConfig(componentConfig);
 
   const usedTimerConfig = timerConfig || {};
@@ -38,10 +41,10 @@ export function connectTime(timerConfig?: object | null, componentConfig = {}) {
   };
 
   return (WrappedComponent: ReactComponentLike) => {
-    class TimeComponent extends Component<ITimeComponentProps> {
+    class TimeComponent extends Component<TimeComponentProps> {
       private removeTimer?: () => void;
 
-      constructor(props: ITimeComponentProps) {
+      public constructor(props: TimeComponentProps) {
         super(props);
 
         if (!props[TIMESYNC_PROP]) {
@@ -57,21 +60,21 @@ export function connectTime(timerConfig?: object | null, componentConfig = {}) {
         };
       }
 
-      public render() {
+      public render(): JSX.Element {
         // TypeScript will output code that checks whether TIMESYNC_PROP is a symbol, but it never will be and will therefore be listed as uncovered.
-        /* istanbul ignore next line */
+        /* istanbul ignore next line */ // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { [TIMESYNC_PROP]: _, ...props } = this.props;
 
         return <WrappedComponent {...props} {...this.state} />;
       }
 
-      public componentDidMount() {
+      public componentDidMount(): void {
         const { [TIMESYNC_PROP]: timeSync } = this.props;
 
         this.removeTimer = timeSync.addTimer(this.onTick, usedTimerConfig);
       }
 
-      public componentWillUnmount() {
+      public componentWillUnmount(): void {
         if (this.removeTimer) {
           this.removeTimer();
         }
@@ -84,12 +87,14 @@ export function connectTime(timerConfig?: object | null, componentConfig = {}) {
       };
     }
 
-    return (props: object) => (
-      <TimeContext.Consumer>
-        {(timeSync: ITimeSyncContext) => (
-          <TimeComponent {...{ ...props, [TIMESYNC_PROP]: timeSync }} />
-        )}
-      </TimeContext.Consumer>
-    );
+    return function WrappedTimer(props: object) {
+      return (
+        <TimeContext.Consumer>
+          {(timeSync: TimeSyncContext) => (
+            <TimeComponent {...{ ...props, [TIMESYNC_PROP]: timeSync }} />
+          )}
+        </TimeContext.Consumer>
+      );
+    };
   };
 }

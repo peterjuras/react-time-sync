@@ -4,22 +4,24 @@ import TimeContext from "./context";
 import { useCountdown } from "./use-countdown";
 import lolex from "lolex";
 import { act, testHook, cleanup } from "react-testing-library";
-import { ICountdownConfig } from "./countdown";
+import { CountdownConfig } from "./countdown";
 
-function getWrapper() {
+function getWrapper(): { wrapper: (props: any) => JSX.Element } {
   const timeSync = new TimeSync();
   return {
-    wrapper: (props: any) => (
-      <TimeContext.Provider
-        value={{
-          getCurrentTime: TimeSync.getCurrentTime,
-          getTimeLeft: TimeSync.getTimeLeft,
-          addTimer: timeSync.addTimer,
-          createCountdown: timeSync.createCountdown
-        }}
-        {...props}
-      />
-    )
+    wrapper: function TestWrapper(props: any) {
+      return (
+        <TimeContext.Provider
+          value={{
+            getCurrentTime: TimeSync.getCurrentTime,
+            getTimeLeft: TimeSync.getTimeLeft,
+            addTimer: timeSync.addTimer,
+            createCountdown: timeSync.createCountdown
+          }}
+          {...props}
+        />
+      );
+    }
   };
 }
 
@@ -35,7 +37,7 @@ describe("#Countdown", () => {
     cleanup();
   });
 
-  function actTicks(interval: number, count: number) {
+  function actTicks(interval: number, count: number): void {
     for (let i = 0; i < count * 2; i++) {
       act(() => {
         clock.tick(interval / 2);
@@ -91,7 +93,7 @@ describe("#Countdown", () => {
     let renderCalledCount = 0;
     const timeLefts: number[] = [];
 
-    const countdownConfig: ICountdownConfig = {};
+    const countdownConfig: CountdownConfig = {};
     const { rerender } = testHook(() => {
       renderCalledCount++;
       const timeLeft = useCountdown({ until: countdownConfig.until || 2001 });

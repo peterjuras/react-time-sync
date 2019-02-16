@@ -4,7 +4,7 @@ import TimeSync from "time-sync";
 import lolex from "lolex";
 import TimeContext from "./context";
 import { act, testHook, cleanup } from "react-testing-library";
-import { ITimerConfig } from "./timed";
+import { TimerConfig } from "./timed";
 
 describe("#useTime", () => {
   let clock: lolex.Clock;
@@ -28,24 +28,26 @@ describe("#useTime", () => {
     let renderCalledCount = 0;
 
     const timeSync = new TimeSync();
-    const timerConfig: ITimerConfig = {};
+    const timerConfig: TimerConfig = {};
     const { result, rerender, unmount } = testHook(
       () => {
         renderCalledCount++;
         return useTime({ ...timerConfig });
       },
       {
-        wrapper: props => (
-          <TimeContext.Provider
-            value={{
-              getCurrentTime: TimeSync.getCurrentTime,
-              getTimeLeft: TimeSync.getTimeLeft,
-              addTimer: timeSync.addTimer,
-              createCountdown: timeSync.createCountdown
-            }}
-            {...props}
-          />
-        )
+        wrapper: function TestWrapper(props: any) {
+          return (
+            <TimeContext.Provider
+              value={{
+                getCurrentTime: TimeSync.getCurrentTime,
+                getTimeLeft: TimeSync.getTimeLeft,
+                addTimer: timeSync.addTimer,
+                createCountdown: timeSync.createCountdown
+              }}
+              {...props}
+            />
+          );
+        }
       }
     );
 

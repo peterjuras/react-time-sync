@@ -1,18 +1,17 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useDebugValue, useState } from "react";
 import TimeContext from "./context";
-import { ICountdownConfig } from "./countdown";
+import { CountdownConfig, SafeCountdownConfig } from "./countdown";
 
-function getUsableConfig(countdownConfig: ICountdownConfig) {
+function getUsableConfig(
+  countdownConfig: CountdownConfig
+): SafeCountdownConfig {
   return {
     ...countdownConfig,
     until: countdownConfig.until || 0
   };
 }
 
-// Temporary until useDebugValue is typed
-const useDebugValue = (React as any).useDebugValue;
-
-export function useCountdown(countdownConfig: ICountdownConfig = {}) {
+export function useCountdown(countdownConfig: CountdownConfig = {}): number {
   const timeSync = useContext(TimeContext);
   if (!timeSync) {
     throw new Error(
@@ -38,14 +37,11 @@ export function useCountdown(countdownConfig: ICountdownConfig = {}) {
     setTimeLeft(timeLeft);
   }
 
-  useEffect(
-    () => {
-      if (timeLeft > 0) {
-        return timeSync.createCountdown(setTimeLeft, usableConfig);
-      }
-    },
-    [usableConfig.until, usableConfig.interval]
-  );
+  useEffect(() => {
+    if (timeLeft > 0) {
+      return timeSync.createCountdown(setTimeLeft, usableConfig);
+    }
+  }, [usableConfig.until, usableConfig.interval]);
 
   useDebugValue(timeLeft);
   return timeLeft;

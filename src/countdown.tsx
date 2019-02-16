@@ -1,30 +1,33 @@
 import React, { Component, FunctionComponent, ReactElement } from "react";
 import PropTypes from "prop-types";
-import TimeContext, { TIMESYNC_PROP, ITimeSyncContext } from "./context";
+import TimeContext, { TIMESYNC_PROP, TimeSyncContext } from "./context";
 import { hasConfigChanged } from "./config";
 import { Interval } from "time-sync/constants";
 
-export interface ICountdownConfig {
+export interface CountdownConfig {
   until?: number;
   interval?: Interval;
 }
 
-interface ISafeCountdownConfig extends ICountdownConfig {
+export interface SafeCountdownConfig extends CountdownConfig {
   until: number;
+  [key: string]: number | string | undefined;
 }
 
-interface ICountdownConfigProps extends ICountdownConfig {
-  children?: (
-    obj: { timeLeft: number }
-  ) => ReactElement<any> | Array<ReactElement<any>>;
+export type CountdownChildrenType = (obj: {
+  timeLeft: number;
+}) => ReactElement | ReactElement[];
+
+interface CountdownConfigProps extends CountdownConfig {
+  children?: CountdownChildrenType;
 }
 
-interface ICountdownProps extends ICountdownConfigProps {
-  [TIMESYNC_PROP]: ITimeSyncContext;
+interface CountdownProps extends CountdownConfigProps {
+  [TIMESYNC_PROP]: TimeSyncContext;
 }
 
-function getCountdownConfig(props: ICountdownProps) {
-  const newCountdownConfig: ISafeCountdownConfig = { until: 0 };
+function getCountdownConfig(props: CountdownProps): SafeCountdownConfig {
+  const newCountdownConfig: SafeCountdownConfig = { until: 0 };
 
   if (props.interval) {
     newCountdownConfig.interval = props.interval;
@@ -37,12 +40,12 @@ function getCountdownConfig(props: ICountdownProps) {
   return newCountdownConfig;
 }
 
-interface ICountdownState {
-  countdownConfig: ISafeCountdownConfig;
+interface CountdownState {
+  countdownConfig: SafeCountdownConfig;
   timeLeft: number;
 }
 
-class Countdown extends Component<ICountdownProps, ICountdownState> {
+class Countdown extends Component<CountdownProps, CountdownState> {
   public static propTypes = {
     children: PropTypes.func.isRequired,
     until: PropTypes.number,
@@ -55,9 +58,9 @@ class Countdown extends Component<ICountdownProps, ICountdownState> {
   };
 
   public static getDerivedStateFromProps(
-    nextProps: ICountdownProps,
-    prevState: ICountdownState
-  ) {
+    nextProps: CountdownProps,
+    prevState: CountdownState
+  ): CountdownState | null {
     const countdownConfig = getCountdownConfig(nextProps);
     const hasChanged = hasConfigChanged(
       prevState.countdownConfig,
@@ -74,14 +77,14 @@ class Countdown extends Component<ICountdownProps, ICountdownState> {
     return null;
   }
 
-  public state: ICountdownState = {
+  public state: CountdownState = {
     countdownConfig: { until: 0 },
     timeLeft: 0
   };
 
   private stopCountdown?: (() => void) | null;
 
-  constructor(props: ICountdownProps) {
+  public constructor(props: CountdownProps) {
     super(props);
 
     if (!props[TIMESYNC_PROP]) {
@@ -91,11 +94,14 @@ class Countdown extends Component<ICountdownProps, ICountdownState> {
     }
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this.resetCountdown();
   }
 
-  public componentDidUpdate(_: ICountdownProps, prevState: ICountdownState) {
+  public componentDidUpdate(
+    _: CountdownProps,
+    prevState: CountdownState
+  ): void {
     const { countdownConfig } = this.state;
 
     if (prevState.countdownConfig !== countdownConfig) {
@@ -103,13 +109,13 @@ class Countdown extends Component<ICountdownProps, ICountdownState> {
     }
   }
 
-  public componentWillUnmount() {
+  public componentWillUnmount(): void {
     if (this.stopCountdown) {
       this.stopCountdown();
     }
   }
 
-  public render() {
+  public render(): ReturnType<CountdownChildrenType> | null {
     const { children } = this.props;
     const { timeLeft } = this.state;
 
@@ -126,7 +132,7 @@ class Countdown extends Component<ICountdownProps, ICountdownState> {
     this.setState({ timeLeft });
   };
 
-  private resetCountdown() {
+  private resetCountdown(): void {
     const { countdownConfig, timeLeft } = this.state;
 
     if (this.stopCountdown) {
@@ -147,7 +153,9 @@ class Countdown extends Component<ICountdownProps, ICountdownState> {
   }
 }
 
-const CountdownWrapper: FunctionComponent<ICountdownConfigProps> = props => {
+const CountdownWrapper: FunctionComponent<CountdownConfigProps> = (
+  props
+): JSX.Element => {
   return (
     <TimeContext.Consumer>
       {timeSync => <Countdown {...{ ...props, [TIMESYNC_PROP]: timeSync }} />}

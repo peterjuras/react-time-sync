@@ -10,7 +10,7 @@
     "ts": "tsc -p tsconfig.build.json && tsc --declaration --outDir lib --emitDeclarationOnly -p tsconfig.build.json",
     "build": "rm -rf lib && yarn run ts && cp -R scripts .npmignore LICENSE package.json README.md lib",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
-    "lint": "tslint -p .",
+    "lint": "eslint '{scripts,src,test}/**/*.{ts,tsx,js}'",
     "test": "jest --config .jest.js",
     "test-ci": "jest --ci --runInBand --config .jest.ci.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
@@ -19,7 +19,12 @@
     "@types/jest": "^24.0.5",
     "@types/lolex": "^2.1.3",
     "@types/react": "^16.8.3",
+    "@typescript-eslint/eslint-plugin": "^1.3.0",
+    "@typescript-eslint/parser": "^1.3.0",
     "coveralls": "^3.0.2",
+    "eslint": "^5.14.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.12.4",
     "jest": "^24.1.0",
     "jest-junit": "^6.3.0",
     "lolex": "^3.1.0",
@@ -27,8 +32,6 @@
     "react-dom": "^16.8.2",
     "react-testing-library": "^5.8.0",
     "ts-jest": "^23.10.5",
-    "tslint": "^5.12.1",
-    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.3.3"
   },
   "peerDependencies": {

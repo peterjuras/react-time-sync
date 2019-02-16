@@ -1,6 +1,6 @@
 {
   "name": "react-time-sync",
-  "version": "4.3.0",
+  "version": "0.0.0-development",
   "description": "A React library to synchronize timers across an application",
   "main": "index.js",
   "types": "index.d.ts",

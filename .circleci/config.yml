@@ -10,7 +10,7 @@ executors:
 
 workflows:
   version: 2
-  time-sync:
+  react-time-sync:
     jobs:
       - build
       - release:

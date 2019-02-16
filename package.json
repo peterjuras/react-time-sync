@@ -4,12 +4,13 @@
   "description": "A React library to synchronize timers across an application",
   "main": "index.js",
   "types": "index.d.ts",
-  "repository": "git@github.com:peterjuras/react-time-sync.git",
+  "repository": "https://github.com/peterjuras/react-time-sync.git",
   "author": "Peter Juras <me@peterjuras.com>",
   "scripts": {
     "ts": "tsc -p tsconfig.build.json && tsc --declaration --emitDeclarationOnly -p tsconfig.build.json",
     "build": "rm -rf build && yarn run ts && cp -R scripts .npmignore LICENSE package.json README.md build",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
+    "release": "cd build && semantic-release",
     "lint": "eslint '{scripts,src,test}/**/*.{ts,tsx,js}'",
     "test": "jest --config .jest.js",
     "test-ci": "jest --ci --maxWorkers 2 --config .jest.ci.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
@@ -31,6 +32,7 @@
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-testing-library": "^5.8.0",
+    "semantic-release": "^15.13.3",
     "ts-jest": "^23.10.5",
     "typescript": "^3.3.3"
   },

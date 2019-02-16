@@ -6,6 +6,8 @@ A React library to synchronize timers across an application
 
 ## Usage
 
+### <TimeProvider>
+
 When using any timed component or hook, a `<TimeProvider>` component needs to be in the top of your component hierarchy
 
 Example:

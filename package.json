@@ -22,19 +22,19 @@
     "@types/react": "^16.8.4",
     "@typescript-eslint/eslint-plugin": "^1.4.0",
     "@typescript-eslint/parser": "^1.4.0",
-    "coveralls": "^3.0.2",
+    "coveralls": "^3.0.3",
     "eslint": "^5.14.1",
     "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.12.4",
     "jest": "^24.1.0",
     "jest-junit": "^6.3.0",
     "lolex": "^3.1.0",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
     "react-testing-library": "^5.9.0",
     "semantic-release": "^15.13.3",
     "ts-jest": "^24.0.0",
-    "typescript": "^3.3.3"
+    "typescript": "^3.3.3333"
   },
   "peerDependencies": {
     "react": "^16.3.0"

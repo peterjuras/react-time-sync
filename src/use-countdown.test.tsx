@@ -3,7 +3,7 @@ import TimeSync from "time-sync";
 import TimeContext from "./context";
 import { useCountdown } from "./use-countdown";
 import lolex from "lolex";
-import { act, testHook, cleanup } from "react-testing-library";
+import { act, renderHook, cleanup } from "react-hooks-testing-library";
 import { CountdownConfig } from "./countdown";
 
 function getWrapper(): { wrapper: (props: any) => JSX.Element } {
@@ -48,14 +48,16 @@ describe("#Countdown", () => {
   it("should be exported correctly", () => expect(useCountdown).toBeDefined());
 
   it("should throw if context is not found", () => {
-    expect(() => testHook(() => useCountdown())).toThrowErrorMatchingSnapshot();
+    expect(() =>
+      renderHook(() => useCountdown())
+    ).toThrowErrorMatchingSnapshot();
   });
 
   it("should not update when until number is reached", () => {
     clock.tick(999);
     let renderCalledCount = 0;
 
-    const { result, unmount } = testHook(() => {
+    const { result, unmount } = renderHook(() => {
       renderCalledCount++;
       return useCountdown({ until: 1 });
     }, getWrapper());
@@ -72,7 +74,7 @@ describe("#Countdown", () => {
     let renderCalledCount = 0;
     const timeLefts: number[] = [];
 
-    const { result, unmount } = testHook(() => {
+    const { result, unmount } = renderHook(() => {
       renderCalledCount++;
       const timeLeft = useCountdown({ until: 5002 });
       timeLefts.push(timeLeft);
@@ -94,7 +96,7 @@ describe("#Countdown", () => {
     const timeLefts: number[] = [];
 
     const countdownConfig: CountdownConfig = {};
-    const { rerender } = testHook(() => {
+    const { rerender } = renderHook(() => {
       renderCalledCount++;
       const timeLeft = useCountdown({ until: countdownConfig.until || 2001 });
       timeLefts.push(timeLeft);
@@ -115,7 +117,7 @@ describe("#Countdown", () => {
     let renderCalledCount = 0;
     const timeLefts: number[] = [];
 
-    testHook(() => {
+    renderHook(() => {
       renderCalledCount++;
       const timeLeft = useCountdown({
         until: 1000 * 60 * 60 * 2,
@@ -133,7 +135,7 @@ describe("#Countdown", () => {
     let renderCalledCount = 0;
     const timeLefts: number[] = [];
 
-    testHook(() => {
+    renderHook(() => {
       renderCalledCount++;
       const timeLeft = useCountdown();
       timeLefts.push(timeLeft);

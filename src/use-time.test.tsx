@@ -3,7 +3,7 @@ import { useTime } from "./use-time";
 import TimeSync from "time-sync";
 import lolex from "lolex";
 import TimeContext from "./context";
-import { act, testHook, cleanup } from "react-testing-library";
+import { act, renderHook, cleanup } from "react-hooks-testing-library";
 import { TimerConfig } from "./timed";
 
 describe("#useTime", () => {
@@ -21,7 +21,7 @@ describe("#useTime", () => {
   it("should be exported correctly", () => expect(useTime).toBeDefined());
 
   it("should throw if context is not found", () => {
-    expect(() => testHook(() => useTime())).toThrowErrorMatchingSnapshot();
+    expect(() => renderHook(() => useTime())).toThrowErrorMatchingSnapshot();
   });
 
   it("should respect prop updates", () => {
@@ -29,7 +29,7 @@ describe("#useTime", () => {
 
     const timeSync = new TimeSync();
     const timerConfig: TimerConfig = {};
-    const { result, rerender, unmount } = testHook(
+    const { result, rerender, unmount } = renderHook(
       () => {
         renderCalledCount++;
         return useTime({ ...timerConfig });

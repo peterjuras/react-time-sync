@@ -4,7 +4,7 @@ executors:
   default:
     working_directory: /tmp/work-dir
     docker:
-      - image: orda/ci-base:release-1.1.0
+      - image: orda/ci-base:release-1.2.0
     environment:
       JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
 

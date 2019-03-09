@@ -7,7 +7,7 @@ import { act, renderHook, cleanup } from "react-hooks-testing-library";
 import { TimerConfig } from "./timed";
 
 describe("#useTime", () => {
-  let clock: lolex.Clock;
+  let clock: lolex.InstalledClock<lolex.Clock>;
 
   beforeEach(() => {
     clock = lolex.install({ now: 1 });

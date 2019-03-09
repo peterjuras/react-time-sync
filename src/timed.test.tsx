@@ -6,7 +6,7 @@ import TimeProvider from "./time-provider";
 import { render, cleanup } from "react-testing-library";
 
 describe("#Timed", () => {
-  let clock: lolex.Clock;
+  let clock: lolex.InstalledClock<lolex.Clock>;
 
   beforeEach(() => {
     clock = lolex.install({ now: 1 });

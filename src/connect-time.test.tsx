@@ -6,7 +6,7 @@ import lolex from "lolex";
 import { render, cleanup } from "react-testing-library";
 
 describe("#connectTime", () => {
-  let clock: lolex.Clock;
+  let clock: lolex.InstalledClock<lolex.Clock>;
 
   beforeEach(() => {
     clock = lolex.install({ now: 1 });

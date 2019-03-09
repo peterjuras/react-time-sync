@@ -26,7 +26,7 @@ function getWrapper(): { wrapper: (props: any) => JSX.Element } {
 }
 
 describe("#Countdown", () => {
-  let clock: lolex.Clock;
+  let clock: lolex.InstalledClock<lolex.Clock>;
 
   beforeEach(() => {
     clock = lolex.install({ now: 1 });

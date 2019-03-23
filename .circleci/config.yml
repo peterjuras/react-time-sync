@@ -28,13 +28,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
-            - v1-dependencies-
+            - v1-react-time-sync-{{ checksum "yarn.lock" }}
+            - v1-react-time-sync-
       - run: yarn --frozen-lockfile
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          key: v1-react-time-sync-{{ checksum "yarn.lock" }}
       - run: yarn lint
       - run: yarn build
       - persist_to_workspace:

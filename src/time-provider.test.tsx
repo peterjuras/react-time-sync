@@ -101,4 +101,37 @@ describe("#TimeProvider", () => {
 
     expect(removeAllTimers).toHaveBeenCalledTimes(1);
   });
+
+  it("should use provided timeSync instance if possible", () => {
+    const addTimer = jest.fn();
+    class TimeSync {
+      public removeAllTimers = jest.fn();
+      public stopAllCountdowns = jest.fn();
+      public addTimer = addTimer;
+      public revalidate = jest.fn();
+      public createCountdown = jest.fn();
+      public getCurrentTime = jest.fn();
+      public getTimeLeft = jest.fn();
+    }
+
+    function ContextConsumer(): JSX.Element {
+      return (
+        <TimeContext.Consumer>
+          {timeSync => {
+            timeSync.addTimer(() => {});
+            return null;
+          }}
+        </TimeContext.Consumer>
+      );
+    }
+
+    const { unmount } = render(
+      <TimeProvider timeSync={new TimeSync()}>
+        <ContextConsumer />
+      </TimeProvider>
+    );
+    unmount();
+
+    expect(addTimer).toHaveBeenCalledTimes(1);
+  });
 });

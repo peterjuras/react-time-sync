@@ -154,3 +154,7 @@ const App = ({ content }) => {
   )
 };
 ```
+
+#### Props
+
+`timeSync` - A custom `TimeSync` instance that should be passed down with the context. (default: `new TimeSync()`)

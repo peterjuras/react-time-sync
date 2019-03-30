@@ -6,7 +6,9 @@ import {
   TimeProvider,
   Timed,
   Countdown,
-  connectTime
+  connectTime,
+  useTime,
+  useCountdown
 } from "./index";
 
 describe("#index", () => {
@@ -40,5 +42,13 @@ describe("#index", () => {
 
   it("should export DAYS correctly", () => {
     expect(DAYS).toBeDefined();
+  });
+
+  it("should export useTime correctly", () => {
+    expect(useTime).toBeInstanceOf(Function);
+  });
+
+  it("should export useCountdown correctly", () => {
+    expect(useCountdown).toBeInstanceOf(Function);
   });
 });

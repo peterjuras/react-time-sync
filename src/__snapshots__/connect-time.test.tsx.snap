@@ -28,8 +28,6 @@ exports[`#connectTime should throw for invalid timeProp 6`] = `"timeProp must be
 
 exports[`#connectTime should throw for invalid timeProp 7`] = `"timeProp must be a non-empty string value"`;
 
-exports[`#connectTime should throw if context is not found 1`] = `"Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"`;
-
 exports[`#connectTime should update children on a timer tick 1`] = `
 <DocumentFragment>
   <div>

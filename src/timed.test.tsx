@@ -2,8 +2,8 @@ import React from "react";
 import Timed from "./timed";
 import TimeSync from "time-sync";
 import lolex from "lolex";
-import TimeProvider from "./time-provider";
-import { render, cleanup } from "react-testing-library";
+import { render, cleanup, act } from "react-testing-library";
+import { actTicks } from "../test/util";
 
 describe("#Timed", () => {
   let clock: lolex.InstalledClock<lolex.Clock>;
@@ -20,48 +20,36 @@ describe("#Timed", () => {
   it("should be exported correctly", () => expect(Timed).toBeDefined());
 
   it("should mount and unmount correctly", () => {
-    const { unmount } = render(
-      <TimeProvider>
-        <Timed>{() => <div />}</Timed>
-      </TimeProvider>
-    );
+    const { unmount } = render(<Timed>{() => <div />}</Timed>);
     unmount();
   });
 
-  it("should throw if context is not found", () => {
-    expect(() => {
-      render(<Timed>{() => <div />}</Timed>);
-    }).toThrowErrorMatchingSnapshot();
-  });
-
   it("should not break if no children are passed down", () => {
-    render(
-      <TimeProvider>
-        <Timed />
-      </TimeProvider>
-    );
+    render(<Timed />);
   });
 
   it("should respect prop updates", () => {
     let renderCalledCount = 0;
 
     const { asFragment, rerender, unmount } = render(
-      <TimeProvider>
-        <Timed>
-          {({ currentTime }: { currentTime: number }) => {
-            renderCalledCount++;
-            return <div>{currentTime}</div>;
-          }}
-        </Timed>
-      </TimeProvider>
+      <Timed>
+        {({ currentTime }: { currentTime: number }) => {
+          renderCalledCount++;
+          return <div>{currentTime}</div>;
+        }}
+      </Timed>
     );
 
     expect(asFragment()).toMatchSnapshot();
 
-    clock.tick(999);
+    act(() => {
+      clock.tick(999);
+    });
     expect(asFragment()).toMatchSnapshot();
 
-    clock.tick(1000);
+    act(() => {
+      clock.tick(1000);
+    });
     expect(asFragment()).toMatchSnapshot();
 
     const newProps = {
@@ -70,24 +58,22 @@ describe("#Timed", () => {
     };
 
     rerender(
-      <TimeProvider>
-        <Timed {...newProps}>
-          {({ currentTime }: { currentTime: number }) => {
-            renderCalledCount++;
-            return <div>{currentTime}</div>;
-          }}
-        </Timed>
-      </TimeProvider>
+      <Timed {...newProps}>
+        {({ currentTime }: { currentTime: number }) => {
+          renderCalledCount++;
+          return <div>{currentTime}</div>;
+        }}
+      </Timed>
     );
 
     expect(asFragment()).toMatchSnapshot();
 
-    clock.tick(1000 * 5 * 60);
+    actTicks(act, clock, 1000 * 60, 5);
 
     expect(asFragment()).toMatchSnapshot();
 
     unmount();
 
-    expect(renderCalledCount).toBe(5);
+    expect(renderCalledCount).toBe(6);
   });
 });

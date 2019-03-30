@@ -1,14 +1,14 @@
 import { useContext, useDebugValue, useEffect, useRef, useState } from "react";
 import TimeContext from "./context";
-import { TimerConfig } from "./timed";
+import { Interval } from "time-sync/constants";
+
+export interface TimerConfig {
+  interval?: Interval;
+  unit?: number;
+}
 
 export function useTime(timerConfig: TimerConfig = {}): number {
   const timeSync = useContext(TimeContext);
-  if (!timeSync) {
-    throw new Error(
-      "Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"
-    );
-  }
 
   const lastConfig = useRef(timerConfig);
   const timeState = useState(() => timeSync.getCurrentTime(timerConfig));

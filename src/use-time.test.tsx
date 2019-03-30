@@ -1,10 +1,7 @@
-import React from "react";
-import { useTime } from "./use-time";
+import { useTime, TimerConfig } from "./use-time";
 import TimeSync from "time-sync";
 import lolex from "lolex";
-import TimeContext from "./context";
 import { act, renderHook, cleanup } from "react-hooks-testing-library";
-import { TimerConfig } from "./timed";
 
 describe("#useTime", () => {
   let clock: lolex.InstalledClock<lolex.Clock>;
@@ -20,36 +17,24 @@ describe("#useTime", () => {
 
   it("should be exported correctly", () => expect(useTime).toBeDefined());
 
-  it("should throw if context is not found", () => {
-    expect(() => renderHook(() => useTime())).toThrowErrorMatchingSnapshot();
+  it("should use seconds if no timeConfig is provided", () => {
+    const { result, unmount } = renderHook(() => useTime());
+    expect(result.current).toBe(0);
+    act(() => {
+      clock.tick(5000);
+    });
+    expect(result.current).toBe(5);
+    unmount();
   });
 
   it("should respect prop updates", () => {
     let renderCalledCount = 0;
 
-    const timeSync = new TimeSync();
     const timerConfig: TimerConfig = {};
-    const { result, rerender, unmount } = renderHook(
-      () => {
-        renderCalledCount++;
-        return useTime({ ...timerConfig });
-      },
-      {
-        wrapper: function TestWrapper(props: any) {
-          return (
-            <TimeContext.Provider
-              value={{
-                getCurrentTime: TimeSync.getCurrentTime,
-                getTimeLeft: TimeSync.getTimeLeft,
-                addTimer: timeSync.addTimer,
-                createCountdown: timeSync.createCountdown
-              }}
-              {...props}
-            />
-          );
-        }
-      }
-    );
+    const { result, rerender, unmount } = renderHook(() => {
+      renderCalledCount++;
+      return useTime({ ...timerConfig });
+    });
 
     expect(result).toMatchSnapshot();
 

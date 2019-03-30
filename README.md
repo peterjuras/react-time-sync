@@ -2,28 +2,9 @@
 
 [![npm (scoped)](https://img.shields.io/npm/v/react-time-sync.svg)](https://www.npmjs.com/package/react-time-sync) [![CircleCI](https://circleci.com/gh/peterjuras/react-time-sync.svg?style=svg)](https://circleci.com/gh/peterjuras/react-time-sync) [![Coverage Status](https://coveralls.io/repos/github/peterjuras/react-time-sync/badge.svg?branch=master)](https://coveralls.io/github/peterjuras/react-time-sync?branch=master)[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-A React library to synchronize timers across an application
+A React library to synchronize timers across an application. Requires React v16.8 or higher.
 
 ## Usage
-
-### <TimeProvider>
-
-When using any timed component or hook, a `<TimeProvider>` component needs to be in the top of your component hierarchy
-
-Example:
-```js
-import { TimeProvider } from 'react-time-sync';
-
-const App = ({ content }) => {
-  return (
-    <div>
-      <TimeProvider>
-        {content}
-      </TimeProvider>
-    </div>
-  )
-};
-```
 
 ### useCountdown hook
 
@@ -67,7 +48,7 @@ The `useTime` hook expects an object with the following properties as the single
 `unit` - The number of units of `interval` (default: `1`)
 `interval` - one of `TimeSync.SECONDS`, `TimeSync.MINUTES`, `TimeSync.HOURS`, `TimeSync.DAYS` (default: `TimeSync.SECONDS`)
 
-### <Countdown>
+### Countdown
 
 A component that accepts render props to periodically re-render its children with the time left until a certain millisecond UTC timestamp
 
@@ -95,7 +76,7 @@ ReactDOM.render(<MyComponent until={until} />, ...);
 `until` - A UTC millisecond timestamp until when the countdown should run (required)
 `interval` - one of `TimeSync.SECONDS`, `TimeSync.MINUTES`, `TimeSync.HOURS`, `TimeSync.DAYS` (default: `TimeSync.SECONDS`)
 
-### <Timed>
+### Timed
 
 A component that accepts render props to periodically re-render its children with the current time rounded to the specified interval
 
@@ -151,3 +132,25 @@ export default connectTime(timerConfig)(connect(mapStateToProps)(MyComponent));
 
 `unit` - The number of units of `interval` (default: `1`)
 `interval` - one of `TimeSync.SECONDS`, `TimeSync.MINUTES`, `TimeSync.HOURS`, `TimeSync.DAYS` (default: `TimeSync.SECONDS`)
+
+
+### TimeProvider
+
+You can use a `<TimeProvider>` component to use a custom instance of `TimeSync`, e.g. when you want to synchronize timers across your application
+
+Example:
+```js
+import { TimeProvider } from 'react-time-sync';
+import TimeSync from 'time-sync'
+
+const App = ({ content }) => {
+  const timeSync = new TimeSync()
+  return (
+    <div>
+      <TimeProvider timeSync={timeSync}>
+        {content}
+      </TimeProvider>
+    </div>
+  )
+};
+```

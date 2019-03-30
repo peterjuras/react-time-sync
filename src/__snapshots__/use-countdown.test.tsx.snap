@@ -23,5 +23,3 @@ Object {
   "current": 0,
 }
 `;
-
-exports[`#Countdown should throw if context is not found 1`] = `"Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"`;

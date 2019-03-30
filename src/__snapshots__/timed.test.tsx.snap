@@ -39,5 +39,3 @@ exports[`#Timed should respect prop updates 5`] = `
   </div>
 </DocumentFragment>
 `;
-
-exports[`#Timed should throw if context is not found 1`] = `"Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"`;

@@ -1,9 +1,8 @@
 import React from "react";
-import TimeProvider from "./time-provider";
 import { connectTime } from "./connect-time";
 import { createMockProvider } from "../test/mock-time-provider";
 import lolex from "lolex";
-import { render, cleanup } from "react-testing-library";
+import { act, render, cleanup } from "react-testing-library";
 
 describe("#connectTime", () => {
   let clock: lolex.InstalledClock<lolex.Clock>;
@@ -49,40 +48,13 @@ describe("#connectTime", () => {
     ).toThrowErrorMatchingSnapshot();
   });
 
-  it("should throw if context is not found", () => {
-    const WrappedComponent = connectTime()(() => <div />);
-    expect(() => {
-      render(<WrappedComponent />);
-    }).toThrowErrorMatchingSnapshot();
-  });
-
-  it("should pass through timerConfig to getCurrentTime", () => {
-    const getCurrentTime = jest.fn();
-    const MockProvider = createMockProvider({
-      getCurrentTime
-    });
-    const timerConfig = {
-      testId: 1
-    };
-    const WrappedComponent = connectTime(timerConfig)(() => <div />);
-
-    render(
-      <MockProvider>
-        <WrappedComponent />
-      </MockProvider>
-    );
-
-    expect(getCurrentTime).toHaveBeenCalledTimes(1);
-    expect(getCurrentTime).toHaveBeenCalledWith(timerConfig);
-  });
-
   it("should pass through timerConfig to addTimer", () => {
     const addTimer = jest.fn();
     const MockProvider = createMockProvider({
       addTimer
     });
     const timerConfig = {
-      testId: 1
+      unit: 1
     };
     const WrappedComponent = connectTime(timerConfig)(() => <div />);
 
@@ -103,7 +75,7 @@ describe("#connectTime", () => {
       addTimer
     });
     const timerConfig = {
-      testId: 1
+      unit: 1
     };
     const WrappedComponent = connectTime(timerConfig)(() => <div />);
 
@@ -122,14 +94,12 @@ describe("#connectTime", () => {
       <div>{currentTime}</div>
     ));
 
-    const { asFragment } = render(
-      <TimeProvider>
-        <WrappedComponent />
-      </TimeProvider>
-    );
+    const { asFragment } = render(<WrappedComponent />);
 
     expect(asFragment()).toMatchSnapshot();
-    clock.tick(999);
+    act(() => {
+      clock.tick(999);
+    });
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -139,14 +109,12 @@ describe("#connectTime", () => {
       EmptyComponent
     );
 
-    render(
-      <TimeProvider>
-        <WrappedComponent />
-      </TimeProvider>
-    );
+    render(<WrappedComponent />);
 
     expect(EmptyComponent).toHaveBeenLastCalledWith({ test1: 0 }, {});
-    clock.tick(999);
+    act(() => {
+      clock.tick(999);
+    });
     expect(EmptyComponent).toHaveBeenLastCalledWith({ test1: 1 }, {});
   });
 
@@ -162,11 +130,11 @@ describe("#connectTime", () => {
       <div>Child 3: {currentTime}</div>
     ));
     const { asFragment } = render(
-      <TimeProvider>
+      <>
         <Child1 />
         <Child2 />
         <Child3 />
-      </TimeProvider>
+      </>
     );
 
     expect(asFragment()).toMatchSnapshot();

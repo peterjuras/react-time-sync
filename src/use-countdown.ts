@@ -1,6 +1,15 @@
 import { useContext, useEffect, useRef, useDebugValue, useState } from "react";
 import TimeContext from "./context";
-import { CountdownConfig, SafeCountdownConfig } from "./countdown";
+import { Interval } from "time-sync/constants";
+
+export interface CountdownConfig {
+  until?: number;
+  interval?: Interval;
+}
+
+export interface SafeCountdownConfig extends CountdownConfig {
+  until: number;
+}
 
 function getUsableConfig(
   countdownConfig: CountdownConfig
@@ -13,11 +22,6 @@ function getUsableConfig(
 
 export function useCountdown(countdownConfig: CountdownConfig = {}): number {
   const timeSync = useContext(TimeContext);
-  if (!timeSync) {
-    throw new Error(
-      "Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"
-    );
-  }
 
   const lastConfig = useRef(countdownConfig);
   let usableConfig = getUsableConfig(lastConfig.current);
@@ -33,7 +37,7 @@ export function useCountdown(countdownConfig: CountdownConfig = {}): number {
     lastConfig.current = countdownConfig;
     usableConfig = getUsableConfig(countdownConfig);
 
-    timeLeft = timeSync.getTimeLeft(getUsableConfig(countdownConfig));
+    timeLeft = timeSync.getTimeLeft(usableConfig);
     setTimeLeft(timeLeft);
   }
 

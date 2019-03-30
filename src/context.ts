@@ -10,6 +10,11 @@ export interface TimeSyncContext {
   createCountdown: typeof TimeSync.prototype.createCountdown;
 }
 
-export default React.createContext<TimeSyncContext>(
-  (null as unknown) as TimeSyncContext
-);
+const timeSync = new TimeSync();
+
+export default React.createContext<TimeSyncContext>({
+  getCurrentTime: TimeSync.getCurrentTime,
+  getTimeLeft: TimeSync.getTimeLeft,
+  addTimer: timeSync.addTimer,
+  createCountdown: timeSync.createCountdown
+});

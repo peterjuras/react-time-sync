@@ -1,29 +1,8 @@
-import React from "react";
 import TimeSync from "time-sync";
-import TimeContext from "./context";
-import { useCountdown } from "./use-countdown";
+import { useCountdown, CountdownConfig } from "./use-countdown";
 import lolex from "lolex";
 import { act, renderHook, cleanup } from "react-hooks-testing-library";
-import { CountdownConfig } from "./countdown";
-
-function getWrapper(): { wrapper: (props: any) => JSX.Element } {
-  const timeSync = new TimeSync();
-  return {
-    wrapper: function TestWrapper(props: any) {
-      return (
-        <TimeContext.Provider
-          value={{
-            getCurrentTime: TimeSync.getCurrentTime,
-            getTimeLeft: TimeSync.getTimeLeft,
-            addTimer: timeSync.addTimer,
-            createCountdown: timeSync.createCountdown
-          }}
-          {...props}
-        />
-      );
-    }
-  };
-}
+import { actTicks } from "../test/util";
 
 describe("#Countdown", () => {
   let clock: lolex.InstalledClock<lolex.Clock>;
@@ -37,21 +16,7 @@ describe("#Countdown", () => {
     cleanup();
   });
 
-  function actTicks(interval: number, count: number): void {
-    for (let i = 0; i < count * 2; i++) {
-      act(() => {
-        clock.tick(interval / 2);
-      });
-    }
-  }
-
   it("should be exported correctly", () => expect(useCountdown).toBeDefined());
-
-  it("should throw if context is not found", () => {
-    expect(() =>
-      renderHook(() => useCountdown())
-    ).toThrowErrorMatchingSnapshot();
-  });
 
   it("should not update when until number is reached", () => {
     clock.tick(999);
@@ -60,9 +25,9 @@ describe("#Countdown", () => {
     const { result, unmount } = renderHook(() => {
       renderCalledCount++;
       return useCountdown({ until: 1 });
-    }, getWrapper());
+    });
     expect(result).toMatchSnapshot();
-    actTicks(1000, 10);
+    actTicks(act, clock, 1000, 10);
     expect(result).toMatchSnapshot();
     act(() => {
       unmount();
@@ -79,10 +44,10 @@ describe("#Countdown", () => {
       const timeLeft = useCountdown({ until: 5002 });
       timeLefts.push(timeLeft);
       return timeLeft;
-    }, getWrapper());
+    });
     expect(result).toMatchSnapshot();
 
-    actTicks(1000, 6);
+    actTicks(act, clock, 1000, 6);
     expect(result).toMatchSnapshot();
     act(() => {
       unmount();
@@ -101,14 +66,14 @@ describe("#Countdown", () => {
       const timeLeft = useCountdown({ until: countdownConfig.until || 2001 });
       timeLefts.push(timeLeft);
       return timeLeft;
-    }, getWrapper());
+    });
 
-    actTicks(1000, 5);
+    actTicks(act, clock, 1000, 5);
 
     expect(renderCalledCount).toBe(3);
     countdownConfig.until = 15000;
     rerender();
-    actTicks(1000, 20);
+    actTicks(act, clock, 1000, 20);
     expect(renderCalledCount).toBe(15);
     expect(timeLefts).toEqual([2, 1, 0, 10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
   });
@@ -125,8 +90,8 @@ describe("#Countdown", () => {
       });
       timeLefts.push(timeLeft);
       return timeLeft;
-    }, getWrapper());
-    actTicks(1000 * 60 * 60, 5);
+    });
+    actTicks(act, clock, 1000 * 60 * 60, 5);
     expect(renderCalledCount).toBe(3);
     expect(timeLefts).toEqual([2, 1, 0]);
   });
@@ -140,9 +105,9 @@ describe("#Countdown", () => {
       const timeLeft = useCountdown();
       timeLefts.push(timeLeft);
       return timeLeft;
-    }, getWrapper());
+    });
 
-    actTicks(1000, 10);
+    actTicks(act, clock, 1000, 10);
 
     expect(renderCalledCount).toBe(1);
     expect(timeLefts).toEqual([0]);

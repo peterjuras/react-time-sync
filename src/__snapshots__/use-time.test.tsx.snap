@@ -29,5 +29,3 @@ Object {
   "current": 300,
 }
 `;
-
-exports[`#useTime should throw if context is not found 1`] = `"Warning! TimeSync cannot be found. Did you add <TimeProvider /> at the top of your component hierarchy?"`;

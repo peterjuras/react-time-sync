@@ -103,13 +103,6 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0"
 
-"@babel/runtime@^7.1.5", "@babel/runtime@^7.3.1":
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.3.1.tgz#574b03e8e8a9898eaf4a872a92ea20b7846f6f2a"
-  integrity sha512-7jGW8ppV0ant637pIqAcFfQDDH1orEPGJb8aXfUozuCU3QqX7rX4DA8iwrbPrR1hcH0FTTHz47yQnk+bl5xHQA==
-  dependencies:
-    regenerator-runtime "^0.12.0"
-
 "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.2":
   version "7.4.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.4.2.tgz#f5ab6897320f16decd855eed70b705908a313fe8"
@@ -1719,16 +1712,6 @@ doctrine@^3.0.0:
   integrity sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
   dependencies:
     esutils "^2.0.2"
-
-dom-testing-library@^3.13.1:
-  version "3.16.7"
-  resolved "https://registry.yarnpkg.com/dom-testing-library/-/dom-testing-library-3.16.7.tgz#99490eeb7b2808463f2567c204e24bbd93bf921c"
-  integrity sha512-aa+uEArk6yeTtpkW8B4269cqaF4Kj7JhwlceK0UPABadz6ZGDdVYBXip4TSO/YSqdKc2KKmyp0ydaU93eM4AYA==
-  dependencies:
-    "@babel/runtime" "^7.1.5"
-    "@sheerun/mutationobserver-shim" "^0.3.2"
-    pretty-format "^24.0.0"
-    wait-for-expect "^1.1.0"
 
 dom-testing-library@^3.18.2:
   version "3.18.2"
@@ -5395,13 +5378,13 @@ react-dom@^16.8.6:
     prop-types "^15.6.2"
     scheduler "^0.13.6"
 
-react-hooks-testing-library@^0.3.8:
-  version "0.3.8"
-  resolved "https://registry.yarnpkg.com/react-hooks-testing-library/-/react-hooks-testing-library-0.3.8.tgz#717595ed7be500023963dd502f188aa932bf70f0"
-  integrity sha512-YFnyd2jH2voikSBGufqhprnxMTHgosOHlO5EXhuQycWxfeTCIiw/17aiYbpvRRDRB/0j8QvI/jHXMNVBKw7WzA==
+react-hooks-testing-library@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-hooks-testing-library/-/react-hooks-testing-library-0.4.0.tgz#601f7eda1e817f57a86ef3fe0a17a1fdd771122b"
+  integrity sha512-N/MBIlycPeeAOJwFloUnwpKLBDH2y0L17srRMw1bI/dCyYYC2zKwg9Xccxwy4HFVAGfO9uweVrAGFvOnc6YvUw==
   dependencies:
     "@babel/runtime" "^7.4.2"
-    react-testing-library "^6.0.2"
+    react-testing-library "^6.0.3"
 
 react-is@^16.8.1:
   version "16.8.1"
@@ -5412,14 +5395,6 @@ react-is@^16.8.4:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.4.tgz#90f336a68c3a29a096a3d648ab80e87ec61482a2"
   integrity sha512-PVadd+WaUDOAciICm/J1waJaSvgq+4rHE/K70j0PFqKhkTBsPv/82UGQJNXAngz1fOQLLxI6z1sEDmJDQhCTAA==
-
-react-testing-library@^6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-6.0.2.tgz#afd7ddaa174e21cf672605e4e4f6f8156c4c9ef9"
-  integrity sha512-hWJIixR/jxJBnemcWI5O2JCMXlwoIpgF1IEUF8EYNEADORSZ9fs8rEJu4ygqyC53l3QOowkNb8D+eF5kGT3srg==
-  dependencies:
-    "@babel/runtime" "^7.3.1"
-    dom-testing-library "^3.13.1"
 
 react-testing-library@^6.0.3:
   version "6.0.3"
@@ -5602,11 +5577,6 @@ redeyed@~2.1.0:
   integrity sha1-iYS1gV2ZyyIEacme7v/jiRPmzAs=
   dependencies:
     esprima "~4.0.0"
-
-regenerator-runtime@^0.12.0:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
-  integrity sha512-odxIc1/vDlo4iZcfXqRYFj0vpXFNoGdKMAUieAlFYO6m/nl5e9KR/beGf41z4a1FI+aQgtjhuaSlDxQ0hmkrHg==
 
 regenerator-runtime@^0.13.2:
   version "0.13.2"

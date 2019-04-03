@@ -3,23 +3,27 @@
 exports[`#Countdown should not update when until number is reached 1`] = `
 Object {
   "current": 0,
+  "error": undefined,
 }
 `;
 
 exports[`#Countdown should not update when until number is reached 2`] = `
 Object {
   "current": 0,
+  "error": undefined,
 }
 `;
 
 exports[`#Countdown should stop countdown if it has ended 1`] = `
 Object {
   "current": 6,
+  "error": undefined,
 }
 `;
 
 exports[`#Countdown should stop countdown if it has ended 2`] = `
 Object {
   "current": 0,
+  "error": undefined,
 }
 `;

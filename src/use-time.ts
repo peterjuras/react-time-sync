@@ -11,7 +11,9 @@ export function useTime(timerConfig: TimerConfig = {}): number {
   const timeSync = useContext(TimeContext);
 
   const lastConfig = useRef(timerConfig);
-  const timeState = useState(() => timeSync.getCurrentTime(timerConfig));
+  const timeState = useState(
+    (): number => timeSync.getCurrentTime(timerConfig)
+  );
   let [time] = timeState;
   const [, setTime] = timeState;
 
@@ -25,10 +27,10 @@ export function useTime(timerConfig: TimerConfig = {}): number {
     setTime(time);
   }
 
-  useEffect(() => timeSync.addTimer(setTime, lastConfig.current), [
-    lastConfig.current.unit,
-    lastConfig.current.interval
-  ]);
+  useEffect(
+    (): (() => void) => timeSync.addTimer(setTime, lastConfig.current),
+    [lastConfig.current.unit, lastConfig.current.interval]
+  );
 
   useDebugValue(time);
   return time;

@@ -7,8 +7,10 @@ export function actTicks(
   count: number
 ): void {
   for (let i = 0; i < count * 2; i++) {
-    act(() => {
-      clock.tick(interval / 2);
-    });
+    act(
+      (): void => {
+        clock.tick(interval / 2);
+      }
+    );
   }
 }

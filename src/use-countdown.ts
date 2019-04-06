@@ -26,7 +26,9 @@ export function useCountdown(countdownConfig: CountdownConfig = {}): number {
   const lastConfig = useRef(countdownConfig);
   let usableConfig = getUsableConfig(lastConfig.current);
 
-  const timeLeftState = useState(() => timeSync.getTimeLeft(usableConfig));
+  const timeLeftState = useState(
+    (): number => timeSync.getTimeLeft(usableConfig)
+  );
   let [timeLeft] = timeLeftState;
   const [, setTimeLeft] = timeLeftState;
 
@@ -41,7 +43,7 @@ export function useCountdown(countdownConfig: CountdownConfig = {}): number {
     setTimeLeft(timeLeft);
   }
 
-  useEffect(() => {
+  useEffect((): (() => void) | void => {
     if (timeLeft > 0) {
       return timeSync.createCountdown(setTimeLeft, usableConfig);
     }

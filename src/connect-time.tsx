@@ -36,8 +36,10 @@ export function connectTime(
     ...componentConfig
   };
 
-  return (WrappedComponent: ReactComponentLike) => {
-    return function TimeComponent(props) {
+  return (
+    WrappedComponent: ReactComponentLike
+  ): ((props: object) => JSX.Element) => {
+    return function TimeComponent(props): JSX.Element {
       const timeProps = {
         ...props,
         [usedComponentConfig.timeProp]: useTime(usedTimerConfig)

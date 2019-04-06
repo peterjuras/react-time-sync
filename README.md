@@ -59,9 +59,9 @@ import { Countdown } from 'react-time-sync';
 const MyComponent = ({ until }) => {
   return (
     <Countdown until={until}>
-    {({ timeLeft }) => (
-      <div>{timeLeft > 0 ? `${timeLeft} seconds left` : 'Done!'}</div>
-    )}
+      {({ timeLeft }) => (
+        <div>{timeLeft > 0 ? `${timeLeft} seconds left` : 'Done!'}</div>
+      )}
     </Countdown>
   )
 }
@@ -87,9 +87,9 @@ import { Timed } from 'react-time-sync';
 const MyComponent = () => {
   return (
     <Timed>
-    {({ currentTime }) => (
-      <div>{`The current time is: ${currentTime}`}</div>
-    )}
+      {({ currentTime }) => (
+        <div>{`The current time is: ${currentTime}`}</div>
+      )}
     </Timed>
   )
 }
@@ -113,7 +113,7 @@ const timeSlotsSelector = createSelector(
   currentTime => [currentTime - 1, currentTime + 1]
 )
 
-function mapStateToProps() {
+function mapStateToProps({ currentTime }) {
   const timeSlots = timeSlotSelectors(currentTime)
   return {
     timeSlots

@@ -25,6 +25,7 @@ const MyComponent = ({ until }) => {
 The `useCountdown` hook expects an object with the following properties as the single argument:
 
 `until` - A UTC millisecond timestamp until when the countdown should run (default: 0)
+
 `interval` - one of `TimeSync.SECONDS`, `TimeSync.MINUTES`, `TimeSync.HOURS`, `TimeSync.DAYS` (default: `TimeSync.SECONDS`)
 
 ### useTime hook
@@ -46,6 +47,7 @@ const MyComponent = () => {
 The `useTime` hook expects an object with the following properties as the single argument:
 
 `unit` - The number of units of `interval` (default: `1`)
+
 `interval` - one of `TimeSync.SECONDS`, `TimeSync.MINUTES`, `TimeSync.HOURS`, `TimeSync.DAYS` (default: `TimeSync.SECONDS`)
 
 ### Countdown
@@ -74,6 +76,7 @@ ReactDOM.render(<MyComponent until={until} />, ...);
 #### Props
 
 `until` - A UTC millisecond timestamp until when the countdown should run (required)
+
 `interval` - one of `TimeSync.SECONDS`, `TimeSync.MINUTES`, `TimeSync.HOURS`, `TimeSync.DAYS` (default: `TimeSync.SECONDS`)
 
 ### Timed
@@ -98,6 +101,7 @@ const MyComponent = () => {
 #### Props
 
 `unit` - The number of units of `interval` (default: `1`)
+
 `interval` - one of `TimeSync.SECONDS`, `TimeSync.MINUTES`, `TimeSync.HOURS`, `TimeSync.DAYS` (default: `TimeSync.SECONDS`)
 
 ### connectTime()()
@@ -131,6 +135,7 @@ export default connectTime(timerConfig)(connect(mapStateToProps)(MyComponent));
 #### timerConfig properties
 
 `unit` - The number of units of `interval` (default: `1`)
+
 `interval` - one of `TimeSync.SECONDS`, `TimeSync.MINUTES`, `TimeSync.HOURS`, `TimeSync.DAYS` (default: `TimeSync.SECONDS`)
 
 

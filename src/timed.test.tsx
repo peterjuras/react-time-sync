@@ -74,6 +74,6 @@ describe("#Timed", () => {
 
     unmount();
 
-    expect(renderCalledCount).toBe(6);
+    expect(renderCalledCount).toBe(5);
   });
 });

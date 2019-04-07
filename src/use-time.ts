@@ -1,6 +1,7 @@
-import { useContext, useDebugValue, useEffect, useRef, useState } from "react";
+import { useContext, useDebugValue, useEffect, useRef } from "react";
 import TimeContext from "./context";
 import { Interval } from "time-sync/constants";
+import { useForceUpdate } from "./use-force-update";
 
 export interface TimerConfig {
   interval?: Interval;
@@ -9,13 +10,10 @@ export interface TimerConfig {
 
 export function useTime(timerConfig: TimerConfig = {}): number {
   const timeSync = useContext(TimeContext);
+  const forceUpdate = useForceUpdate();
 
   const lastConfig = useRef(timerConfig);
-  const timeState = useState(
-    (): number => timeSync.getCurrentTime(timerConfig)
-  );
-  let [time] = timeState;
-  const [, setTime] = timeState;
+  const time = useRef(timeSync.getCurrentTime(timerConfig));
 
   if (
     timerConfig.interval !== lastConfig.current.interval ||
@@ -23,15 +21,18 @@ export function useTime(timerConfig: TimerConfig = {}): number {
   ) {
     lastConfig.current = timerConfig;
 
-    time = timeSync.getCurrentTime(timerConfig);
-    setTime(time);
+    time.current = timeSync.getCurrentTime(timerConfig);
   }
 
   useEffect(
-    (): (() => void) => timeSync.addTimer(setTime, lastConfig.current),
+    (): (() => void) =>
+      timeSync.addTimer((currentTime): void => {
+        time.current = currentTime;
+        forceUpdate();
+      }, lastConfig.current),
     [lastConfig.current.unit, lastConfig.current.interval]
   );
 
-  useDebugValue(time);
-  return time;
+  useDebugValue(time.current);
+  return time.current;
 }

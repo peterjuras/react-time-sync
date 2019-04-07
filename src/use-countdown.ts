@@ -1,36 +1,36 @@
-import { useContext, useEffect, useRef, useDebugValue, useState } from "react";
+import { useContext, useEffect, useRef, useDebugValue } from "react";
 import TimeContext from "./context";
 import { Interval } from "time-sync/constants";
+import { useForceUpdate } from "./use-force-update";
 
-export interface CountdownConfig {
+export interface PartialCountdownConfig {
   until?: number;
   interval?: Interval;
 }
 
-export interface SafeCountdownConfig extends CountdownConfig {
+export interface CountdownConfig extends PartialCountdownConfig {
   until: number;
 }
 
 function getUsableConfig(
-  countdownConfig: CountdownConfig
-): SafeCountdownConfig {
+  countdownConfig: PartialCountdownConfig
+): CountdownConfig {
   return {
     ...countdownConfig,
     until: countdownConfig.until || 0
   };
 }
 
-export function useCountdown(countdownConfig: CountdownConfig = {}): number {
+export function useCountdown(
+  countdownConfig: PartialCountdownConfig = {}
+): number {
   const timeSync = useContext(TimeContext);
+  const forceUpdate = useForceUpdate();
 
   const lastConfig = useRef(countdownConfig);
   let usableConfig = getUsableConfig(lastConfig.current);
 
-  const timeLeftState = useState(
-    (): number => timeSync.getTimeLeft(usableConfig)
-  );
-  let [timeLeft] = timeLeftState;
-  const [, setTimeLeft] = timeLeftState;
+  const timeLeft = useRef(timeSync.getTimeLeft(usableConfig));
 
   if (
     countdownConfig.interval !== lastConfig.current.interval ||
@@ -39,16 +39,18 @@ export function useCountdown(countdownConfig: CountdownConfig = {}): number {
     lastConfig.current = countdownConfig;
     usableConfig = getUsableConfig(countdownConfig);
 
-    timeLeft = timeSync.getTimeLeft(usableConfig);
-    setTimeLeft(timeLeft);
+    timeLeft.current = timeSync.getTimeLeft(usableConfig);
   }
 
   useEffect((): (() => void) | void => {
-    if (timeLeft > 0) {
-      return timeSync.createCountdown(setTimeLeft, usableConfig);
+    if (timeLeft.current > 0) {
+      return timeSync.createCountdown((newTimeLeft): void => {
+        timeLeft.current = newTimeLeft;
+        forceUpdate();
+      }, usableConfig);
     }
   }, [usableConfig.until, usableConfig.interval]);
 
-  useDebugValue(timeLeft);
-  return timeLeft;
+  useDebugValue(timeLeft.current);
+  return timeLeft.current;
 }

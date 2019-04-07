@@ -1,5 +1,5 @@
 import TimeSync from "time-sync";
-import { useCountdown, CountdownConfig } from "./use-countdown";
+import { useCountdown, PartialCountdownConfig } from "./use-countdown";
 import lolex from "lolex";
 import { act, renderHook, cleanup } from "react-hooks-testing-library";
 import { actTicks } from "../test/util";
@@ -60,7 +60,7 @@ describe("#Countdown", () => {
     let renderCalledCount = 0;
     const timeLefts: number[] = [];
 
-    const countdownConfig: CountdownConfig = {};
+    const countdownConfig: PartialCountdownConfig = {};
     const { rerender } = renderHook(() => {
       renderCalledCount++;
       const timeLeft = useCountdown({ until: countdownConfig.until || 2001 });
@@ -74,8 +74,8 @@ describe("#Countdown", () => {
     countdownConfig.until = 15000;
     rerender();
     actTicks(act, clock, 1000, 20);
-    expect(renderCalledCount).toBe(15);
-    expect(timeLefts).toEqual([2, 1, 0, 10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
+    expect(renderCalledCount).toBe(14);
+    expect(timeLefts).toEqual([2, 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
   });
 
   it("should use the interval provided as a prop", () => {

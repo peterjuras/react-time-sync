@@ -26,22 +26,22 @@ describe("#connectTime", () => {
 
   it("should throw for invalid timeProp", () => {
     expect(() =>
-      connectTime(null, { timeProp: 23 })
+      connectTime(null, { timeProp: 23 } as any)
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
-      connectTime(null, { timeProp: 23.6 })
+      connectTime(null, { timeProp: 23.6 } as any)
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
-      connectTime(null, { timeProp: [] })
+      connectTime(null, { timeProp: [] } as any)
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
-      connectTime(null, { timeProp: ["a"] })
+      connectTime(null, { timeProp: ["a"] } as any)
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
-      connectTime(null, { timeProp: {} })
+      connectTime(null, { timeProp: {} } as any)
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
-      connectTime(null, { timeProp: { b: 1 } })
+      connectTime(null, { timeProp: { b: 1 } } as any)
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
       connectTime(null, { timeProp: "" })

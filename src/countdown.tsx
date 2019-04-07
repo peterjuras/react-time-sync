@@ -1,12 +1,12 @@
 import React, { ReactElement, FC } from "react";
 import PropTypes from "prop-types";
-import { useCountdown, CountdownConfig } from "./use-countdown";
+import { useCountdown, PartialCountdownConfig } from "./use-countdown";
 
 export type CountdownChildrenType = (obj: {
   timeLeft: number;
 }) => ReactElement | ReactElement[];
 
-interface CountdownConfigProps extends CountdownConfig {
+interface CountdownConfigProps extends PartialCountdownConfig {
   children?: CountdownChildrenType;
 }
 

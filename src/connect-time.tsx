@@ -3,18 +3,16 @@ import { ReactComponentLike } from "prop-types";
 import { useTime, TimerConfig } from "./use-time";
 
 interface ComponentConfig {
-  timeProp?: string;
-}
-
-interface SafeComponentConfig extends ComponentConfig {
   timeProp: string;
 }
 
-const DEFAULT_COMPONENT_CONFIG: SafeComponentConfig = {
+const DEFAULT_COMPONENT_CONFIG: ComponentConfig = {
   timeProp: "currentTime"
 };
 
-function validateComponentConfig(componentConfig: ComponentConfig): void {
+function validateComponentConfig(
+  componentConfig: Partial<ComponentConfig>
+): void {
   if (
     typeof componentConfig.timeProp !== "undefined" &&
     (typeof componentConfig.timeProp !== "string" ||
@@ -26,7 +24,7 @@ function validateComponentConfig(componentConfig: ComponentConfig): void {
 
 export function connectTime(
   timerConfig?: TimerConfig | null,
-  componentConfig = {}
+  componentConfig: Partial<ComponentConfig> = {}
 ): (WrappedComponent: ReactComponentLike) => (props: object) => JSX.Element {
   validateComponentConfig(componentConfig);
 

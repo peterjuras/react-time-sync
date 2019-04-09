@@ -493,10 +493,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.8.tgz#8ae4e0ea205fe95c3901a5a1df7f66495e3a56ce"
   integrity sha512-3AQoUxQcQtLHsK25wtTWIoIpgYjH3vSDroZOUr7PpCHw/jLY1RB9z9E8dBT/OSmwStVgkRNvdh+ZHNiomRieaw==
 
-"@types/react@^16.8.12":
-  version "16.8.12"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.12.tgz#ffbdd7bcd2b7037c3f78e26c708922a2befbb71f"
-  integrity sha512-MZZiv11BQhsxFp5DHDmRKBi6Nv3jwOhRiFFDE7ZJ1+rb52gdOd9y/qY0+5wyV/PQVK9926wFMjpQj3BJ18pb4Q==
+"@types/react@^16.8.13":
+  version "16.8.13"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.13.tgz#a82b15aad9ab91c40edca0d6889b7745ae24f053"
+  integrity sha512-otJ4ntMuHGrvm67CdDJMAls4WqotmAmW0g3HmWi9LCjSWXrxoXY/nHXrtmMfvPEEmGFNm6NdgMsJmnfH820Qaw==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -6566,10 +6566,10 @@ through@2, "through@>=2.2.7 <3", through@^2.3.6:
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
 
-time-sync@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/time-sync/-/time-sync-2.2.2.tgz#f2270fe82991841f7ac5dd08af84a2a24ee7ea42"
-  integrity sha512-HEv1hlMJ4LRsCaVwwmVoCWjg7SUy2EOmVNqk6rgIRgk1xCTnSOFSJqhe5iNjcZsV8oMTC/XY+Xui9v5WAOhy6w==
+time-sync@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/time-sync/-/time-sync-2.2.3.tgz#315d27f55b54de61c69fe7f731856bb7ee504304"
+  integrity sha512-MnZxXjuRipQ7jJ8HyFpUwMg7rFCoXZ5r/iTI7NMkPUXccW74AIaKXUjh4KxgV9t812aNIW9d6gUpOPdAdXNt5w==
 
 timed-out@^4.0.0:
   version "4.0.1"

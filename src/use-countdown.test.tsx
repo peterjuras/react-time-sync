@@ -1,7 +1,7 @@
 import TimeSync from "time-sync";
 import { useCountdown, PartialCountdownConfig } from "./use-countdown";
 import lolex from "lolex";
-import { act, renderHook, cleanup } from "react-hooks-testing-library";
+import { act, renderHook } from "react-hooks-testing-library";
 import { actTicks } from "../test/util";
 
 describe("#Countdown", () => {
@@ -13,7 +13,6 @@ describe("#Countdown", () => {
 
   afterEach(() => {
     clock.uninstall();
-    cleanup();
   });
 
   it("should be exported correctly", () => expect(useCountdown).toBeDefined());

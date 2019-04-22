@@ -1,7 +1,7 @@
 import { useTime, TimerConfig } from "./use-time";
 import TimeSync from "time-sync";
 import lolex from "lolex";
-import { act, renderHook, cleanup } from "react-hooks-testing-library";
+import { act, renderHook } from "react-hooks-testing-library";
 
 describe("#useTime", () => {
   let clock: lolex.InstalledClock<lolex.Clock>;
@@ -12,7 +12,6 @@ describe("#useTime", () => {
 
   afterEach(() => {
     clock.uninstall();
-    cleanup();
   });
 
   it("should be exported correctly", () => expect(useTime).toBeDefined());

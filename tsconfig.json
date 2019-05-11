@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "moduleResolution": "node",
     "module": "commonjs",
     "strict": true,
@@ -8,6 +8,8 @@
     "esModuleInterop": true,
     "jsx": "react",
     "outDir": "build",
+    "noEmit": true,
+    "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true

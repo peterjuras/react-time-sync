@@ -3,7 +3,7 @@ import TimeContext from "./context";
 import TimeProvider from "./time-provider";
 import { render, cleanup } from "react-testing-library";
 
-declare var require: any;
+declare const require: any;
 
 describe("#TimeProvider", () => {
   afterEach(cleanup);

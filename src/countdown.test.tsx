@@ -2,7 +2,7 @@ import React from "react";
 import TimeSync from "time-sync";
 import Countdown from "./countdown";
 import lolex from "lolex";
-import { act, render, cleanup } from "react-testing-library";
+import { act, render, cleanup } from "@testing-library/react";
 import { actTicks } from "../test/util";
 
 describe("#Countdown", () => {

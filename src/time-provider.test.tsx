@@ -1,7 +1,7 @@
 import React from "react";
 import TimeContext from "./context";
 import TimeProvider from "./time-provider";
-import { render, cleanup } from "react-testing-library";
+import { render, cleanup } from "@testing-library/react";
 
 declare const require: any;
 

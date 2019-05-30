@@ -2,7 +2,7 @@ import React from "react";
 import { connectTime } from "./connect-time";
 import { createMockProvider } from "../test/mock-time-provider";
 import lolex from "lolex";
-import { act, render, cleanup } from "react-testing-library";
+import { act, render, cleanup } from "@testing-library/react";
 
 describe("#connectTime", () => {
   let clock: lolex.InstalledClock<lolex.Clock>;

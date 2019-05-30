@@ -2,7 +2,7 @@ import React from "react";
 import Timed from "./timed";
 import TimeSync from "time-sync";
 import lolex from "lolex";
-import { render, cleanup, act } from "react-testing-library";
+import { render, cleanup, act } from "@testing-library/react";
 import { actTicks } from "../test/util";
 
 describe("#Timed", () => {

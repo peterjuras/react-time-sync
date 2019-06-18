@@ -4,7 +4,10 @@
   "description": "A React library to synchronize timers across an application",
   "main": "index.js",
   "types": "index.d.ts",
-  "repository": "https://github.com/peterjuras/react-time-sync.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peterjuras/react-time-sync.git"
+  },
   "author": "Peter Juras <me@peterjuras.com>",
   "scripts": {
     "build:typedefs": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly",

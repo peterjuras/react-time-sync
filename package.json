@@ -24,16 +24,16 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/preset-env": "^7.5.4",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
     "@testing-library/react": "^8.0.4",
     "@types/jest": "^24.0.13",
     "@types/lolex": "^3.1.1",
-    "@types/react": "^16.8.19",
+    "@types/react": "^16.8.23",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
     "babel-jest": "^24.8.0",
@@ -52,7 +52,7 @@
     "react-hooks-testing-library": "^0.6.0",
     "react-test-renderer": "^16.8.6",
     "semantic-release": "^15.13.18",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.3"
   },
   "peerDependencies": {
     "react": "^16.8.0"

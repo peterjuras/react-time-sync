@@ -43,7 +43,7 @@ export function useCountdown(
   }
 
   useEffect((): (() => void) | void => {
-    if (timeLeft.current > 0) {
+    if (Date.now() < usableConfig.until) {
       return timeSync.createCountdown((newTimeLeft): void => {
         timeLeft.current = newTimeLeft;
         forceUpdate();

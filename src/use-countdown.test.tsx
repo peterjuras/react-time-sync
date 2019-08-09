@@ -1,7 +1,7 @@
 import TimeSync from "time-sync";
 import { useCountdown, PartialCountdownConfig } from "./use-countdown";
 import lolex from "lolex";
-import { act, renderHook } from "react-hooks-testing-library";
+import { act, renderHook } from "@testing-library/react-hooks";
 import { actTicks } from "../test/util";
 
 describe("#Countdown", () => {

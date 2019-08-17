@@ -7612,10 +7612,10 @@ through@2, "through@>=2.2.7 <3", through@^2.3.6:
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
 
-time-sync@^2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/time-sync/-/time-sync-2.2.3.tgz#315d27f55b54de61c69fe7f731856bb7ee504304"
-  integrity sha512-MnZxXjuRipQ7jJ8HyFpUwMg7rFCoXZ5r/iTI7NMkPUXccW74AIaKXUjh4KxgV9t812aNIW9d6gUpOPdAdXNt5w==
+time-sync@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/time-sync/-/time-sync-2.2.4.tgz#49194fbb386df46bdeb83547c4972fe9cfe28c70"
+  integrity sha512-9EeVaAF1rT6sfB2oxjpDSe6Mr0c6kRIl/IK/kr2nIw69MGyQvtJlnILlvyjlxBTfeT7VO0Po78pqVAp22FYDIw==
 
 timed-out@^4.0.0:
   version "4.0.1"

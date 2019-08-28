@@ -5,8 +5,6 @@ executors:
     working_directory: /tmp/work-dir
     docker:
       - image: orda/ci-base:node-12
-    environment:
-      JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
 
 workflows:
   version: 2
@@ -46,8 +44,13 @@ jobs:
           command: yarn test-ci
           environment:
             TZ: Europe/Berlin
+      - run:
+          name: Copy test results
+          command: |
+            mkdir -p test-results/jest
+            cp junit.xml test-results/jest
       - store_test_results:
-          path: reports/junit
+          path: test-results
   release:
     executor: default
     steps:

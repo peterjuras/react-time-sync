@@ -1,10 +1,10 @@
-name: react-time-sync
+name: time-sync
 on:
   - push
 
 jobs:
-  build-release:
-    name: build and release
+  build:
+    name: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -22,9 +22,24 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload build
+        uses: actions/upload-artifact@master
+        with:
+          name: build
+          path: build
+  release:
+    name: release
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Download build
+        uses: actions/download-artifact@master
+        with:
+          name: build
       - name: Release
-        if: github.ref == 'refs/heads/master'
-        run: yarn release
+        run: cd build && npx semantic-release@15.13.24
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

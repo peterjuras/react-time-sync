@@ -1,4 +1,4 @@
-name: time-sync
+name: react-time-sync
 on:
   - push
 

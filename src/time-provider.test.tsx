@@ -118,7 +118,9 @@ describe("#TimeProvider", () => {
       return (
         <TimeContext.Consumer>
           {timeSync => {
-            timeSync.addTimer(() => {});
+            timeSync.addTimer(() => {
+              // no-op
+            });
             return null;
           }}
         </TimeContext.Consumer>

@@ -1,7 +1,7 @@
-import { useContext, useEffect, useRef, useDebugValue } from "react";
+import { useContext, useEffect, useDebugValue } from "react";
 import TimeContext from "./context";
 import { Interval } from "time-sync/constants";
-import { useForceUpdate } from "./use-force-update";
+import { useStateWithDeps } from "use-state-with-deps";
 
 export interface PartialCountdownConfig {
   until?: number;
@@ -25,32 +25,23 @@ export function useCountdown(
   countdownConfig: PartialCountdownConfig = {}
 ): number {
   const timeSync = useContext(TimeContext);
-  const forceUpdate = useForceUpdate();
+  const usableConfig = getUsableConfig(countdownConfig);
 
-  const lastConfig = useRef(countdownConfig);
-  let usableConfig = getUsableConfig(lastConfig.current);
-
-  const timeLeft = useRef(timeSync.getTimeLeft(usableConfig));
-
-  if (
-    countdownConfig.interval !== lastConfig.current.interval ||
-    countdownConfig.until !== lastConfig.current.until
-  ) {
-    lastConfig.current = countdownConfig;
-    usableConfig = getUsableConfig(countdownConfig);
-
-    timeLeft.current = timeSync.getTimeLeft(usableConfig);
-  }
+  const [timeLeft, setTimeLeft] = useStateWithDeps(() => {
+    return timeSync.getTimeLeft({
+      interval: usableConfig.interval,
+      until: usableConfig.until
+    });
+  }, [usableConfig.interval, usableConfig.until]);
 
   useEffect((): (() => void) | void => {
     if (Date.now() < usableConfig.until) {
       return timeSync.createCountdown((newTimeLeft): void => {
-        timeLeft.current = newTimeLeft;
-        forceUpdate();
+        setTimeLeft(newTimeLeft);
       }, usableConfig);
     }
   }, [usableConfig.until, usableConfig.interval]);
 
-  useDebugValue(timeLeft.current);
-  return timeLeft.current;
+  useDebugValue(timeLeft);
+  return timeLeft;
 }

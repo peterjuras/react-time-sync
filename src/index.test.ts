@@ -8,7 +8,7 @@ import {
   Countdown,
   connectTime,
   useTime,
-  useCountdown
+  useCountdown,
 } from "./index";
 
 describe("#index", () => {

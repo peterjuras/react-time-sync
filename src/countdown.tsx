@@ -21,7 +21,7 @@ const Countdown: FC<CountdownConfigProps> = (props): ReactElement | null => {
 };
 
 Countdown.propTypes = {
-  children: PropTypes.func
+  children: PropTypes.func,
 };
 
 export default Countdown;

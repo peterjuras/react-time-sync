@@ -51,10 +51,10 @@ describe("#connectTime", () => {
   it("should pass through timerConfig to addTimer", () => {
     const addTimer = jest.fn();
     const MockProvider = createMockProvider({
-      addTimer
+      addTimer,
     });
     const timerConfig = {
-      unit: 1
+      unit: 1,
     };
     const WrappedComponent = connectTime(timerConfig)(() => <div />);
 
@@ -72,10 +72,10 @@ describe("#connectTime", () => {
     const removeTimer = jest.fn();
     const addTimer = jest.fn(() => removeTimer);
     const MockProvider = createMockProvider({
-      addTimer
+      addTimer,
     });
     const timerConfig = {
-      unit: 1
+      unit: 1,
     };
     const WrappedComponent = connectTime(timerConfig)(() => <div />);
 

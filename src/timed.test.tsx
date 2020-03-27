@@ -54,7 +54,7 @@ describe("#Timed", () => {
 
     const newProps = {
       unit: 5,
-      interval: TimeSync.MINUTES
+      interval: TimeSync.MINUTES,
     };
 
     rerender(

@@ -47,7 +47,7 @@ describe("#TimeProvider", () => {
     render(
       <TimeProvider>
         <TimeContext.Consumer>
-          {timeSync => <Child timeSync={timeSync} />}
+          {(timeSync) => <Child timeSync={timeSync} />}
         </TimeContext.Consumer>
       </TimeProvider>
     );
@@ -60,7 +60,7 @@ describe("#TimeProvider", () => {
     render(
       <TimeProvider>
         <TimeContext.Consumer>
-          {timeSync => <Child timeSync={timeSync} />}
+          {(timeSync) => <Child timeSync={timeSync} />}
         </TimeContext.Consumer>
       </TimeProvider>
     );
@@ -75,7 +75,7 @@ describe("#TimeProvider", () => {
     render(
       <TimeProvider>
         <TimeContext.Consumer>
-          {timeSync => <Child timeSync={timeSync} />}
+          {(timeSync) => <Child timeSync={timeSync} />}
         </TimeContext.Consumer>
       </TimeProvider>
     );
@@ -117,7 +117,7 @@ describe("#TimeProvider", () => {
     function ContextConsumer(): JSX.Element {
       return (
         <TimeContext.Consumer>
-          {timeSync => {
+          {(timeSync) => {
             timeSync.addTimer(() => {
               // no-op
             });

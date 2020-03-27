@@ -11,13 +11,14 @@ A React library to synchronize timers across an application. Requires React v16.
 A custom hook which returns the time left until a certain millisecond UTC timestamp is reached
 
 Example:
+
 ```js
-import { useCountdown } from 'react-time-sync';
+import { useCountdown } from "react-time-sync";
 
 const MyComponent = ({ until }) => {
   const timeLeft = useCountdown({ until });
-  return <div>{timeLeft > 0 ? `${timeLeft} seconds left` : 'Done!'}</div>;
-}
+  return <div>{timeLeft > 0 ? `${timeLeft} seconds left` : "Done!"}</div>;
+};
 ```
 
 #### Input
@@ -33,13 +34,14 @@ The `useCountdown` hook expects an object with the following properties as the s
 A custom hook which returns the current time rounded to the specified interval
 
 Example:
+
 ```js
-import { useTime } from 'react-time-sync';
+import { useTime } from "react-time-sync";
 
 const MyComponent = () => {
   const currentTime = useTime();
   return <div>{`The current time is: ${currentTime}`}</div>;
-}
+};
 ```
 
 #### Input
@@ -55,6 +57,7 @@ The `useTime` hook expects an object with the following properties as the single
 A component that accepts render props to periodically re-render its children with the time left until a certain millisecond UTC timestamp
 
 Example:
+
 ```js
 import { Countdown } from 'react-time-sync';
 
@@ -84,18 +87,17 @@ ReactDOM.render(<MyComponent until={until} />, ...);
 A component that accepts render props to periodically re-render its children with the current time rounded to the specified interval
 
 Example:
+
 ```js
-import { Timed } from 'react-time-sync';
+import { Timed } from "react-time-sync";
 
 const MyComponent = () => {
   return (
     <Timed>
-      {({ currentTime }) => (
-        <div>{`The current time is: ${currentTime}`}</div>
-      )}
+      {({ currentTime }) => <div>{`The current time is: ${currentTime}`}</div>}
     </Timed>
-  )
-}
+  );
+};
 ```
 
 #### Props
@@ -109,25 +111,26 @@ const MyComponent = () => {
 A higher order component meant to be used in combination with redux.
 
 Example:
+
 ```js
-import { connectTime, SECONDS } from 'react-time-sync';
+import { connectTime, SECONDS } from "react-time-sync";
 
 const timeSlotsSelector = createSelector(
-  currentTime => currentTime,
-  currentTime => [currentTime - 1, currentTime + 1]
-)
+  (currentTime) => currentTime,
+  (currentTime) => [currentTime - 1, currentTime + 1]
+);
 
 function mapStateToProps({ currentTime }) {
-  const timeSlots = timeSlotSelectors(currentTime)
+  const timeSlots = timeSlotSelectors(currentTime);
   return {
-    timeSlots
+    timeSlots,
   };
 }
 
 const timerConfig = {
   unit: 1,
-  interval: SECONDS
-}
+  interval: SECONDS,
+};
 
 export default connectTime(timerConfig)(connect(mapStateToProps)(MyComponent));
 ```
@@ -138,25 +141,23 @@ export default connectTime(timerConfig)(connect(mapStateToProps)(MyComponent));
 
 `interval` - one of `TimeSync.SECONDS`, `TimeSync.MINUTES`, `TimeSync.HOURS`, `TimeSync.DAYS` (default: `TimeSync.SECONDS`)
 
-
 ### TimeProvider
 
 You can use a `<TimeProvider>` component to use a custom instance of `TimeSync`, e.g. when you want to synchronize timers across your application
 
 Example:
+
 ```js
-import { TimeProvider } from 'react-time-sync';
-import TimeSync from 'time-sync'
+import { TimeProvider } from "react-time-sync";
+import TimeSync from "time-sync";
 
 const App = ({ content }) => {
-  const timeSync = new TimeSync()
+  const timeSync = new TimeSync();
   return (
     <div>
-      <TimeProvider timeSync={timeSync}>
-        {content}
-      </TimeProvider>
+      <TimeProvider timeSync={timeSync}>{content}</TimeProvider>
     </div>
-  )
+  );
 };
 ```
 

@@ -21,7 +21,7 @@ const Timed: FC<TimerConfigProps> = (props): ReactElement | null => {
 };
 
 Timed.propTypes = {
-  children: PropTypes.func
+  children: PropTypes.func,
 };
 
 export default Timed;

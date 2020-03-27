@@ -14,7 +14,7 @@ export function useTime(timerConfig: TimerConfig = {}): number {
     () =>
       timeSync.getCurrentTime({
         interval: timerConfig.interval,
-        unit: timerConfig.unit
+        unit: timerConfig.unit,
       }),
     [timerConfig.interval, timerConfig.unit]
   );

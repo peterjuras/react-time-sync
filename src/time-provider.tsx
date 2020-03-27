@@ -20,12 +20,12 @@ export default class TimeProvider extends Component<
 > {
   public static propTypes = {
     children: PropTypes.node,
-    timeSync: PropTypes.object
+    timeSync: PropTypes.object,
   };
 
   public static defaultProps = {
     children: null,
-    timeSync: null
+    timeSync: null,
   };
 
   public constructor(props: TimeProviderProps) {
@@ -39,8 +39,8 @@ export default class TimeProvider extends Component<
         getCurrentTime: TimeSync.getCurrentTime,
         getTimeLeft: TimeSync.getTimeLeft,
         addTimer: timeSync.addTimer,
-        createCountdown: timeSync.createCountdown
-      }
+        createCountdown: timeSync.createCountdown,
+      },
     };
   }
 

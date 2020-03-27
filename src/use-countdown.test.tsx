@@ -85,7 +85,7 @@ describe("#Countdown", () => {
       renderCalledCount++;
       const timeLeft = useCountdown({
         until: 1000 * 60 * 60 * 2,
-        interval: TimeSync.HOURS
+        interval: TimeSync.HOURS,
       });
       timeLefts.push(timeLeft);
       return timeLeft;

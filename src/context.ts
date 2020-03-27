@@ -16,5 +16,5 @@ export default React.createContext<TimeSyncContext>({
   getCurrentTime: TimeSync.getCurrentTime,
   getTimeLeft: TimeSync.getTimeLeft,
   addTimer: timeSync.addTimer,
-  createCountdown: timeSync.createCountdown
+  createCountdown: timeSync.createCountdown,
 });

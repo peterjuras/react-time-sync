@@ -17,7 +17,7 @@ function getUsableConfig(
 ): CountdownConfig {
   return {
     ...countdownConfig,
-    until: countdownConfig.until || 0
+    until: countdownConfig.until || 0,
   };
 }
 
@@ -30,7 +30,7 @@ export function useCountdown(
   const [timeLeft, setTimeLeft] = useStateWithDeps(() => {
     return timeSync.getTimeLeft({
       interval: usableConfig.interval,
-      until: usableConfig.until
+      until: usableConfig.until,
     });
   }, [usableConfig.interval, usableConfig.until]);
 

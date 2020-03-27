@@ -7,7 +7,7 @@ interface ComponentConfig {
 }
 
 const DEFAULT_COMPONENT_CONFIG: ComponentConfig = {
-  timeProp: "currentTime"
+  timeProp: "currentTime",
 };
 
 function validateComponentConfig(
@@ -31,7 +31,7 @@ export function connectTime(
   const usedTimerConfig = timerConfig || {};
   const usedComponentConfig = {
     ...DEFAULT_COMPONENT_CONFIG,
-    ...componentConfig
+    ...componentConfig,
   };
 
   return (
@@ -40,7 +40,7 @@ export function connectTime(
     return function TimeComponent(props): JSX.Element {
       const timeProps = {
         ...props,
-        [usedComponentConfig.timeProp]: useTime(usedTimerConfig)
+        [usedComponentConfig.timeProp]: useTime(usedTimerConfig),
       };
       return <WrappedComponent {...timeProps} />;
     };

@@ -18,28 +18,28 @@ const DEFAULT_CONFIG: {
   addTimer: () => null,
   getCurrentTime: () => null,
   getTimeLeft: () => 0,
-  createCountdown: () => null
+  createCountdown: () => null,
 };
 
 export function createMockProvider(config: ProviderConfig): any {
   const mockConfig = {
     ...DEFAULT_CONFIG,
-    ...config
+    ...config,
   };
 
   class MockTimeProvider extends Component {
     public static propTypes = {
-      children: PropTypes.node
+      children: PropTypes.node,
     };
 
     public static defaultProps = {
-      children: null
+      children: null,
     };
 
     public state = {
       timeSync: {
-        ...mockConfig
-      }
+        ...mockConfig,
+      },
     };
 
     public render(): JSX.Element {

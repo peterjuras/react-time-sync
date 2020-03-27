@@ -16,7 +16,7 @@
     "prepublishOnly": "node ./scripts/ensure-publish-path",
     "lint:eslint": "eslint '{scripts,src,test}/**/*.{ts,tsx,js}' --max-warnings 0",
     "lint:tsc": "tsc",
-    "lint:prettier": "prettier-check '{scripts,src,test}/**/*.{ts,tsx,js}'",
+    "lint:prettier": "prettier --check scripts src test",
     "lint": "run-p lint:eslint lint:tsc lint:prettier",
     "test": "jest --config .jest.js",
     "test-ci": "jest --ci --config .jest.ci.js"
@@ -46,7 +46,6 @@
     "lolex": "5.1.2",
     "npm-run-all": "4.1.5",
     "prettier": "2.0.2",
-    "prettier-check": "2.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-test-renderer": "16.13.1",

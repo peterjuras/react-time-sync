@@ -1,15 +1,15 @@
 import React from "react";
 import Timed from "./timed";
 import TimeSync from "time-sync";
-import lolex from "lolex";
+import FakeTimers from "@sinonjs/fake-timers";
 import { render, cleanup, act } from "@testing-library/react";
 import { actTicks } from "../test/util";
 
 describe("#Timed", () => {
-  let clock: lolex.InstalledClock<lolex.Clock>;
+  let clock: FakeTimers.InstalledClock;
 
   beforeEach(() => {
-    clock = lolex.install({ now: 1 });
+    clock = FakeTimers.install({ now: 1 });
   });
 
   afterEach(() => {

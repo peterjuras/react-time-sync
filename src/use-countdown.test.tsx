@@ -1,14 +1,14 @@
 import TimeSync from "time-sync";
 import { useCountdown, PartialCountdownConfig } from "./use-countdown";
-import lolex from "lolex";
+import FakeTimers from "@sinonjs/fake-timers";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { actTicks } from "../test/util";
 
 describe("#Countdown", () => {
-  let clock: lolex.InstalledClock<lolex.Clock>;
+  let clock: FakeTimers.InstalledClock;
 
   beforeEach(() => {
-    clock = lolex.install({ now: 1 });
+    clock = FakeTimers.install({ now: 1 });
   });
 
   afterEach(() => {

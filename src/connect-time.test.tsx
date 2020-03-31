@@ -1,14 +1,14 @@
 import React from "react";
 import { connectTime } from "./connect-time";
 import { createMockProvider } from "../test/mock-time-provider";
-import lolex from "lolex";
+import FakeTimers from "@sinonjs/fake-timers";
 import { act, render, cleanup } from "@testing-library/react";
 
 describe("#connectTime", () => {
-  let clock: lolex.InstalledClock<lolex.Clock>;
+  let clock: FakeTimers.InstalledClock;
 
   beforeEach(() => {
-    clock = lolex.install({ now: 1 });
+    clock = FakeTimers.install({ now: 1 });
   });
 
   afterEach(() => {

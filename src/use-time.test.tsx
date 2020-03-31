@@ -1,13 +1,13 @@
 import { useTime, TimerConfig } from "./use-time";
 import TimeSync from "time-sync";
-import lolex from "lolex";
+import FakeTimers from "@sinonjs/fake-timers";
 import { act, renderHook } from "@testing-library/react-hooks";
 
 describe("#useTime", () => {
-  let clock: lolex.InstalledClock<lolex.Clock>;
+  let clock: FakeTimers.InstalledClock;
 
   beforeEach(() => {
-    clock = lolex.install({ now: 1 });
+    clock = FakeTimers.install({ now: 1 });
   });
 
   afterEach(() => {

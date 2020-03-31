@@ -1,8 +1,8 @@
-import lolex from "lolex";
+import FakeTimers from "@sinonjs/fake-timers";
 
 export function actTicks(
   act: (callback: () => void) => void,
-  clock: lolex.InstalledClock<lolex.Clock>,
+  clock: FakeTimers.InstalledClock,
   interval: number,
   count: number
 ): void {

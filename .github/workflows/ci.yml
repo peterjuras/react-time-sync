@@ -40,7 +40,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload build
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
         with:
           name: build
           path: build
@@ -52,11 +52,11 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Download build
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v2
         with:
           name: build
       - name: Release
-        run: cd build && npx semantic-release@15.13.24
+        run: npx semantic-release@15.13.24
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

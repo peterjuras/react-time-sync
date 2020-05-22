@@ -25,7 +25,9 @@ function validateComponentConfig(
 export function connectTime(
   timerConfig?: TimerConfig | null,
   componentConfig: Partial<ComponentConfig> = {}
-): (WrappedComponent: ReactComponentLike) => (props: object) => JSX.Element {
+): (
+  WrappedComponent: ReactComponentLike
+) => (props: Record<string, unknown>) => JSX.Element {
   validateComponentConfig(componentConfig);
 
   const usedTimerConfig = timerConfig || {};
@@ -36,8 +38,8 @@ export function connectTime(
 
   return (
     WrappedComponent: ReactComponentLike
-  ): ((props: object) => JSX.Element) => {
-    return function TimeComponent(props): JSX.Element {
+  ): ((props: Record<string, unknown>) => JSX.Element) => {
+    return function TimeComponent(props: Record<string, unknown>): JSX.Element {
       const timeProps = {
         ...props,
         [usedComponentConfig.timeProp]: useTime(usedTimerConfig),

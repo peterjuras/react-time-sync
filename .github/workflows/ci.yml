@@ -57,7 +57,7 @@ jobs:
           name: build
           path: build
       - name: Release
-        run: npx semantic-release@15.13.24
+        run: npx semantic-release@15
         working-directory: build
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

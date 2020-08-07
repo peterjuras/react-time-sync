@@ -7,7 +7,7 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - name: Cache global yarn cache
         uses: actions/cache@v1
         with:
@@ -36,7 +36,7 @@ jobs:
       - name: Build
         run: yarn build
       - name: Coveralls
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v1.1.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload build
@@ -47,17 +47,17 @@ jobs:
   release:
     name: release
     needs: build
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - name: Download build
         uses: actions/download-artifact@v2
         with:
           name: build
           path: build
       - name: Release
-        run: npx semantic-release@15
+        run: npx semantic-release@17 --branches main
         working-directory: build
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

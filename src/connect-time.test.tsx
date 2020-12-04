@@ -104,7 +104,10 @@ describe("#connectTime", () => {
   });
 
   it("should use the specified property name for timeProp", () => {
-    const EmptyComponent = jest.fn(() => null);
+    const EmptyComponent = jest.fn<
+      ReturnType<React.FC>,
+      Parameters<React.FC<{ test1: number }>>
+    >(() => null);
     const WrappedComponent = connectTime(null, { timeProp: "test1" })(
       EmptyComponent
     );

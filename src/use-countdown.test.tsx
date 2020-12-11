@@ -25,12 +25,19 @@ describe("#Countdown", () => {
       renderCalledCount++;
       return useCountdown({ until: 1 });
     });
-    expect(result).toMatchSnapshot();
+
+    expect(result.error).toBeUndefined();
+    expect(result.current).toBe(0);
+
     actTicks(act, clock, 1000, 10);
-    expect(result).toMatchSnapshot();
+
+    expect(result.error).toBeUndefined();
+    expect(result.current).toBe(0);
+
     act(() => {
       unmount();
     });
+
     expect(renderCalledCount).toBe(1);
   });
 
@@ -44,13 +51,19 @@ describe("#Countdown", () => {
       timeLefts.push(timeLeft);
       return timeLeft;
     });
-    expect(result).toMatchSnapshot();
+
+    expect(result.error).toBeUndefined();
+    expect(result.current).toBe(6);
 
     actTicks(act, clock, 1000, 6);
-    expect(result).toMatchSnapshot();
+
+    expect(result.error).toBeUndefined();
+    expect(result.current).toBe(0);
+
     act(() => {
       unmount();
     });
+
     expect(renderCalledCount).toBe(7);
     expect(timeLefts).toEqual([6, 5, 4, 3, 2, 1, 0]);
   });

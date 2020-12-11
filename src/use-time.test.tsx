@@ -35,30 +35,37 @@ describe("#useTime", () => {
       return useTime({ ...timerConfig });
     });
 
-    expect(result).toMatchSnapshot();
+    expect(result.error).toBeUndefined();
+    expect(result.current).toBe(0);
 
     act(() => {
       clock.tick(999);
     });
-    expect(result).toMatchSnapshot();
+
+    expect(result.error).toBeUndefined();
+    expect(result.current).toBe(1);
 
     act(() => {
       clock.tick(1000);
     });
-    expect(result).toMatchSnapshot();
+
+    expect(result.error).toBeUndefined();
+    expect(result.current).toBe(2);
 
     timerConfig.unit = 5;
     timerConfig.interval = TimeSync.MINUTES;
 
     rerender();
 
-    expect(result).toMatchSnapshot();
+    expect(result.error).toBeUndefined();
+    expect(result.current).toBe(0);
 
     act(() => {
       clock.tick(1000 * 5 * 60);
     });
 
-    expect(result).toMatchSnapshot();
+    expect(result.error).toBeUndefined();
+    expect(result.current).toBe(300);
 
     unmount();
 

@@ -29,7 +29,7 @@
     "@babel/preset-env": "7.12.13",
     "@babel/preset-react": "7.12.13",
     "@babel/preset-typescript": "7.12.13",
-    "@sinonjs/fake-timers": "6.0.1",
+    "@sinonjs/fake-timers": "7.0.2",
     "@testing-library/react": "11.2.5",
     "@testing-library/react-hooks": "5.0.3",
     "@types/jest": "26.0.20",

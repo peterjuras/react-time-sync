@@ -5,7 +5,7 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import { actTicks } from "../test/util";
 
 describe("#Countdown", () => {
-  let clock: FakeTimers.InstalledClock;
+  let clock: FakeTimers.Clock;
 
   beforeEach(() => {
     clock = FakeTimers.install({ now: 1 });

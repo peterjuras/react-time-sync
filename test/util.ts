@@ -2,7 +2,7 @@ import FakeTimers from "@sinonjs/fake-timers";
 
 export function actTicks(
   act: (callback: () => void) => void,
-  clock: FakeTimers.InstalledClock,
+  clock: FakeTimers.Clock,
   interval: number,
   count: number
 ): void {

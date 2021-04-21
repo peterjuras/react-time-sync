@@ -13,10 +13,7 @@
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "paths": {
-      "@sinonjs/fake-timers": ["./node_modules/@types/sinonjs__fake-timers"]
-    }
+    "noUnusedParameters": true
   },
   "include": ["src"]
 }

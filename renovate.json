@@ -2,5 +2,17 @@
   "extends": ["config:base", "group:allNonMajor"],
   "schedule": "before 7am on Friday",
   "postUpdateOptions": ["yarnDedupeHighest"],
-  "lockFileMaintenance": { "enabled": true }
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "automergeType": "branch"
+  },
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true,
+      "automergeType": "branch"
+    }
+  ]
 }

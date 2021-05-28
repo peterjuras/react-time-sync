@@ -9,6 +9,7 @@ describe("#Countdown", () => {
   let clock: FakeTimers.Clock;
 
   beforeEach(() => {
+    // @ts-expect-error install types are too strict, see https://github.com/sinonjs/fake-timers/issues/382
     clock = FakeTimers.install({ now: 1 });
   });
 

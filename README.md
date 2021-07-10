@@ -4,6 +4,8 @@
 
 A React library to synchronize timers across an application. Requires React v16.8 or higher.
 
+Watch [my talk from React Day Berlin](https://youtu.be/3uH90g1Q5iY) to understand why you might need it.
+
 ## Usage
 
 ### useCountdown hook

@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`#TimeProvider should accept default ReactProps.children type as children 1`] = `
+<DocumentFragment>
+  <div>
+    Test1
+  </div>
+  <div>
+    Test2
+  </div>
+</DocumentFragment>
+`;
+
 exports[`#TimeProvider should render a single child 1`] = `
 <DocumentFragment>
   <div>

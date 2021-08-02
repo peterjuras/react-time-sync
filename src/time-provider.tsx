@@ -1,10 +1,10 @@
-import React, { Component, ReactElement } from "react";
+import React, { Component, ReactNode } from "react";
 import PropTypes from "prop-types";
 import TimeContext, { TimeSyncContext } from "./context";
 import TimeSync from "time-sync";
 
 interface TimeProviderProps {
-  children: ReactElement | ReactElement[];
+  children: ReactNode;
   timeSync: TimeSync;
 }
 

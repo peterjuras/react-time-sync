@@ -150,14 +150,15 @@ You can use a `<TimeProvider>` component to use a custom instance of `TimeSync`,
 Example:
 
 ```js
+import { useState } from "react";
 import { TimeProvider } from "react-time-sync";
 import TimeSync from "time-sync";
 
-const App = ({ content }) => {
-  const timeSync = new TimeSync();
+const App = ({ children }) => {
+  const [timeSync] = useState(() => new TimeSync());
   return (
     <div>
-      <TimeProvider timeSync={timeSync}>{content}</TimeProvider>
+      <TimeProvider timeSync={timeSync}>{children}</TimeProvider>
     </div>
   );
 };

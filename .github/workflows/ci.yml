@@ -35,10 +35,8 @@ jobs:
           TZ: Europe/Berlin
       - name: Build
         run: yarn build
-      - name: Coveralls
-        uses: coverallsapp/github-action@1.1.3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload test coverage information
+        run: bash <(curl -s https://codecov.io/bash)
       - name: Upload build
         uses: actions/upload-artifact@v2
         with:

@@ -5,7 +5,7 @@ import FakeTimers from "@sinonjs/fake-timers";
 import { act, render, cleanup } from "@testing-library/react";
 
 describe("#connectTime", () => {
-  let clock: FakeTimers.Clock;
+  let clock: FakeTimers.InstalledClock;
 
   beforeEach(() => {
     clock = FakeTimers.install({ now: 1 });

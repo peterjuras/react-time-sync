@@ -6,7 +6,7 @@ import { act, render, cleanup } from "@testing-library/react";
 import { actTicks } from "../test/util";
 
 describe("#Countdown", () => {
-  let clock: FakeTimers.Clock;
+  let clock: FakeTimers.InstalledClock;
 
   beforeEach(() => {
     clock = FakeTimers.install({ now: 1 });

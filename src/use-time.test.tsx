@@ -4,7 +4,7 @@ import FakeTimers from "@sinonjs/fake-timers";
 import { act, renderHook } from "@testing-library/react-hooks";
 
 describe("#useTime", () => {
-  let clock: FakeTimers.Clock;
+  let clock: FakeTimers.InstalledClock;
 
   beforeEach(() => {
     clock = FakeTimers.install({ now: 1 });

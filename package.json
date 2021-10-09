@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "time-sync": "^2.2.5",
+    "time-sync": "^2.3.0",
     "use-state-with-deps": "^1.1.0"
   }
 }

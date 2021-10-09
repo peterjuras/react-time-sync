@@ -3,12 +3,15 @@ import TimeContext from "./context";
 import TimeProvider from "./time-provider";
 import PropTypes from "prop-types";
 import TimeSync from "time-sync";
+import { Timers } from "time-sync/timers";
 import { render, cleanup } from "@testing-library/react";
-
-declare const require: any;
+import { Countdowns } from "time-sync/countdowns";
 
 describe("#TimeProvider", () => {
-  afterEach(cleanup);
+  afterEach(() => {
+    cleanup();
+    jest.clearAllMocks();
+  });
 
   it("should be exported correctly", () => {
     expect(TimeProvider).toBeDefined();
@@ -88,24 +91,34 @@ describe("#TimeProvider", () => {
   });
 
   it("should call removeAllTimers when unmounting", () => {
-    const removeAllTimers = jest.fn();
-    class TimeSync {
-      public removeAllTimers = removeAllTimers;
-      public stopAllCountdowns = jest.fn();
-    }
-    jest.resetModules();
-    jest.doMock("time-sync", () => TimeSync);
-    const InnerTimeProvider = require("./time-provider").default;
-    jest.resetModules();
+    const removeAllTimers = jest.spyOn(Timers.prototype, "removeAllTimers");
 
-    const { unmount } = render(<InnerTimeProvider />);
+    const { unmount } = render(<TimeProvider />);
     unmount();
 
     expect(removeAllTimers).toHaveBeenCalledTimes(1);
   });
 
+  it("should call stopAllCountdowns when unmounting", () => {
+    const stopAllCountdowns = jest.spyOn(
+      Countdowns.prototype,
+      "stopAllCountdowns"
+    );
+
+    const { unmount } = render(<TimeProvider />);
+    unmount();
+
+    expect(stopAllCountdowns).toHaveBeenCalledTimes(1);
+  });
+
   it("should use provided timeSync instance if possible", () => {
     const addTimer = jest.fn();
+    const removeAllTimers = jest.spyOn(Timers.prototype, "removeAllTimers");
+    const stopAllCountdowns = jest.spyOn(
+      Countdowns.prototype,
+      "stopAllCountdowns"
+    );
+
     class TimeSync {
       public removeAllTimers = jest.fn();
       public stopAllCountdowns = jest.fn();
@@ -138,6 +151,11 @@ describe("#TimeProvider", () => {
     unmount();
 
     expect(addTimer).toHaveBeenCalledTimes(1);
+
+    // Timers & countdowns should not be stopped for
+    // custom provided TimeSync instances
+    expect(stopAllCountdowns).not.toHaveBeenCalled();
+    expect(removeAllTimers).not.toHaveBeenCalled();
   });
 
   it("should accept default ReactProps.children type as children", () => {

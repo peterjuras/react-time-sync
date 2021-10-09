@@ -176,4 +176,27 @@ describe("#TimeProvider", () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
+
+  it("should revalidate when page becomes visible again", () => {
+    const revalidateAllTimers = jest.spyOn(
+      Timers.prototype,
+      "revalidateAllTimers"
+    );
+    const revalidateAllCountdowns = jest.spyOn(
+      Countdowns.prototype,
+      "revalidateAllCountdowns"
+    );
+    const Wrapper: React.FC = () => {
+      return <TimeProvider />;
+    };
+
+    const { unmount } = render(<Wrapper />);
+
+    document.dispatchEvent(new Event("visibilitychange"));
+
+    expect(revalidateAllCountdowns).toHaveBeenCalledTimes(1);
+    expect(revalidateAllTimers).toHaveBeenCalledTimes(1);
+
+    unmount();
+  });
 });

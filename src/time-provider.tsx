@@ -34,6 +34,31 @@ const TimeProvider: React.FC<TimeProviderProps> = (props) => {
     };
   }, [props.timeSync, timeSync]);
 
+  useEffect(() => {
+    function handleVisibilityChange() {
+      if (document.visibilityState === "visible") {
+        timeSync.revalidate();
+      }
+    }
+
+    let listenerSet = false;
+    if (
+      typeof document !== "undefined" &&
+      typeof document.visibilityState !== "undefined"
+    ) {
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      listenerSet = true;
+    }
+    return () => {
+      if (listenerSet) {
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange
+        );
+      }
+    };
+  }, [timeSync]);
+
   return (
     <TimeContext.Provider value={timeContext}>
       {props.children}

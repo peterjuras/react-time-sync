@@ -1,66 +1,76 @@
-import React, { Component, ReactNode } from "react";
+import React, { ReactNode, useEffect, useMemo, useRef } from "react";
 import PropTypes from "prop-types";
-import TimeContext, { TimeSyncContext } from "./context";
+import TimeContext from "./context";
 import TimeSync from "time-sync";
 
 interface TimeProviderProps {
-  children: ReactNode;
-  timeSync: TimeSync;
+  children?: ReactNode;
+  timeSync?: TimeSync;
 }
 
-interface TimeProviderState {
-  customTimeSync: boolean;
-  timeSync: TimeSync;
-  timeContext: TimeSyncContext;
-}
+const TimeProvider: React.FC<TimeProviderProps> = (props) => {
+  const timeSyncFallback = useRef<TimeSync | null>(null);
+  if (!props.timeSync && !timeSyncFallback.current) {
+    timeSyncFallback.current = new TimeSync();
+  }
+  const timeSync = props.timeSync || (timeSyncFallback.current as TimeSync);
 
-export default class TimeProvider extends Component<
-  TimeProviderProps,
-  TimeProviderState
-> {
-  public static propTypes = {
-    children: PropTypes.node,
-    timeSync: PropTypes.object,
-  };
+  const timeContext = useMemo(
+    () => ({
+      getCurrentTime: TimeSync.getCurrentTime,
+      getTimeLeft: TimeSync.getTimeLeft,
+      addTimer: timeSync.addTimer,
+      createCountdown: timeSync.createCountdown,
+    }),
+    [timeSync]
+  );
 
-  public static defaultProps = {
-    children: null,
-    timeSync: null,
-  };
-
-  public constructor(props: TimeProviderProps) {
-    super(props);
-
-    const timeSync = props.timeSync || new TimeSync();
-    this.state = {
-      timeSync,
-      customTimeSync: !!props.timeSync,
-      timeContext: {
-        getCurrentTime: TimeSync.getCurrentTime,
-        getTimeLeft: TimeSync.getTimeLeft,
-        addTimer: timeSync.addTimer,
-        createCountdown: timeSync.createCountdown,
-      },
+  useEffect(() => {
+    return () => {
+      if (!props.timeSync) {
+        timeSync.removeAllTimers();
+        timeSync.stopAllCountdowns();
+      }
     };
-  }
+  }, [props.timeSync, timeSync]);
 
-  public componentWillUnmount(): void {
-    const { customTimeSync, timeSync } = this.state;
-
-    if (!customTimeSync) {
-      timeSync.removeAllTimers();
-      timeSync.stopAllCountdowns();
+  useEffect(() => {
+    function handleVisibilityChange() {
+      if (document.visibilityState === "visible") {
+        timeSync.revalidate();
+      }
     }
-  }
 
-  public render(): JSX.Element {
-    const { timeContext } = this.state;
-    const { children } = this.props;
+    let listenerSet = false;
+    if (
+      typeof document !== "undefined" &&
+      typeof document.visibilityState !== "undefined"
+    ) {
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      listenerSet = true;
+    }
+    return () => {
+      if (listenerSet) {
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange
+        );
+      }
+    };
+  }, [timeSync]);
 
-    return (
-      <TimeContext.Provider value={timeContext}>
-        {children}
-      </TimeContext.Provider>
-    );
-  }
-}
+  return (
+    <TimeContext.Provider value={timeContext}>
+      {props.children}
+    </TimeContext.Provider>
+  );
+};
+
+TimeProvider.propTypes = {
+  children: PropTypes.node,
+  timeSync: PropTypes.object as unknown as React.Validator<
+    TimeSync | undefined
+  >,
+};
+
+export default TimeProvider;

@@ -3,12 +3,30 @@ import TimeContext from "./context";
 import TimeProvider from "./time-provider";
 import PropTypes from "prop-types";
 import TimeSync from "time-sync";
+import { Timers } from "time-sync/timers";
 import { render, cleanup } from "@testing-library/react";
+import { Countdowns } from "time-sync/countdowns";
 
-declare const require: any;
+let pageVisible: VisibilityState | undefined = "visible";
+
+beforeAll(() => {
+  Object.defineProperty(document, "visibilityState", {
+    configurable: true,
+    get: function () {
+      return pageVisible;
+    },
+  });
+});
+
+beforeEach(() => {
+  pageVisible = "visible";
+});
 
 describe("#TimeProvider", () => {
-  afterEach(cleanup);
+  afterEach(() => {
+    cleanup();
+    jest.clearAllMocks();
+  });
 
   it("should be exported correctly", () => {
     expect(TimeProvider).toBeDefined();
@@ -88,24 +106,34 @@ describe("#TimeProvider", () => {
   });
 
   it("should call removeAllTimers when unmounting", () => {
-    const removeAllTimers = jest.fn();
-    class TimeSync {
-      public removeAllTimers = removeAllTimers;
-      public stopAllCountdowns = jest.fn();
-    }
-    jest.resetModules();
-    jest.doMock("time-sync", () => TimeSync);
-    const InnerTimeProvider = require("./time-provider").default;
-    jest.resetModules();
+    const removeAllTimers = jest.spyOn(Timers.prototype, "removeAllTimers");
 
-    const { unmount } = render(<InnerTimeProvider />);
+    const { unmount } = render(<TimeProvider />);
     unmount();
 
     expect(removeAllTimers).toHaveBeenCalledTimes(1);
   });
 
+  it("should call stopAllCountdowns when unmounting", () => {
+    const stopAllCountdowns = jest.spyOn(
+      Countdowns.prototype,
+      "stopAllCountdowns"
+    );
+
+    const { unmount } = render(<TimeProvider />);
+    unmount();
+
+    expect(stopAllCountdowns).toHaveBeenCalledTimes(1);
+  });
+
   it("should use provided timeSync instance if possible", () => {
     const addTimer = jest.fn();
+    const removeAllTimers = jest.spyOn(Timers.prototype, "removeAllTimers");
+    const stopAllCountdowns = jest.spyOn(
+      Countdowns.prototype,
+      "stopAllCountdowns"
+    );
+
     class TimeSync {
       public removeAllTimers = jest.fn();
       public stopAllCountdowns = jest.fn();
@@ -138,6 +166,11 @@ describe("#TimeProvider", () => {
     unmount();
 
     expect(addTimer).toHaveBeenCalledTimes(1);
+
+    // Timers & countdowns should not be stopped for
+    // custom provided TimeSync instances
+    expect(stopAllCountdowns).not.toHaveBeenCalled();
+    expect(removeAllTimers).not.toHaveBeenCalled();
   });
 
   it("should accept default ReactProps.children type as children", () => {
@@ -157,5 +190,69 @@ describe("#TimeProvider", () => {
       </ExampleWrapper>
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  describe("#page visibility change", () => {
+    it("should revalidate when page becomes visible again", () => {
+      const revalidateAllTimers = jest.spyOn(
+        Timers.prototype,
+        "revalidateAllTimers"
+      );
+      const revalidateAllCountdowns = jest.spyOn(
+        Countdowns.prototype,
+        "revalidateAllCountdowns"
+      );
+      const Wrapper: React.FC = () => {
+        return <TimeProvider />;
+      };
+
+      const { unmount } = render(<Wrapper />);
+
+      pageVisible = "hidden";
+      document.dispatchEvent(new Event("visibilitychange"));
+
+      expect(revalidateAllCountdowns).toHaveBeenCalledTimes(0);
+      expect(revalidateAllTimers).toHaveBeenCalledTimes(0);
+
+      pageVisible = "visible";
+      document.dispatchEvent(new Event("visibilitychange"));
+
+      expect(revalidateAllCountdowns).toHaveBeenCalledTimes(1);
+      expect(revalidateAllTimers).toHaveBeenCalledTimes(1);
+
+      unmount();
+    });
+
+    it("should not revalidate when visibilityState is not supported", () => {
+      const revalidateAllTimers = jest.spyOn(
+        Timers.prototype,
+        "revalidateAllTimers"
+      );
+      const revalidateAllCountdowns = jest.spyOn(
+        Countdowns.prototype,
+        "revalidateAllCountdowns"
+      );
+      const Wrapper: React.FC = () => {
+        return <TimeProvider />;
+      };
+
+      pageVisible = undefined;
+
+      const { unmount } = render(<Wrapper />);
+
+      pageVisible = "hidden";
+      document.dispatchEvent(new Event("visibilitychange"));
+
+      expect(revalidateAllCountdowns).toHaveBeenCalledTimes(0);
+      expect(revalidateAllTimers).toHaveBeenCalledTimes(0);
+
+      pageVisible = "visible";
+      document.dispatchEvent(new Event("visibilitychange"));
+
+      expect(revalidateAllCountdowns).toHaveBeenCalledTimes(0);
+      expect(revalidateAllTimers).toHaveBeenCalledTimes(0);
+
+      unmount();
+    });
   });
 });

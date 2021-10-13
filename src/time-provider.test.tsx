@@ -7,6 +7,21 @@ import { Timers } from "time-sync/timers";
 import { render, cleanup } from "@testing-library/react";
 import { Countdowns } from "time-sync/countdowns";
 
+let pageVisible: VisibilityState | undefined = "visible";
+
+beforeAll(() => {
+  Object.defineProperty(document, "visibilityState", {
+    configurable: true,
+    get: function () {
+      return pageVisible;
+    },
+  });
+});
+
+beforeEach(() => {
+  pageVisible = "visible";
+});
+
 describe("#TimeProvider", () => {
   afterEach(() => {
     cleanup();
@@ -177,26 +192,67 @@ describe("#TimeProvider", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it("should revalidate when page becomes visible again", () => {
-    const revalidateAllTimers = jest.spyOn(
-      Timers.prototype,
-      "revalidateAllTimers"
-    );
-    const revalidateAllCountdowns = jest.spyOn(
-      Countdowns.prototype,
-      "revalidateAllCountdowns"
-    );
-    const Wrapper: React.FC = () => {
-      return <TimeProvider />;
-    };
+  describe("#page visibility change", () => {
+    it("should revalidate when page becomes visible again", () => {
+      const revalidateAllTimers = jest.spyOn(
+        Timers.prototype,
+        "revalidateAllTimers"
+      );
+      const revalidateAllCountdowns = jest.spyOn(
+        Countdowns.prototype,
+        "revalidateAllCountdowns"
+      );
+      const Wrapper: React.FC = () => {
+        return <TimeProvider />;
+      };
 
-    const { unmount } = render(<Wrapper />);
+      const { unmount } = render(<Wrapper />);
 
-    document.dispatchEvent(new Event("visibilitychange"));
+      pageVisible = "hidden";
+      document.dispatchEvent(new Event("visibilitychange"));
 
-    expect(revalidateAllCountdowns).toHaveBeenCalledTimes(1);
-    expect(revalidateAllTimers).toHaveBeenCalledTimes(1);
+      expect(revalidateAllCountdowns).toHaveBeenCalledTimes(0);
+      expect(revalidateAllTimers).toHaveBeenCalledTimes(0);
 
-    unmount();
+      pageVisible = "visible";
+      document.dispatchEvent(new Event("visibilitychange"));
+
+      expect(revalidateAllCountdowns).toHaveBeenCalledTimes(1);
+      expect(revalidateAllTimers).toHaveBeenCalledTimes(1);
+
+      unmount();
+    });
+
+    it("should not revalidate when visibilityState is not supported", () => {
+      const revalidateAllTimers = jest.spyOn(
+        Timers.prototype,
+        "revalidateAllTimers"
+      );
+      const revalidateAllCountdowns = jest.spyOn(
+        Countdowns.prototype,
+        "revalidateAllCountdowns"
+      );
+      const Wrapper: React.FC = () => {
+        return <TimeProvider />;
+      };
+
+      pageVisible = undefined;
+
+      const { unmount } = render(<Wrapper />);
+
+      pageVisible = "hidden";
+      document.dispatchEvent(new Event("visibilitychange"));
+
+      expect(revalidateAllCountdowns).toHaveBeenCalledTimes(0);
+      expect(revalidateAllTimers).toHaveBeenCalledTimes(0);
+
+      pageVisible = "visible";
+      document.dispatchEvent(new Event("visibilitychange"));
+
+      expect(revalidateAllCountdowns).toHaveBeenCalledTimes(0);
+      expect(revalidateAllTimers).toHaveBeenCalledTimes(0);
+
+      unmount();
+    });
   });
 });

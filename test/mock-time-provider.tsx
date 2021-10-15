@@ -52,5 +52,9 @@ export function createMockProvider(config: ProviderConfig): any {
     }
   }
 
+  MockTimeProvider.propTypes = {
+    children: PropTypes.node,
+  };
+
   return MockTimeProvider;
 }

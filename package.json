@@ -26,17 +26,17 @@
     "@babel/cli": "7.16.0",
     "@babel/core": "7.16.0",
     "@babel/plugin-proposal-class-properties": "7.16.0",
-    "@babel/preset-env": "7.16.0",
+    "@babel/preset-env": "7.16.4",
     "@babel/preset-react": "7.16.0",
     "@babel/preset-typescript": "7.16.0",
     "@sinonjs/fake-timers": "8.1.0",
     "@testing-library/react": "12.1.2",
     "@testing-library/react-hooks": "7.0.2",
-    "@types/jest": "27.0.2",
-    "@types/react": "17.0.34",
+    "@types/jest": "27.0.3",
+    "@types/react": "17.0.35",
     "@types/sinonjs__fake-timers": "8.1.0",
-    "@typescript-eslint/eslint-plugin": "5.3.1",
-    "@typescript-eslint/parser": "5.3.1",
+    "@typescript-eslint/eslint-plugin": "5.4.0",
+    "@typescript-eslint/parser": "5.4.0",
     "babel-jest": "27.3.1",
     "eslint": "8.2.0",
     "eslint-config-prettier": "8.3.0",
@@ -48,7 +48,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-test-renderer": "17.0.2",
-    "typescript": "4.4.4"
+    "typescript": "4.5.2"
   },
   "peerDependencies": {
     "react": "> 16.8.0"

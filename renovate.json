@@ -1,6 +1,6 @@
 {
   "extends": ["config:base", "group:allNonMajor"],
-  "schedule": "before 7am on Friday",
+  "schedule": "on Friday",
   "postUpdateOptions": ["yarnDedupeHighest"],
   "lockFileMaintenance": {
     "enabled": true,

@@ -50,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - name: Download build
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: build
           path: build

@@ -7,7 +7,7 @@ import { Timers } from "time-sync/timers";
 import { render, cleanup } from "@testing-library/react";
 import { Countdowns } from "time-sync/countdowns";
 
-let pageVisible: VisibilityState | undefined = "visible";
+let pageVisible: DocumentVisibilityState | undefined = "visible";
 
 beforeAll(() => {
   Object.defineProperty(document, "visibilityState", {

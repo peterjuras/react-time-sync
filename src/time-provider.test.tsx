@@ -1,7 +1,6 @@
 import React from "react";
 import TimeContext from "./context";
 import TimeProvider from "./time-provider";
-import PropTypes from "prop-types";
 import TimeSync from "time-sync";
 import { Timers } from "time-sync/timers";
 import { render, cleanup } from "@testing-library/react";
@@ -176,11 +175,10 @@ describe("#TimeProvider", () => {
   it("should accept default ReactProps.children type as children", () => {
     const timeSync = new TimeSync();
 
-    const ExampleWrapper: React.FC = ({ children }) => {
+    const ExampleWrapper: React.FC<React.PropsWithChildren<unknown>> = ({
+      children,
+    }) => {
       return <TimeProvider timeSync={timeSync}>{children}</TimeProvider>;
-    };
-    ExampleWrapper.propTypes = {
-      children: PropTypes.node,
     };
 
     const { asFragment } = render(

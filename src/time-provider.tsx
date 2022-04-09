@@ -4,11 +4,12 @@ import TimeContext from "./context";
 import TimeSync from "time-sync";
 
 interface TimeProviderProps {
-  children?: ReactNode;
   timeSync?: TimeSync;
 }
 
-const TimeProvider: React.FC<TimeProviderProps> = (props) => {
+const TimeProvider: React.FC<React.PropsWithChildren<TimeProviderProps>> = (
+  props
+) => {
   const timeSyncFallback = useRef<TimeSync | null>(null);
   if (!props.timeSync && !timeSyncFallback.current) {
     timeSyncFallback.current = new TimeSync();
@@ -67,7 +68,7 @@ const TimeProvider: React.FC<TimeProviderProps> = (props) => {
 };
 
 TimeProvider.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node as unknown as React.Validator<ReactNode | undefined>,
   timeSync: PropTypes.object as unknown as React.Validator<
     TimeSync | undefined
   >,

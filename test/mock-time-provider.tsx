@@ -27,7 +27,7 @@ export function createMockProvider(config: ProviderConfig): any {
     ...config,
   };
 
-  class MockTimeProvider extends Component {
+  class MockTimeProvider extends Component<React.PropsWithChildren<unknown>> {
     public static propTypes = {
       children: PropTypes.node,
     };

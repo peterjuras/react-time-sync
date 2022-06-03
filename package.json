@@ -32,7 +32,7 @@
     "@sinonjs/fake-timers": "9.1.2",
     "@testing-library/react": "13.3.0",
     "@testing-library/react-hooks": "8.0.0",
-    "@types/jest": "27.5.2",
+    "@types/jest": "28.1.0",
     "@types/react": "18.0.10",
     "@types/sinonjs__fake-timers": "8.1.2",
     "@typescript-eslint/eslint-plugin": "5.27.0",

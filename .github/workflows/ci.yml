@@ -60,3 +60,14 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  notify-on-failure:
+    needs:
+      - build
+      - release
+    runs-on: ubuntu-latest
+    if: failure() # only run this job when any of the previous jobs fail.
+    steps:
+      - name: Notify through commit comment
+        uses: peter-evans/commit-comment@v2
+        with:
+          body: "@peterjuras: The workflow failed!"

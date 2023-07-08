@@ -37,7 +37,7 @@ describe("#Timed", () => {
           renderCalledCount++;
           return <div>{currentTime}</div>;
         }}
-      </Timed>
+      </Timed>,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -63,7 +63,7 @@ describe("#Timed", () => {
           renderCalledCount++;
           return <div>{currentTime}</div>;
         }}
-      </Timed>
+      </Timed>,
     );
 
     expect(asFragment()).toMatchSnapshot();

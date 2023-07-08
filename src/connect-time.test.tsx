@@ -26,25 +26,25 @@ describe("#connectTime", () => {
 
   it("should throw for invalid timeProp", () => {
     expect(() =>
-      connectTime(null, { timeProp: 23 } as any)
+      connectTime(null, { timeProp: 23 } as any),
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
-      connectTime(null, { timeProp: 23.6 } as any)
+      connectTime(null, { timeProp: 23.6 } as any),
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
-      connectTime(null, { timeProp: [] } as any)
+      connectTime(null, { timeProp: [] } as any),
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
-      connectTime(null, { timeProp: ["a"] } as any)
+      connectTime(null, { timeProp: ["a"] } as any),
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
-      connectTime(null, { timeProp: {} } as any)
+      connectTime(null, { timeProp: {} } as any),
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
-      connectTime(null, { timeProp: { b: 1 } } as any)
+      connectTime(null, { timeProp: { b: 1 } } as any),
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
-      connectTime(null, { timeProp: "" })
+      connectTime(null, { timeProp: "" }),
     ).toThrowErrorMatchingSnapshot();
   });
 
@@ -61,7 +61,7 @@ describe("#connectTime", () => {
     render(
       <MockProvider>
         <WrappedComponent />
-      </MockProvider>
+      </MockProvider>,
     );
 
     expect(addTimer).toHaveBeenCalledTimes(1);
@@ -82,7 +82,7 @@ describe("#connectTime", () => {
     const { unmount } = render(
       <MockProvider>
         <WrappedComponent />
-      </MockProvider>
+      </MockProvider>,
     );
     expect(removeTimer).toHaveBeenCalledTimes(0);
     unmount();
@@ -109,7 +109,7 @@ describe("#connectTime", () => {
       Parameters<React.FC<{ test1: number }>>
     >(() => null);
     const WrappedComponent = connectTime(null, { timeProp: "test1" })(
-      EmptyComponent
+      EmptyComponent,
     );
 
     render(<WrappedComponent />);
@@ -137,7 +137,7 @@ describe("#connectTime", () => {
         <Child1 />
         <Child2 />
         <Child3 />
-      </>
+      </>,
     );
 
     expect(asFragment()).toMatchSnapshot();

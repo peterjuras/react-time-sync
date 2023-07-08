@@ -11,7 +11,7 @@ const DEFAULT_COMPONENT_CONFIG: ComponentConfig = {
 };
 
 function validateComponentConfig(
-  componentConfig: Partial<ComponentConfig>
+  componentConfig: Partial<ComponentConfig>,
 ): void {
   if (
     typeof componentConfig.timeProp !== "undefined" &&
@@ -24,9 +24,9 @@ function validateComponentConfig(
 
 export function connectTime(
   timerConfig?: TimerConfig | null,
-  componentConfig: Partial<ComponentConfig> = {}
+  componentConfig: Partial<ComponentConfig> = {},
 ): (
-  WrappedComponent: ReactComponentLike
+  WrappedComponent: ReactComponentLike,
 ) => (props: Record<string, unknown>) => JSX.Element {
   validateComponentConfig(componentConfig);
 
@@ -37,7 +37,7 @@ export function connectTime(
   };
 
   return (
-    WrappedComponent: ReactComponentLike
+    WrappedComponent: ReactComponentLike,
   ): ((props: Record<string, unknown>) => JSX.Element) => {
     return function TimeComponent(props: Record<string, unknown>): JSX.Element {
       const timeProps = {

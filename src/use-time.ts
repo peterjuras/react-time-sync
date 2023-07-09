@@ -16,7 +16,7 @@ export function useTime(timerConfig: TimerConfig = {}): number {
         interval: timerConfig.interval,
         unit: timerConfig.unit,
       }),
-    [timerConfig.interval, timerConfig.unit]
+    [timerConfig.interval, timerConfig.unit],
   );
 
   useEffect(
@@ -24,7 +24,7 @@ export function useTime(timerConfig: TimerConfig = {}): number {
       timeSync.addTimer((currentTime): void => {
         setTime(currentTime);
       }, timerConfig),
-    [timerConfig.unit, timerConfig.interval]
+    [timerConfig.unit, timerConfig.interval],
   );
 
   useDebugValue(time);

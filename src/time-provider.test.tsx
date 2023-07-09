@@ -45,7 +45,7 @@ describe("#TimeProvider", () => {
     const { asFragment } = render(
       <TimeProvider>
         <div>Test</div>
-      </TimeProvider>
+      </TimeProvider>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -56,7 +56,7 @@ describe("#TimeProvider", () => {
         <div>Test1</div>
         <div>Test2</div>
         <div>Test3</div>
-      </TimeProvider>
+      </TimeProvider>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -68,7 +68,7 @@ describe("#TimeProvider", () => {
         <TimeContext.Consumer>
           {(timeSync) => <Child timeSync={timeSync} />}
         </TimeContext.Consumer>
-      </TimeProvider>
+      </TimeProvider>,
     );
 
     expect(Child.mock.calls[0][0].timeSync).toBeDefined();
@@ -81,11 +81,11 @@ describe("#TimeProvider", () => {
         <TimeContext.Consumer>
           {(timeSync) => <Child timeSync={timeSync} />}
         </TimeContext.Consumer>
-      </TimeProvider>
+      </TimeProvider>,
     );
 
     expect(Child.mock.calls[0][0].timeSync.getCurrentTime).toBeInstanceOf(
-      Function
+      Function,
     );
   });
 
@@ -96,11 +96,11 @@ describe("#TimeProvider", () => {
         <TimeContext.Consumer>
           {(timeSync) => <Child timeSync={timeSync} />}
         </TimeContext.Consumer>
-      </TimeProvider>
+      </TimeProvider>,
     );
 
     expect(Child.mock.calls[0][0].timeSync.getCurrentTime).toBeInstanceOf(
-      Function
+      Function,
     );
   });
 
@@ -116,7 +116,7 @@ describe("#TimeProvider", () => {
   it("should call stopAllCountdowns when unmounting", () => {
     const stopAllCountdowns = jest.spyOn(
       Countdowns.prototype,
-      "stopAllCountdowns"
+      "stopAllCountdowns",
     );
 
     const { unmount } = render(<TimeProvider />);
@@ -130,7 +130,7 @@ describe("#TimeProvider", () => {
     const removeAllTimers = jest.spyOn(Timers.prototype, "removeAllTimers");
     const stopAllCountdowns = jest.spyOn(
       Countdowns.prototype,
-      "stopAllCountdowns"
+      "stopAllCountdowns",
     );
 
     class TimeSync {
@@ -160,7 +160,7 @@ describe("#TimeProvider", () => {
     const { unmount } = render(
       <TimeProvider timeSync={timeSync}>
         <ContextConsumer />
-      </TimeProvider>
+      </TimeProvider>,
     );
     unmount();
 
@@ -185,7 +185,7 @@ describe("#TimeProvider", () => {
       <ExampleWrapper>
         <div>Test1</div>
         <div>Test2</div>
-      </ExampleWrapper>
+      </ExampleWrapper>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -194,11 +194,11 @@ describe("#TimeProvider", () => {
     it("should revalidate when page becomes visible again", () => {
       const revalidateAllTimers = jest.spyOn(
         Timers.prototype,
-        "revalidateAllTimers"
+        "revalidateAllTimers",
       );
       const revalidateAllCountdowns = jest.spyOn(
         Countdowns.prototype,
-        "revalidateAllCountdowns"
+        "revalidateAllCountdowns",
       );
       const Wrapper: React.FC = () => {
         return <TimeProvider />;
@@ -224,11 +224,11 @@ describe("#TimeProvider", () => {
     it("should not revalidate when visibilityState is not supported", () => {
       const revalidateAllTimers = jest.spyOn(
         Timers.prototype,
-        "revalidateAllTimers"
+        "revalidateAllTimers",
       );
       const revalidateAllCountdowns = jest.spyOn(
         Countdowns.prototype,
-        "revalidateAllCountdowns"
+        "revalidateAllCountdowns",
       );
       const Wrapper: React.FC = () => {
         return <TimeProvider />;

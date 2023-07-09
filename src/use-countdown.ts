@@ -13,7 +13,7 @@ export interface CountdownConfig extends PartialCountdownConfig {
 }
 
 function getUsableConfig(
-  countdownConfig: PartialCountdownConfig
+  countdownConfig: PartialCountdownConfig,
 ): CountdownConfig {
   return {
     ...countdownConfig,
@@ -22,7 +22,7 @@ function getUsableConfig(
 }
 
 export function useCountdown(
-  countdownConfig: PartialCountdownConfig = {}
+  countdownConfig: PartialCountdownConfig = {},
 ): number {
   const timeSync = useContext(TimeContext);
   const usableConfig = getUsableConfig(countdownConfig);

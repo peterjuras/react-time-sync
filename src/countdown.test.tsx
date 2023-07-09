@@ -37,7 +37,7 @@ describe("#Countdown", () => {
           renderCalledCount++;
           return <div>{timeLeft}</div>;
         }}
-      </Countdown>
+      </Countdown>,
     );
     expect(asFragment()).toMatchSnapshot();
     actTicks(act, clock, 1000, 10);
@@ -56,7 +56,7 @@ describe("#Countdown", () => {
           timeLefts.push(timeLeft);
           return <div>{timeLeft}</div>;
         }}
-      </Countdown>
+      </Countdown>,
     );
     expect(asFragment()).toMatchSnapshot();
     actTicks(act, clock, 1000, 6);
@@ -76,7 +76,7 @@ describe("#Countdown", () => {
           timeLefts.push(timeLeft);
           return <div>{timeLeft}</div>;
         }}
-      </Countdown>
+      </Countdown>,
     );
     actTicks(act, clock, 1000, 5);
     expect(renderCalledCount).toBe(3);
@@ -87,7 +87,7 @@ describe("#Countdown", () => {
           timeLefts.push(timeLeft);
           return <div>{timeLeft}</div>;
         }}
-      </Countdown>
+      </Countdown>,
     );
     actTicks(act, clock, 1000, 20);
     expect(renderCalledCount).toBe(14);
@@ -104,7 +104,7 @@ describe("#Countdown", () => {
           timeLefts.push(timeLeft);
           return <div>{timeLeft}</div>;
         }}
-      </Countdown>
+      </Countdown>,
     );
     actTicks(act, clock, 1000 * 60 * 60, 4);
     expect(renderCalledCount).toBe(3);

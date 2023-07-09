@@ -8,7 +8,7 @@ interface TimeProviderProps {
 }
 
 const TimeProvider: React.FC<React.PropsWithChildren<TimeProviderProps>> = (
-  props
+  props,
 ) => {
   const timeSyncFallback = useRef<TimeSync | null>(null);
   if (!props.timeSync && !timeSyncFallback.current) {
@@ -23,7 +23,7 @@ const TimeProvider: React.FC<React.PropsWithChildren<TimeProviderProps>> = (
       addTimer: timeSync.addTimer,
       createCountdown: timeSync.createCountdown,
     }),
-    [timeSync]
+    [timeSync],
   );
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const TimeProvider: React.FC<React.PropsWithChildren<TimeProviderProps>> = (
       if (listenerSet) {
         document.removeEventListener(
           "visibilitychange",
-          handleVisibilityChange
+          handleVisibilityChange,
         );
       }
     };

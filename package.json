@@ -33,7 +33,7 @@
     "@testing-library/react": "14.2.2",
     "@testing-library/react-hooks": "8.0.1",
     "@types/jest": "29.5.12",
-    "@types/react": "18.2.67",
+    "@types/react": "18.2.69",
     "@types/sinonjs__fake-timers": "8.1.5",
     "@typescript-eslint/eslint-plugin": "7.3.1",
     "@typescript-eslint/parser": "7.3.1",

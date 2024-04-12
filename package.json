@@ -30,13 +30,13 @@
     "@babel/preset-react": "7.24.1",
     "@babel/preset-typescript": "7.24.1",
     "@sinonjs/fake-timers": "11.2.2",
-    "@testing-library/react": "14.2.2",
+    "@testing-library/react": "14.3.1",
     "@testing-library/react-hooks": "8.0.1",
     "@types/jest": "29.5.12",
-    "@types/react": "18.2.74",
+    "@types/react": "18.2.77",
     "@types/sinonjs__fake-timers": "8.1.5",
-    "@typescript-eslint/eslint-plugin": "7.5.0",
-    "@typescript-eslint/parser": "7.5.0",
+    "@typescript-eslint/eslint-plugin": "7.6.0",
+    "@typescript-eslint/parser": "7.6.0",
     "babel-jest": "29.7.0",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
@@ -49,7 +49,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-test-renderer": "18.2.0",
-    "typescript": "5.4.4"
+    "typescript": "5.4.5"
   },
   "peerDependencies": {
     "react": "> 16.8.0"

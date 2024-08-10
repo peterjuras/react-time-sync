@@ -13,10 +13,6 @@
       "matchCurrentVersion": "!/^0/",
       "automerge": true,
       "automergeType": "branch"
-    },
-    {
-      "matchPackageNames": ["eslint"],
-      "allowedVersions": "<9.0.0"
     }
   ]
 }

@@ -34,7 +34,7 @@
     "@testing-library/react": "16.3.0",
     "@testing-library/react-hooks": "8.0.1",
     "@types/jest": "29.5.14",
-    "@types/react": "18.3.23",
+    "@types/react": "19.1.12",
     "@types/sinonjs__fake-timers": "8.1.5",
     "@typescript-eslint/eslint-plugin": "8.39.1",
     "@typescript-eslint/parser": "8.39.1",
@@ -47,9 +47,9 @@
     "jest-environment-jsdom": "29.7.0",
     "npm-run-all2": "8.0.4",
     "prettier": "3.6.2",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-test-renderer": "18.3.1",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "react-test-renderer": "19.1.1",
     "typescript": "5.9.2"
   },
   "peerDependencies": {

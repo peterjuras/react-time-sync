@@ -68,6 +68,6 @@ jobs:
     if: failure() # only run this job when any of the previous jobs fail.
     steps:
       - name: Notify through commit comment
-        uses: peter-evans/commit-comment@v3
+        uses: peter-evans/commit-comment@v4
         with:
           body: "@peterjuras: The workflow failed!"
